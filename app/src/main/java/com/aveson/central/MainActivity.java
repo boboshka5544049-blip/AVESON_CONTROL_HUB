@@ -41,7 +41,10 @@ public class MainActivity extends Activity {
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(dp(16), dp(24), dp(16), dp(36));
+
+        // Bottom padding increased so BACK stays above navigation bar
+        root.setPadding(dp(16), dp(24), dp(16), dp(56));
+
         root.setBackgroundColor(DARK);
 
         return root;
@@ -269,9 +272,20 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("AVESON CENTRAL"));
-        layout.addView(createSubtitle(
+
+        // MENU moved slightly upward only on Central Home
+        TextView homeSubtitle = createSubtitle(
                 "Global Management & Control Platform"
-        ));
+        );
+
+        homeSubtitle.setPadding(
+                dp(4),
+                0,
+                dp(4),
+                dp(6)
+        );
+
+        layout.addView(homeSubtitle);
 
         addButton(
                 layout,
@@ -1895,7 +1909,8 @@ public class MainActivity extends Activity {
 
         layout.addView(operations);
 
-        addButton(layout,
+        addButton(
+                layout,
                 "← BACK",
                 v -> showGlobalMenu());
 
@@ -2325,4 +2340,4 @@ public class MainActivity extends Activity {
 
         setScreen(layout);
     }
-            }
+    }
