@@ -26,10 +26,19 @@ public class MainActivity extends Activity {
 
     private void showCentral() {
 
+        // Scrollable AVESON CENTRAL content
+        android.widget.ScrollView scrollView =
+                new android.widget.ScrollView(this);
+
+        scrollView.setFillViewport(true);
+        scrollView.setBackgroundColor(Color.rgb(7, 7, 18));
+
         root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setPadding(24, 24, 24, 24);
         root.setBackgroundColor(Color.rgb(7, 7, 18));
+
+        scrollView.addView(root);
 
         TextView title = new TextView(this);
         title.setText("AVESON CENTRAL");
@@ -65,7 +74,7 @@ public class MainActivity extends Activity {
         addRoom("🎬", "AVESON FILMS",
                 "Film, serial, klip va video kontent yo'nalishini boshqarish.", "FILMS");
 
-        setContentView(root);
+        setContentView(scrollView);
     }
 
     // =========================================================
