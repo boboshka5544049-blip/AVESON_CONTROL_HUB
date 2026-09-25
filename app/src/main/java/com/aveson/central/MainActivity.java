@@ -13,58 +13,45 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    private static final int PURPLE = Color.rgb(185, 100, 255);
-    private static final int BLUE = Color.rgb(80, 150, 255);
-    private static final int DARK = Color.rgb(8, 8, 18);
-    private static final int CARD = Color.rgb(15, 15, 30);
-    private static final int TEXT = Color.WHITE;
-    private static final int TEXT_GRAY = Color.rgb(165, 165, 185);
+    private final int PURPLE = Color.rgb(185, 100, 255);
+    private final int BLUE = Color.rgb(80, 150, 255);
+    private final int DARK = Color.rgb(8, 8, 18);
+    private final int CARD = Color.rgb(15, 15, 30);
+    private final int TEXT_GRAY = Color.rgb(165, 165, 185);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setStatusBarColor(DARK);
+        getWindow().setNavigationBarColor(DARK);
+
         showCentralHome();
     }
 
-    // ============================================================
-    // HELPERS
-    // ============================================================
+    // =========================================================
+    // BASIC HELPERS
+    // =========================================================
 
-    private int dp(float value) {
-        return (int) (value *
-                getResources().getDisplayMetrics().density + 0.5f);
+    private int dp(int value) {
+        return (int) (value * getResources().getDisplayMetrics().density + 0.5f);
     }
 
     private LinearLayout createRoot() {
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        layout.setPadding(
-                dp(12),
-                dp(24),
-                dp(12),
-                dp(36)
-        );
-
-        layout.setBackgroundColor(DARK);
-
-        return layout;
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setGravity(Gravity.TOP);
+        root.setPadding(dp(18), dp(24), dp(18), dp(36));
+        root.setBackgroundColor(DARK);
+        return root;
     }
 
     private void setScreen(LinearLayout content) {
-
         ScrollView scrollView = new ScrollView(this);
 
         scrollView.setFillViewport(true);
         scrollView.setClipToPadding(false);
-
-        scrollView.setPadding(
-                0,
-                0,
-                0,
-                dp(24)
-        );
+        scrollView.setPadding(0, 0, 0, dp(10));
 
         scrollView.addView(content);
 
@@ -72,12 +59,11 @@ public class MainActivity extends Activity {
     }
 
     private TextView createTitle(String text) {
-
         TextView title = new TextView(this);
 
         title.setText(text);
-        title.setTextColor(TEXT);
-        title.setTextSize(25);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(23);
         title.setGravity(Gravity.CENTER);
         title.setTypeface(null, android.graphics.Typeface.BOLD);
 
@@ -87,12 +73,7 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        params.setMargins(
-                dp(12),
-                dp(10),
-                dp(12),
-                dp(8)
-        );
+        params.setMargins(0, 0, 0, dp(8));
 
         title.setLayoutParams(params);
 
@@ -100,7 +81,6 @@ public class MainActivity extends Activity {
     }
 
     private TextView createSubtitle(String text) {
-
         TextView subtitle = new TextView(this);
 
         subtitle.setText(text);
@@ -114,12 +94,7 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        params.setMargins(
-                dp(16),
-                0,
-                dp(16),
-                dp(16)
-        );
+        params.setMargins(0, 0, 0, dp(20));
 
         subtitle.setLayoutParams(params);
 
@@ -127,27 +102,19 @@ public class MainActivity extends Activity {
     }
 
     private Button createButton(String text) {
-
         Button button = new Button(this);
 
         button.setText(text);
-        button.setTextColor(TEXT);
+        button.setTextColor(Color.WHITE);
         button.setTextSize(15);
         button.setAllCaps(false);
         button.setGravity(Gravity.CENTER);
+        button.setPadding(dp(10), 0, dp(10), 0);
 
-        button.setPadding(
-                dp(10),
-                0,
-                dp(10),
-                0
-        );
-
-        GradientDrawable background =
-                new GradientDrawable();
+        GradientDrawable background = new GradientDrawable();
 
         background.setColor(CARD);
-        background.setCornerRadius(dp(18));
+        background.setCornerRadius(dp(14));
         background.setStroke(dp(1), PURPLE);
 
         button.setBackground(background);
@@ -158,12 +125,7 @@ public class MainActivity extends Activity {
                         dp(52)
                 );
 
-        params.setMargins(
-                dp(12),
-                dp(6),
-                dp(12),
-                dp(6)
-        );
+        params.setMargins(0, dp(6), 0, dp(6));
 
         button.setLayoutParams(params);
 
@@ -175,7 +137,6 @@ public class MainActivity extends Activity {
             String text,
             View.OnClickListener listener
     ) {
-
         Button button = createButton(text);
         button.setOnClickListener(listener);
         layout.addView(button);
@@ -183,89 +144,90 @@ public class MainActivity extends Activity {
 
     private void addBackButton(
             LinearLayout layout,
-            final View.OnClickListener listener
+            View.OnClickListener listener
     ) {
+        Button button = createButton("←  BACK");
 
-        Button back = createButton("←  BACK");
+        GradientDrawable background = new GradientDrawable();
+
+        background.setColor(Color.rgb(18, 18, 35));
+        background.setCornerRadius(dp(14));
+        background.setStroke(dp(1), BLUE);
+
+        button.setBackground(background);
+        button.setOnClickListener(listener);
 
         LinearLayout.LayoutParams params =
-                (LinearLayout.LayoutParams) back.getLayoutParams();
+                (LinearLayout.LayoutParams) button.getLayoutParams();
 
-        params.height = dp(44);
+        params.setMargins(0, dp(18), 0, dp(6));
 
-        params.setMargins(
-                dp(12),
-                dp(12),
-                dp(12),
-                dp(8)
-        );
+        button.setLayoutParams(params);
 
-        back.setLayoutParams(params);
-
-        back.setOnClickListener(listener);
-
-        layout.addView(back);
+        layout.addView(button);
     }
 
-    private LinearLayout createCard() {
+    private LinearLayout createCard(String title) {
 
         LinearLayout card = new LinearLayout(this);
 
         card.setOrientation(LinearLayout.VERTICAL);
+        card.setPadding(dp(16), dp(14), dp(16), dp(14));
 
-        card.setPadding(
-                dp(8),
-                dp(8),
-                dp(8),
-                dp(8)
-        );
-
-        GradientDrawable background =
-                new GradientDrawable();
+        GradientDrawable background = new GradientDrawable();
 
         background.setColor(CARD);
-        background.setCornerRadius(dp(18));
-        background.setStroke(
-                dp(1),
-                Color.rgb(65, 45, 95)
-        );
+        background.setCornerRadius(dp(16));
+        background.setStroke(dp(1), PURPLE);
 
         card.setBackground(background);
 
-        LinearLayout.LayoutParams params =
+        LinearLayout.LayoutParams cardParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        params.setMargins(
-                dp(8),
-                dp(8),
-                dp(8),
-                dp(8)
-        );
+        cardParams.setMargins(0, dp(7), 0, dp(7));
 
-        card.setLayoutParams(params);
+        card.setLayoutParams(cardParams);
+
+        TextView titleView = new TextView(this);
+
+        titleView.setText(title);
+        titleView.setTextColor(Color.WHITE);
+        titleView.setTextSize(17);
+        titleView.setTypeface(null, android.graphics.Typeface.BOLD);
+        titleView.setGravity(Gravity.CENTER_VERTICAL);
+
+        card.addView(titleView);
 
         return card;
     }
 
-    // ============================================================
+    private void addStat(LinearLayout card, String name) {
+
+        TextView text = new TextView(this);
+
+        text.setText(name + "\n0");
+        text.setTextColor(TEXT_GRAY);
+        text.setTextSize(14);
+        text.setPadding(0, dp(7), 0, dp(7));
+
+        card.addView(text);
+    }
+
+    // =========================================================
     // CENTRAL HOME
-    // ============================================================
+    // =========================================================
 
     private void showCentralHome() {
 
         LinearLayout layout = createRoot();
 
+        layout.addView(createTitle("AVESON CENTRAL"));
         layout.addView(
-                createTitle("AVESON CENTRAL")
-        );
-
-        layout.addView(
-                createSubtitle(
-                        "Global Management & Control Platform"
-                )
+                createSubtitle("Global Management & Control Platform")
         );
 
         addButton(
@@ -277,56 +239,53 @@ public class MainActivity extends Activity {
         addButton(
                 layout,
                 "🎵  AVESON ARTIST CONTROL",
-                v -> openRoom("AVESON ARTIST CONTROL")
+                v -> openRoom("ARTIST")
         );
 
         addButton(
                 layout,
                 "🎼  AVESON MUSIC CONTROL",
-                v -> openRoom("AVESON MUSIC CONTROL")
+                v -> openRoom("MUSIC")
         );
 
         addButton(
                 layout,
                 "🌍  AVESON DISTRIBUTION CONTROL",
-                v -> openRoom("AVESON DISTRIBUTION CONTROL")
+                v -> openRoom("DISTRIBUTION")
         );
 
         addButton(
                 layout,
                 "🎙️  AVESON STUDIO CONTROL",
-                v -> openRoom("AVESON STUDIO CONTROL")
+                v -> openRoom("STUDIO")
         );
 
         addButton(
                 layout,
                 "📰  AVESON MAGAZINE CONTROL",
-                v -> openRoom("AVESON MAGAZINE CONTROL")
+                v -> openRoom("MAGAZINE")
         );
 
         addButton(
                 layout,
                 "🎬  AVESON FILMS",
-                v -> openRoom("AVESON FILMS")
+                v -> openRoom("FILMS")
         );
 
         setScreen(layout);
     }
 
-    // ============================================================
+    // =========================================================
     // GLOBAL MENU
-    // ============================================================
+    // =========================================================
 
     private void showGlobalMenu() {
 
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("☰ MENU"));
-
         layout.addView(
-                createSubtitle(
-                        "AVESON CENTRAL Management"
-                )
+                createSubtitle("AVESON Central Global Management")
         );
 
         addButton(
@@ -373,99 +332,88 @@ public class MainActivity extends Activity {
         setScreen(layout);
     }
 
-    // ============================================================
+    // =========================================================
     // ANALYTICS
-    // ============================================================
+    // =========================================================
 
     private void showAnalytics() {
 
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("📊 ANALYTICS"));
-
         layout.addView(
-                createSubtitle(
-                        "AVESON Central Analytics"
-                )
+                createSubtitle("AVESON Central Analytics")
         );
 
-        addAnalyticsCard(
-                layout,
-                "🎵 AVESON ARTIST",
-                new String[]{
-                        "Total Artists: 0",
-                        "Registered Artists: 0",
-                        "Active Artists: 0",
-                        "Inactive Artists: 0",
-                        "Song Submissions: 0",
-                        "Video Submissions: 0"
-                }
-        );
+        LinearLayout artist = createCard("🎵 AVESON ARTIST");
 
-        addAnalyticsCard(
-                layout,
-                "🎼 AVESON MUSIC",
-                new String[]{
-                        "Total Users: 0",
-                        "Registered Users: 0",
-                        "Active Users: 0",
-                        "Total Tracks: 0",
-                        "Total Albums: 0",
-                        "Total Streams: 0"
-                }
-        );
+        addStat(artist, "Total Artists");
+        addStat(artist, "Registered Artists");
+        addStat(artist, "Active Artists");
+        addStat(artist, "Inactive Artists");
+        addStat(artist, "Song Submissions");
+        addStat(artist, "Video Submissions");
 
-        addAnalyticsCard(
-                layout,
-                "🌍 AVESON DISTRIBUTION",
-                new String[]{
-                        "Total Users: 0",
-                        "Registered Users: 0",
-                        "Total Releases: 0",
-                        "Connected Platforms: 0",
-                        "Delivered Releases: 0",
-                        "Pending Releases: 0"
-                }
-        );
+        layout.addView(artist);
 
-        addAnalyticsCard(
-                layout,
-                "🎙️ AVESON STUDIO",
-                new String[]{
-                        "Total Users: 0",
-                        "Registered Users: 0",
-                        "Active Users: 0",
-                        "Studio Projects: 0",
-                        "Audio Projects: 0",
-                        "Studio Files: 0"
-                }
-        );
+        LinearLayout music = createCard("🎼 AVESON MUSIC");
 
-        addAnalyticsCard(
-                layout,
-                "📰 AVESON MAGAZINE",
-                new String[]{
-                        "Total Users: 0",
-                        "Registered Users: 0",
-                        "Total Articles: 0",
-                        "Total Views: 0",
-                        "Writers: 0",
-                        "Published Articles: 0"
-                }
-        );
+        addStat(music, "Total Users");
+        addStat(music, "Registered Users");
+        addStat(music, "Active Users");
+        addStat(music, "Total Tracks");
+        addStat(music, "Total Albums");
+        addStat(music, "Total Streams");
 
-        addAnalyticsCard(
-                layout,
-                "🎬 AVESON FILMS",
-                new String[]{
-                        "Total Users: 0",
-                        "Registered Users: 0",
-                        "Active Users: 0",
-                        "Total Projects: 0",
-                        "Total Films: 0",
-                        "Total Views: 0"
-                }
-        );
+        layout.addView(music);
+
+        LinearLayout distribution =
+                createCard("🌍 AVESON DISTRIBUTION");
+
+        addStat(distribution, "Total Users");
+        addStat(distribution, "Registered Users");
+        addStat(distribution, "Total Releases");
+        addStat(distribution, "Connected Platforms");
+        addStat(distribution, "Delivered Releases");
+        addStat(distribution, "Pending Releases");
+
+        layout.addView(distribution);
+
+        LinearLayout studio =
+                createCard("🎙️ AVESON STUDIO");
+
+        addStat(studio, "Total Users");
+        addStat(studio, "Registered Users");
+        addStat(studio, "Active Users");
+        addStat(studio, "Studio Projects");
+        addStat(studio, "Audio Projects");
+        addStat(studio, "Studio Files");
+
+        layout.addView(studio);
+
+        LinearLayout magazine =
+                createCard("📰 AVESON MAGAZINE");
+
+        addStat(magazine, "Total Users");
+        addStat(magazine, "Registered Users");
+        addStat(magazine, "Total Articles");
+        addStat(magazine, "Total Views");
+        addStat(magazine, "Writers");
+        addStat(magazine, "Published Articles");
+
+        layout.addView(magazine);
+
+        LinearLayout films =
+                createCard("🎬 AVESON FILMS");
+
+        addStat(films, "Total Users");
+        addStat(films, "Registered Users");
+        addStat(films, "Active Users");
+        addStat(films, "Total Projects");
+        addStat(films, "Total Films");
+        addStat(films, "Total Views");
+
+        layout.addView(films);
 
         addBackButton(
                 layout,
@@ -475,178 +423,125 @@ public class MainActivity extends Activity {
         setScreen(layout);
     }
 
-    private void addAnalyticsCard(
-            LinearLayout parent,
-            String title,
-            String[] items
-    ) {
-
-        LinearLayout card = createCard();
-
-        TextView titleView = new TextView(this);
-
-        titleView.setText(title);
-        titleView.setTextColor(PURPLE);
-        titleView.setTextSize(18);
-        titleView.setTypeface(
-                null,
-                android.graphics.Typeface.BOLD
-        );
-
-        titleView.setPadding(
-                dp(8),
-                dp(8),
-                dp(8),
-                dp(10)
-        );
-
-        card.addView(titleView);
-
-        for (String item : items) {
-
-            TextView value = new TextView(this);
-
-            value.setText(item);
-            value.setTextColor(TEXT_GRAY);
-            value.setTextSize(14);
-
-            value.setPadding(
-                    dp(8),
-                    dp(4),
-                    dp(8),
-                    dp(4)
-            );
-
-            card.addView(value);
-        }
-
-        parent.addView(card);
-    }
-
-    // ============================================================
+    // =========================================================
     // ROYALTY CONTROL
-    // ============================================================
+    // =========================================================
 
     private void showRoyaltyControl() {
 
         LinearLayout layout = createRoot();
 
+        layout.addView(createTitle("💰 ROYALTY CONTROL"));
         layout.addView(
-                createTitle("💰 ROYALTY CONTROL")
-        );
-
-        layout.addView(
-                createSubtitle(
-                        "Revenue & Royalty Management"
-                )
+                createSubtitle("Revenue & Royalty Management")
         );
 
         addRoyaltyCard(
                 layout,
                 "💵 TOTAL REVENUE",
-                "Total Revenue: $0.00",
-                "Current Month Revenue: $0.00",
-                "Previous Month Revenue: $0.00",
-                "Revenue Growth: 0%"
+                "Total Revenue",
+                "Current Month Revenue",
+                "Previous Month Revenue",
+                "Revenue Growth"
         );
 
         addRoyaltyCard(
                 layout,
                 "🎵 MUSIC REVENUE",
-                "Music Revenue: $0.00",
-                "Streaming Revenue: $0.00",
-                "Download Revenue: $0.00",
-                "Other Music Revenue: $0.00"
+                "Music Revenue",
+                "Streaming Revenue",
+                "Download Revenue",
+                "Other Music Revenue"
         );
 
         addRoyaltyCard(
                 layout,
                 "🌍 DISTRIBUTION REVENUE",
-                "Distribution Revenue: $0.00",
-                "Platform Revenue: $0.00",
-                "Distribution Fees: $0.00",
-                "Other Distribution Revenue: $0.00"
+                "Distribution Revenue",
+                "Platform Revenue",
+                "Distribution Fees",
+                "Other Distribution Revenue"
         );
 
         addRoyaltyCard(
                 layout,
                 "🎬 FILMS REVENUE",
-                "Films Revenue: $0.00",
-                "Streaming Revenue: $0.00",
-                "Licensing Revenue: $0.00",
-                "Other Film Revenue: $0.00"
+                "Films Revenue",
+                "Streaming Revenue",
+                "Licensing Revenue",
+                "Other Film Revenue"
         );
 
         addRoyaltyCard(
                 layout,
                 "🎙️ STUDIO REVENUE",
-                "Studio Revenue: $0.00",
-                "Recording Revenue: $0.00",
-                "Production Revenue: $0.00",
-                "Mixing / Mastering Revenue: $0.00"
+                "Studio Revenue",
+                "Recording Revenue",
+                "Production Revenue",
+                "Mixing / Mastering Revenue"
         );
 
         addRoyaltyCard(
                 layout,
                 "📰 MAGAZINE REVENUE",
-                "Magazine Revenue: $0.00",
-                "Advertising Revenue: $0.00",
-                "Subscription Revenue: $0.00",
-                "Other Magazine Revenue: $0.00"
+                "Magazine Revenue",
+                "Advertising Revenue",
+                "Subscription Revenue",
+                "Other Magazine Revenue"
         );
 
         addRoyaltyCard(
                 layout,
                 "💳 PAYMENTS",
-                "Completed Payments: 0",
-                "Pending Payments: 0",
-                "Failed Payments: 0",
-                "Payment History: 0"
+                "Completed Payments",
+                "Pending Payments",
+                "Failed Payments",
+                "Payment History"
         );
 
         addRoyaltyCard(
                 layout,
                 "👤 ARTIST EARNINGS",
-                "Total Artist Earnings: $0.00",
-                "Pending Artist Earnings: $0.00",
-                "Paid Artist Earnings: $0.00",
-                "Artist Royalty Reports: 0"
+                "Total Artist Earnings",
+                "Pending Artist Earnings",
+                "Paid Artist Earnings",
+                "Artist Royalty Reports"
         );
 
         addRoyaltyCard(
                 layout,
                 "🌍 DISTRIBUTION EARNINGS",
-                "Total Distribution Earnings: $0.00",
-                "Pending Earnings: $0.00",
-                "Paid Earnings: $0.00",
-                "Distribution Reports: 0"
+                "Total Distribution Earnings",
+                "Pending Earnings",
+                "Paid Earnings",
+                "Distribution Reports"
         );
 
         addRoyaltyCard(
                 layout,
                 "📄 ROYALTY REPORTS",
-                "Monthly Reports: 0",
-                "Artist Reports: 0",
-                "Distribution Reports: 0",
-                "Revenue Reports: 0"
+                "Monthly Reports",
+                "Artist Reports",
+                "Distribution Reports",
+                "Revenue Reports"
         );
 
         addRoyaltyCard(
                 layout,
                 "📈 REVENUE GROWTH",
-                "Monthly Growth: 0%",
-                "Yearly Growth: 0%",
-                "Revenue Trends: 0"
+                "Monthly Growth",
+                "Yearly Growth",
+                "Revenue Trends"
         );
 
         addRoyaltyCard(
                 layout,
                 "💼 REVENUE SOURCES",
-                "Music: $0.00",
-                "Distribution: $0.00",
-                "Films: $0.00",
-                "Studio: $0.00",
-                "Magazine: $0.00"
+                "Music",
+                "Distribution",
+                "Films",
+                "Studio",
+                "Magazine"
         );
 
         addBackButton(
@@ -658,69 +553,31 @@ public class MainActivity extends Activity {
     }
 
     private void addRoyaltyCard(
-            LinearLayout parent,
+            LinearLayout layout,
             String title,
             String... items
     ) {
 
-        LinearLayout card = createCard();
-
-        TextView titleView = new TextView(this);
-
-        titleView.setText(title);
-        titleView.setTextColor(PURPLE);
-        titleView.setTextSize(18);
-        titleView.setTypeface(
-                null,
-                android.graphics.Typeface.BOLD
-        );
-
-        titleView.setPadding(
-                dp(8),
-                dp(8),
-                dp(8),
-                dp(10)
-        );
-
-        card.addView(titleView);
+        LinearLayout card = createCard(title);
 
         for (String item : items) {
-
-            TextView text = new TextView(this);
-
-            text.setText(item);
-            text.setTextColor(TEXT_GRAY);
-            text.setTextSize(14);
-
-            text.setPadding(
-                    dp(8),
-                    dp(4),
-                    dp(8),
-                    dp(4)
-            );
-
-            card.addView(text);
+            addStat(card, item + "  $0.00");
         }
 
-        parent.addView(card);
+        layout.addView(card);
     }
 
-    // ============================================================
-    // SECURITY
-    // ============================================================
+    // =========================================================
+    // SECURITY MAIN
+    // =========================================================
 
     private void showSecurity() {
 
         LinearLayout layout = createRoot();
 
+        layout.addView(createTitle("🔐 SECURITY"));
         layout.addView(
-                createTitle("🔐 SECURITY")
-        );
-
-        layout.addView(
-                createSubtitle(
-                        "AVESON Central Security Management"
-                )
+                createSubtitle("AVESON Central Security")
         );
 
         addButton(
@@ -732,122 +589,43 @@ public class MainActivity extends Activity {
         addButton(
                 layout,
                 "📱  AUTHORIZED DEVICES",
-                v -> showSecuritySubSection(
-                        "📱 AUTHORIZED DEVICES",
-                        new String[]{
-                                "Authorized Devices",
-                                "Active Devices",
-                                "Device Management",
-                                "Add Device",
-                                "Remove Device",
-                                "Device History",
-                                "Blocked Devices"
-                        }
-                )
+                v -> showAuthorizedDevices()
         );
 
         addButton(
                 layout,
                 "📋  LOGIN & ACCESS ACTIVITY",
-                v -> showSecuritySubSection(
-                        "📋 LOGIN & ACCESS ACTIVITY",
-                        new String[]{
-                                "Login Activity",
-                                "Successful Logins",
-                                "Failed Login Attempts",
-                                "Active Sessions",
-                                "Session History",
-                                "Logout Activity",
-                                "Access History"
-                        }
-                )
+                v -> showLoginActivity()
         );
 
         addButton(
                 layout,
                 "🛡️  SECURITY PROTECTION",
-                v -> showSecuritySubSection(
-                        "🛡️ SECURITY PROTECTION",
-                        new String[]{
-                                "Account Protection",
-                                "Session Protection",
-                                "Device Protection",
-                                "API Protection",
-                                "Data Protection",
-                                "Encryption Status",
-                                "Security Configuration"
-                        }
-                )
+                v -> showSecurityProtection()
         );
 
         addButton(
                 layout,
                 "🚨  SECURITY EVENTS",
-                v -> showSecuritySubSection(
-                        "🚨 SECURITY EVENTS",
-                        new String[]{
-                                "Security Events",
-                                "Suspicious Activity",
-                                "Access Violations",
-                                "Blocked Attempts",
-                                "Security Alerts",
-                                "Critical Events",
-                                "Event History"
-                        }
-                )
+                v -> showSecurityEvents()
         );
 
         addButton(
                 layout,
                 "🔒  PASSWORD & AUTHENTICATION",
-                v -> showSecuritySubSection(
-                        "🔒 PASSWORD & AUTHENTICATION",
-                        new String[]{
-                                "Password Management",
-                                "Authentication Settings",
-                                "Two-Factor Authentication",
-                                "Recovery Settings",
-                                "Authentication History",
-                                "Password History",
-                                "Recovery Activity"
-                        }
-                )
+                v -> showPasswordAuthentication()
         );
 
         addButton(
                 layout,
                 "🌐  NETWORK & API SECURITY",
-                v -> showSecuritySubSection(
-                        "🌐 NETWORK & API SECURITY",
-                        new String[]{
-                                "API Security",
-                                "API Access",
-                                "API Keys",
-                                "HTTPS Status",
-                                "Network Access",
-                                "Request Monitoring",
-                                "API Activity",
-                                "Blocked Requests"
-                        }
-                )
+                v -> showNetworkApiSecurity()
         );
 
         addButton(
                 layout,
                 "📋  SECURITY LOGS",
-                v -> showSecuritySubSection(
-                        "📋 SECURITY LOGS",
-                        new String[]{
-                                "System Security Logs",
-                                "Access Logs",
-                                "API Logs",
-                                "Device Logs",
-                                "Authentication Logs",
-                                "Security Event Logs",
-                                "Export Logs",
-                                "Log History"
-                        }
-                )
+                v -> showSecurityLogs()
         );
 
         addBackButton(
@@ -858,68 +636,45 @@ public class MainActivity extends Activity {
         setScreen(layout);
     }
 
-    // ============================================================
+    // =========================================================
     // ACCESS CONTROL
-    // ============================================================
+    // =========================================================
 
     private void showAccessControl() {
 
         LinearLayout layout = createRoot();
 
+        layout.addView(createTitle("👤 ACCESS CONTROL"));
         layout.addView(
-                createTitle("👤 ACCESS CONTROL")
+                createSubtitle("Access & Permission Management")
         );
 
-        layout.addView(
-                createSubtitle(
-                        "AVESON Central Access Management"
-                )
-        );
+        addButton(layout, "Administrator Access",
+                v -> showAccessRole("ADMINISTRATOR"));
 
-        addAccessButton(
-                layout,
-                "👑  Administrator Access"
-        );
+        addButton(layout, "Staff Access",
+                v -> showAccessRole("STAFF"));
 
-        addAccessButton(
-                layout,
-                "👥  Staff Access"
-        );
+        addButton(layout, "Artist Control Access",
+                v -> showAccessRole("ARTIST"));
 
-        addAccessButton(
-                layout,
-                "🎵  Artist Control Access"
-        );
+        addButton(layout, "Music Control Access",
+                v -> showAccessRole("MUSIC"));
 
-        addAccessButton(
-                layout,
-                "🎼  Music Control Access"
-        );
+        addButton(layout, "Distribution Control Access",
+                v -> showAccessRole("DISTRIBUTION"));
 
-        addAccessButton(
-                layout,
-                "🌍  Distribution Control Access"
-        );
+        addButton(layout, "Studio Control Access",
+                v -> showAccessRole("STUDIO"));
 
-        addAccessButton(
-                layout,
-                "🎙️  Studio Control Access"
-        );
+        addButton(layout, "Magazine Control Access",
+                v -> showAccessRole("MAGAZINE"));
 
-        addAccessButton(
-                layout,
-                "📰  Magazine Control Access"
-        );
+        addButton(layout, "Films Control Access",
+                v -> showAccessRole("FILMS"));
 
-        addAccessButton(
-                layout,
-                "🎬  Films Control Access"
-        );
-
-        addAccessButton(
-                layout,
-                "🛡️  Permission Management"
-        );
+        addButton(layout, "Permission Management",
+                v -> showPermissionManagement());
 
         addBackButton(
                 layout,
@@ -929,148 +684,50 @@ public class MainActivity extends Activity {
         setScreen(layout);
     }
 
-    private void addAccessButton(
-            LinearLayout layout,
-            String text
-    ) {
-
-        addButton(
-                layout,
-                text,
-                v -> {
-
-                    String clean = text;
-
-                    if (clean.contains("  ")) {
-                        clean = clean.substring(
-                                clean.indexOf("  ") + 2
-                        );
-                    }
-
-                    showAccessSubSection(clean);
-                }
-        );
-    }
-
-    private void showAccessSubSection(
-            String title
-    ) {
+    private void showAccessRole(String role) {
 
         LinearLayout layout = createRoot();
 
         layout.addView(
-                createTitle("🛡️ " + title)
+                createTitle("👤 " + role + " ACCESS")
         );
 
         layout.addView(
-                createSubtitle(
-                        "Access Control Management"
-                )
+                createSubtitle("Access Management")
         );
 
-        String[] items;
+        String prefix = role.substring(0, 1)
+                + role.substring(1).toLowerCase();
 
-        if (title.contains("Administrator")) {
+        addButton(
+                layout,
+                prefix + " Accounts",
+                v -> showMessage(prefix + " Accounts")
+        );
 
-            items = new String[]{
-                    "Administrator Accounts",
-                    "Administrator Permissions",
-                    "Administrator Sessions",
-                    "Administrator Activity",
-                    "Administrator Security"
-            };
+        addButton(
+                layout,
+                prefix + " Permissions",
+                v -> showMessage(prefix + " Permissions")
+        );
 
-        } else if (title.contains("Staff")) {
+        addButton(
+                layout,
+                prefix + " Sessions",
+                v -> showMessage(prefix + " Sessions")
+        );
 
-            items = new String[]{
-                    "Staff Accounts",
-                    "Staff Permissions",
-                    "Staff Sessions",
-                    "Staff Activity",
-                    "Staff Security"
-            };
+        addButton(
+                layout,
+                prefix + " Activity",
+                v -> showMessage(prefix + " Activity")
+        );
 
-        } else if (title.contains("Artist")) {
-
-            items = new String[]{
-                    "Artist Control Access",
-                    "Artist Permissions",
-                    "Artist Sessions",
-                    "Artist Activity",
-                    "Artist Security"
-            };
-
-        } else if (title.contains("Music")) {
-
-            items = new String[]{
-                    "Music Control Access",
-                    "Music Permissions",
-                    "Music Sessions",
-                    "Music Activity",
-                    "Music Security"
-            };
-
-        } else if (title.contains("Distribution")) {
-
-            items = new String[]{
-                    "Distribution Control Access",
-                    "Distribution Permissions",
-                    "Distribution Sessions",
-                    "Distribution Activity",
-                    "Distribution Security"
-            };
-
-        } else if (title.contains("Studio")) {
-
-            items = new String[]{
-                    "Studio Control Access",
-                    "Studio Permissions",
-                    "Studio Sessions",
-                    "Studio Activity",
-                    "Studio Security"
-            };
-
-        } else if (title.contains("Magazine")) {
-
-            items = new String[]{
-                    "Magazine Control Access",
-                    "Magazine Permissions",
-                    "Magazine Sessions",
-                    "Magazine Activity",
-                    "Magazine Security"
-            };
-
-        } else if (title.contains("Films")) {
-
-            items = new String[]{
-                    "Films Control Access",
-                    "Films Permissions",
-                    "Films Sessions",
-                    "Films Activity",
-                    "Films Security"
-            };
-
-        } else {
-
-            items = new String[]{
-                    "Permission Groups",
-                    "Permission Rules",
-                    "Role Management",
-                    "Access Policies",
-                    "Permission History"
-            };
-        }
-
-        for (String item : items) {
-
-            final String selectedItem = item;
-
-            addButton(
-                    layout,
-                    selectedItem,
-                    v -> showMessage(selectedItem)
-            );
-        }
+        addButton(
+                layout,
+                prefix + " Security",
+                v -> showMessage(prefix + " Security")
+        );
 
         addBackButton(
                 layout,
@@ -1080,37 +737,71 @@ public class MainActivity extends Activity {
         setScreen(layout);
     }
 
-    // ============================================================
-    // SECURITY SUBSECTION
-    // ============================================================
-
-    private void showSecuritySubSection(
-            String title,
-            String[] items
-    ) {
+    private void showPermissionManagement() {
 
         LinearLayout layout = createRoot();
 
         layout.addView(
-                createTitle(title)
+                createTitle("🛡️ PERMISSION MANAGEMENT")
         );
 
         layout.addView(
-                createSubtitle(
-                        "Security Management"
-                )
+                createSubtitle("Permission Configuration")
         );
 
-        for (String item : items) {
+        addButton(layout, "Permission Groups",
+                v -> showMessage("Permission Groups"));
 
-            final String selectedItem = item;
+        addButton(layout, "Permission Rules",
+                v -> showMessage("Permission Rules"));
 
-            addButton(
-                    layout,
-                    selectedItem,
-                    v -> showMessage(selectedItem)
-            );
-        }
+        addButton(layout, "Role Management",
+                v -> showMessage("Role Management"));
+
+        addButton(layout, "Access Policies",
+                v -> showMessage("Access Policies"));
+
+        addButton(layout, "Permission History",
+                v -> showMessage("Permission History"));
+
+        addBackButton(
+                layout,
+                v -> showAccessControl()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // AUTHORIZED DEVICES
+    // =========================================================
+
+    private void showAuthorizedDevices() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("📱 AUTHORIZED DEVICES"));
+
+        addButton(layout, "Authorized Devices",
+                v -> showMessage("Authorized Devices"));
+
+        addButton(layout, "Active Devices",
+                v -> showMessage("Active Devices"));
+
+        addButton(layout, "Device Management",
+                v -> showMessage("Device Management"));
+
+        addButton(layout, "Add Device",
+                v -> showMessage("Add Device"));
+
+        addButton(layout, "Remove Device",
+                v -> showMessage("Remove Device"));
+
+        addButton(layout, "Device History",
+                v -> showMessage("Device History"));
+
+        addButton(layout, "Blocked Devices",
+                v -> showMessage("Blocked Devices"));
 
         addBackButton(
                 layout,
@@ -1120,54 +811,291 @@ public class MainActivity extends Activity {
         setScreen(layout);
     }
 
-    // ============================================================
+    // =========================================================
+    // LOGIN ACTIVITY
+    // =========================================================
+
+    private void showLoginActivity() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("📋 LOGIN & ACCESS ACTIVITY"));
+
+        addButton(layout, "Login Activity",
+                v -> showMessage("Login Activity"));
+
+        addButton(layout, "Successful Logins",
+                v -> showMessage("Successful Logins"));
+
+        addButton(layout, "Failed Login Attempts",
+                v -> showMessage("Failed Login Attempts"));
+
+        addButton(layout, "Active Sessions",
+                v -> showMessage("Active Sessions"));
+
+        addButton(layout, "Session History",
+                v -> showMessage("Session History"));
+
+        addButton(layout, "Logout Activity",
+                v -> showMessage("Logout Activity"));
+
+        addButton(layout, "Access History",
+                v -> showMessage("Access History"));
+
+        addBackButton(
+                layout,
+                v -> showSecurity()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // SECURITY PROTECTION
+    // =========================================================
+
+    private void showSecurityProtection() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("🛡️ SECURITY PROTECTION"));
+
+        addButton(layout, "Account Protection",
+                v -> showMessage("Account Protection"));
+
+        addButton(layout, "Session Protection",
+                v -> showMessage("Session Protection"));
+
+        addButton(layout, "Device Protection",
+                v -> showMessage("Device Protection"));
+
+        addButton(layout, "API Protection",
+                v -> showMessage("API Protection"));
+
+        addButton(layout, "Data Protection",
+                v -> showMessage("Data Protection"));
+
+        addButton(layout, "Encryption Status",
+                v -> showMessage("Encryption Status"));
+
+        addButton(layout, "Security Configuration",
+                v -> showMessage("Security Configuration"));
+
+        addBackButton(
+                layout,
+                v -> showSecurity()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // SECURITY EVENTS
+    // =========================================================
+
+    private void showSecurityEvents() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("🚨 SECURITY EVENTS"));
+
+        addButton(layout, "Security Events",
+                v -> showMessage("Security Events"));
+
+        addButton(layout, "Suspicious Activity",
+                v -> showMessage("Suspicious Activity"));
+
+        addButton(layout, "Access Violations",
+                v -> showMessage("Access Violations"));
+
+        addButton(layout, "Blocked Attempts",
+                v -> showMessage("Blocked Attempts"));
+
+        addButton(layout, "Security Alerts",
+                v -> showMessage("Security Alerts"));
+
+        addButton(layout, "Critical Events",
+                v -> showMessage("Critical Events"));
+
+        addButton(layout, "Event History",
+                v -> showMessage("Event History"));
+
+        addBackButton(
+                layout,
+                v -> showSecurity()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // PASSWORD & AUTHENTICATION
+    // =========================================================
+
+    private void showPasswordAuthentication() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(
+                createTitle("🔒 PASSWORD & AUTHENTICATION")
+        );
+
+        addButton(layout, "Password Management",
+                v -> showMessage("Password Management"));
+
+        addButton(layout, "Authentication Settings",
+                v -> showMessage("Authentication Settings"));
+
+        addButton(layout, "Two-Factor Authentication",
+                v -> showMessage("Two-Factor Authentication"));
+
+        addButton(layout, "Recovery Settings",
+                v -> showMessage("Recovery Settings"));
+
+        addButton(layout, "Authentication History",
+                v -> showMessage("Authentication History"));
+
+        addButton(layout, "Password History",
+                v -> showMessage("Password History"));
+
+        addButton(layout, "Recovery Activity",
+                v -> showMessage("Recovery Activity"));
+
+        addBackButton(
+                layout,
+                v -> showSecurity()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // NETWORK & API SECURITY
+    // =========================================================
+
+    private void showNetworkApiSecurity() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(
+                createTitle("🌐 NETWORK & API SECURITY")
+        );
+
+        addButton(layout, "API Security",
+                v -> showMessage("API Security"));
+
+        addButton(layout, "API Access",
+                v -> showMessage("API Access"));
+
+        addButton(layout, "API Keys",
+                v -> showMessage("API Keys"));
+
+        addButton(layout, "HTTPS Status",
+                v -> showMessage("HTTPS Status"));
+
+        addButton(layout, "Network Access",
+                v -> showMessage("Network Access"));
+
+        addButton(layout, "Request Monitoring",
+                v -> showMessage("Request Monitoring"));
+
+        addButton(layout, "API Activity",
+                v -> showMessage("API Activity"));
+
+        addButton(layout, "Blocked Requests",
+                v -> showMessage("Blocked Requests"));
+
+        addBackButton(
+                layout,
+                v -> showSecurity()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // SECURITY LOGS
+    // =========================================================
+
+    private void showSecurityLogs() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("📋 SECURITY LOGS"));
+
+        addButton(layout, "System Security Logs",
+                v -> showMessage("System Security Logs"));
+
+        addButton(layout, "Access Logs",
+                v -> showMessage("Access Logs"));
+
+        addButton(layout, "API Logs",
+                v -> showMessage("API Logs"));
+
+        addButton(layout, "Device Logs",
+                v -> showMessage("Device Logs"));
+
+        addButton(layout, "Authentication Logs",
+                v -> showMessage("Authentication Logs"));
+
+        addButton(layout, "Security Event Logs",
+                v -> showMessage("Security Event Logs"));
+
+        addButton(layout, "Export Logs",
+                v -> showMessage("Export Logs"));
+
+        addButton(layout, "Log History",
+                v -> showMessage("Log History"));
+
+        addBackButton(
+                layout,
+                v -> showSecurity()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
     // PARAMETERS
-    // ============================================================
+    // =========================================================
 
     private void showParameters() {
 
         LinearLayout layout = createRoot();
 
+        layout.addView(createTitle("⚙️ PARAMETERS"));
         layout.addView(
-                createTitle("⚙️ PARAMETERS")
-        );
-
-        layout.addView(
-                createSubtitle(
-                        "AVESON Central Parameters"
-                )
+                createSubtitle("AVESON Central Parameters")
         );
 
         addButton(
                 layout,
                 "🌐  Languages",
-                v -> showMessage("Languages")
+                v -> showLanguages()
         );
 
         addButton(
                 layout,
                 "🎨  Appearance",
-                v -> showMessage("Appearance")
+                v -> showAppearance()
         );
 
         addButton(
                 layout,
                 "🔔  Notifications",
-                v -> showMessage("Notifications")
+                v -> showNotifications()
         );
 
         addButton(
                 layout,
                 "🎵  Music Parameters",
-                v -> showMessage("Music Parameters")
+                v -> showMusicParameters()
         );
 
         addButton(
                 layout,
                 "🌍  Distribution Parameters",
-                v -> showMessage(
-                        "Distribution Parameters"
-                )
+                v -> showDistributionParameters()
         );
 
         addBackButton(
@@ -1178,64 +1106,325 @@ public class MainActivity extends Activity {
         setScreen(layout);
     }
 
-    // ============================================================
+    // =========================================================
+    // LANGUAGES
+    // =========================================================
+
+    private void showLanguages() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("🌐 LANGUAGES"));
+        layout.addView(
+                createSubtitle("Language Management")
+        );
+
+        addButton(
+                layout,
+                "System Language",
+                v -> showMessage("System Language")
+        );
+
+        addButton(
+                layout,
+                "Default Language",
+                v -> showMessage("Default Language")
+        );
+
+        addButton(
+                layout,
+                "Available Languages",
+                v -> showMessage("Available Languages")
+        );
+
+        addButton(
+                layout,
+                "Language Management",
+                v -> showMessage("Language Management")
+        );
+
+        addBackButton(
+                layout,
+                v -> showParameters()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // APPEARANCE
+    // =========================================================
+
+    private void showAppearance() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("🎨 APPEARANCE"));
+        layout.addView(
+                createSubtitle("Interface Appearance Settings")
+        );
+
+        addButton(
+                layout,
+                "Theme",
+                v -> showMessage("Theme")
+        );
+
+        addButton(
+                layout,
+                "Dark Mode",
+                v -> showMessage("Dark Mode")
+        );
+
+        addButton(
+                layout,
+                "Light Mode",
+                v -> showMessage("Light Mode")
+        );
+
+        addButton(
+                layout,
+                "Accent Color",
+                v -> showMessage("Accent Color")
+        );
+
+        addButton(
+                layout,
+                "Interface Style",
+                v -> showMessage("Interface Style")
+        );
+
+        addBackButton(
+                layout,
+                v -> showParameters()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // NOTIFICATIONS
+    // =========================================================
+
+    private void showNotifications() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("🔔 NOTIFICATIONS"));
+        layout.addView(
+                createSubtitle("AVESON Notification Settings")
+        );
+
+        addButton(
+                layout,
+                "Notifications",
+                v -> showMessage("Notifications")
+        );
+
+        addButton(
+                layout,
+                "Push Notifications",
+                v -> showMessage("Push Notifications")
+        );
+
+        addButton(
+                layout,
+                "Security Notifications",
+                v -> showMessage("Security Notifications")
+        );
+
+        addButton(
+                layout,
+                "System Notifications",
+                v -> showMessage("System Notifications")
+        );
+
+        addButton(
+                layout,
+                "Artist Notifications",
+                v -> showMessage("Artist Notifications")
+        );
+
+        addButton(
+                layout,
+                "Distribution Notifications",
+                v -> showMessage("Distribution Notifications")
+        );
+
+        addBackButton(
+                layout,
+                v -> showParameters()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // MUSIC PARAMETERS
+    // =========================================================
+
+    private void showMusicParameters() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("🎵 MUSIC PARAMETERS"));
+        layout.addView(
+                createSubtitle("Music Standards & Configuration")
+        );
+
+        addButton(
+                layout,
+                "Audio Standards",
+                v -> showMessage("Audio Standards")
+        );
+
+        addButton(
+                layout,
+                "Cover Standards",
+                v -> showMessage("Cover Standards")
+        );
+
+        addButton(
+                layout,
+                "Release Standards",
+                v -> showMessage("Release Standards")
+        );
+
+        addButton(
+                layout,
+                "Metadata Standards",
+                v -> showMessage("Metadata Standards")
+        );
+
+        addButton(
+                layout,
+                "Music File Formats",
+                v -> showMessage("Music File Formats")
+        );
+
+        addButton(
+                layout,
+                "Music Quality",
+                v -> showMessage("Music Quality")
+        );
+
+        addBackButton(
+                layout,
+                v -> showParameters()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // DISTRIBUTION PARAMETERS
+    // =========================================================
+
+    private void showDistributionParameters() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(
+                createTitle("🌍 DISTRIBUTION PARAMETERS")
+        );
+
+        layout.addView(
+                createSubtitle(
+                        "Distribution Standards & Configuration"
+                )
+        );
+
+        addButton(
+                layout,
+                "Distribution Standards",
+                v -> showMessage("Distribution Standards")
+        );
+
+        addButton(
+                layout,
+                "Platform Settings",
+                v -> showMessage("Platform Settings")
+        );
+
+        addButton(
+                layout,
+                "Release Delivery Settings",
+                v -> showMessage("Release Delivery Settings")
+        );
+
+        addButton(
+                layout,
+                "Territory Settings",
+                v -> showMessage("Territory Settings")
+        );
+
+        addButton(
+                layout,
+                "Distribution Formats",
+                v -> showMessage("Distribution Formats")
+        );
+
+        addButton(
+                layout,
+                "Delivery Rules",
+                v -> showMessage("Delivery Rules")
+        );
+
+        addBackButton(
+                layout,
+                v -> showParameters()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
     // SYSTEM STATUS
-    // ============================================================
+    // =========================================================
 
     private void showSystemStatus() {
 
         LinearLayout layout = createRoot();
 
+        layout.addView(createTitle("🛡️ SYSTEM STATUS"));
         layout.addView(
-                createTitle("🛡️ SYSTEM STATUS")
-        );
-
-        layout.addView(
-                createSubtitle(
-                        "AVESON Central System Status"
-                )
+                createSubtitle("AVESON Central System Status")
         );
 
         addStatusCard(
                 layout,
-                "Central System",
+                "🟢 Central System",
                 "ONLINE"
         );
 
         addStatusCard(
                 layout,
-                "Artist Control",
-                "ONLINE"
+                "🟢 Application",
+                "RUNNING"
         );
 
         addStatusCard(
                 layout,
-                "Music Control",
-                "ONLINE"
+                "🟡 Database",
+                "NOT CONNECTED"
         );
 
         addStatusCard(
                 layout,
-                "Distribution Control",
-                "ONLINE"
+                "🟡 Backend",
+                "NOT CONNECTED"
         );
 
         addStatusCard(
                 layout,
-                "Studio Control",
-                "ONLINE"
+                "🟡 HTTPS",
+                "NOT CONFIGURED"
         );
 
         addStatusCard(
                 layout,
-                "Magazine Control",
-                "ONLINE"
-        );
-
-        addStatusCard(
-                layout,
-                "Films Control",
-                "ONLINE"
+                "🟡 API",
+                "NOT CONNECTED"
         );
 
         addBackButton(
@@ -1247,394 +1436,49 @@ public class MainActivity extends Activity {
     }
 
     private void addStatusCard(
-            LinearLayout parent,
+            LinearLayout layout,
             String title,
             String status
     ) {
 
-        LinearLayout card = createCard();
+        LinearLayout card = createCard(title);
 
-        TextView titleView = new TextView(this);
+        TextView statusText = new TextView(this);
 
-        titleView.setText(title);
-        titleView.setTextColor(PURPLE);
-        titleView.setTextSize(17);
-        titleView.setTypeface(
-                null,
-                android.graphics.Typeface.BOLD
-        );
+        statusText.setText(status);
+        statusText.setTextColor(Color.WHITE);
+        statusText.setTextSize(15);
+        statusText.setPadding(0, dp(8), 0, 0);
 
-        titleView.setPadding(
-                dp(8),
-                dp(8),
-                dp(8),
-                dp(4)
-        );
+        card.addView(statusText);
 
-        card.addView(titleView);
-
-        TextView statusView = new TextView(this);
-
-        statusView.setText("● " + status);
-        statusView.setTextColor(BLUE);
-        statusView.setTextSize(14);
-
-        statusView.setPadding(
-                dp(8),
-                dp(4),
-                dp(8),
-                dp(8)
-        );
-
-        card.addView(statusView);
-
-        parent.addView(card);
+        layout.addView(card);
     }
 
-    // ============================================================
+    // =========================================================
     // CENTRAL INFO
-    // ============================================================
+    // =========================================================
 
     private void showCentralInfo() {
 
         LinearLayout layout = createRoot();
 
-        layout.addView(
-                createTitle("ℹ️ AVESON CENTRAL")
-        );
+        layout.addView(createTitle("ℹ️ AVESON CENTRAL INFO"));
 
         layout.addView(
                 createSubtitle(
-                        "Global Management & Control Platform"
+                        "AVESON Central Global Management Platform"
                 )
         );
 
-        addInfoCard(
-                layout,
-                "Platform",
-                "AVESON CENTRAL"
-        );
-
-        addInfoCard(
-                layout,
-                "System",
-                "Unified Central Management System"
-        );
-
-        addInfoCard(
-                layout,
-                "Artist",
-                "AVESON ARTIST CONTROL"
-        );
-
-        addInfoCard(
-                layout,
-                "Music",
-                "AVESON MUSIC CONTROL"
-        );
-
-        addInfoCard(
-                layout,
-                "Distribution",
-                "AVESON DISTRIBUTION CONTROL"
-        );
-
-        addInfoCard(
-                layout,
-                "Studio",
-                "AVESON STUDIO CONTROL"
-        );
-
-        addInfoCard(
-                layout,
-                "Magazine",
-                "AVESON MAGAZINE CONTROL"
-        );
-
-        addInfoCard(
-                layout,
-                "Films",
-                "AVESON FILMS"
-        );
-
-        addBackButton(
-                layout,
-                v -> showGlobalMenu()
-        );
-
-        setScreen(layout);
-    }
-
-    private void addInfoCard(
-            LinearLayout parent,
-            String title,
-            String value
-    ) {
-
-        LinearLayout card = createCard();
-
-        TextView titleView = new TextView(this);
-
-        titleView.setText(title);
-        titleView.setTextColor(PURPLE);
-        titleView.setTextSize(16);
-        titleView.setTypeface(
-                null,
-                android.graphics.Typeface.BOLD
-        );
-
-        titleView.setPadding(
-                dp(8),
-                dp(8),
-                dp(8),
-                dp(4)
-        );
-
-        card.addView(titleView);
-
-        TextView valueView = new TextView(this);
-
-        valueView.setText(value);
-        valueView.setTextColor(TEXT_GRAY);
-        valueView.setTextSize(14);
-
-        valueView.setPadding(
-                dp(8),
-                dp(4),
-                dp(8),
-                dp(8)
-        );
-
-        card.addView(valueView);
-
-        parent.addView(card);
-    }
-
-    // ============================================================
-    // ROOMS
-    // ============================================================
-
-    private void openRoom(String room) {
-
-        LinearLayout layout = createRoot();
-
-        layout.addView(
-                createTitle(room)
-        );
-
-        layout.addView(
-                createSubtitle(
-                        "AVESON Central Room Control"
-                )
-        );
-
-        if (room.equals("AVESON ARTIST CONTROL")) {
-
-            addRoomButton(layout, "Artists");
-            addRoomButton(layout, "Artist Submissions");
-            addRoomButton(layout, "Release Review");
-            addRoomButton(layout, "Artist Analytics");
-            addRoomButton(layout, "Artist Settings");
-
-        } else if (room.equals("AVESON MUSIC CONTROL")) {
-
-            addRoomButton(layout, "Music Catalog");
-            addRoomButton(layout, "Albums & Releases");
-            addRoomButton(layout, "Playlists");
-            addRoomButton(layout, "Music Users");
-            addRoomButton(layout, "Music Analytics");
-            addRoomButton(layout, "Music Settings");
-
-        } else if (room.equals(
-                "AVESON DISTRIBUTION CONTROL")) {
-
-            addRoomButton(
-                    layout,
-                    "Distribution Platforms"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Distribution Releases"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Release Delivery"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Distribution Analytics"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Distribution Settings"
-            );
-
-        } else if (room.equals(
-                "AVESON STUDIO CONTROL")) {
-
-            addRoomButton(
-                    layout,
-                    "Studio Projects"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Audio Production"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Sessions"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Studio Files"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Studio Analytics"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Studio Settings"
-            );
-
-        } else if (room.equals(
-                "AVESON MAGAZINE CONTROL")) {
-
-            addRoomButton(
-                    layout,
-                    "Articles"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Editorial"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Media"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Writers"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Magazine Analytics"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Magazine Settings"
-            );
-
-        } else if (room.equals("AVESON FILMS")) {
-
-            addRoomButton(
-                    layout,
-                    "Projects"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Videos"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Productions"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Film Library"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Film Analytics"
-            );
-
-            addRoomButton(
-                    layout,
-                    "Film Settings"
-            );
-        }
-
-        addBackButton(
-                layout,
-                v -> showCentralHome()
-        );
-
-        setScreen(layout);
-    }
-
-    private void addRoomButton(
-            LinearLayout layout,
-            String text
-    ) {
-
-        final String selectedItem = text;
-
-        addButton(
-                layout,
-                selectedItem,
-                v -> showMessage(selectedItem)
-        );
-    }
-
-    // ============================================================
-    // MESSAGE
-    // ============================================================
-
-    private void showMessage(String message) {
-
-        LinearLayout layout = createRoot();
-
-        layout.addView(
-                createTitle(message)
-        );
-
-        layout.addView(
-                createSubtitle(
-                        "AVESON Central"
-                )
-        );
-
-        LinearLayout card = createCard();
-
-        TextView info = new TextView(this);
-
-        info.setText(
-                message +
-                "\n\nStatus: Ready\n\n" +
-                "This section is prepared for " +
-                "backend and database integration."
-        );
-
-        info.setTextColor(TEXT_GRAY);
-        info.setTextSize(15);
-        info.setGravity(Gravity.CENTER);
-
-        info.setPadding(
-                dp(12),
-                dp(20),
-                dp(12),
-                dp(20)
-        );
-
-        card.addView(info);
+        LinearLayout card = createCard("AVESON CENTRAL");
+
+        addStat(card, "System: AVESON Central");
+        addStat(card, "Platform: Global Music & Media");
+        addStat(card, "Management: Centralized");
+        addStat(card, "Version: 1.0");
+        addStat(card, "Backend: Not Connected");
+        addStat(card, "Database: Not Connected");
 
         layout.addView(card);
 
@@ -1645,4 +1489,202 @@ public class MainActivity extends Activity {
 
         setScreen(layout);
     }
-}
+
+    // =========================================================
+    // ROOMS
+    // =========================================================
+
+    private void openRoom(String room) {
+
+        LinearLayout layout = createRoot();
+
+        String title = "";
+
+        if (room.equals("ARTIST")) {
+            title = "🎵 AVESON ARTIST CONTROL";
+        } else if (room.equals("MUSIC")) {
+            title = "🎼 AVESON MUSIC CONTROL";
+        } else if (room.equals("DISTRIBUTION")) {
+            title = "🌍 AVESON DISTRIBUTION CONTROL";
+        } else if (room.equals("STUDIO")) {
+            title = "🎙️ AVESON STUDIO CONTROL";
+        } else if (room.equals("MAGAZINE")) {
+            title = "📰 AVESON MAGAZINE CONTROL";
+        } else if (room.equals("FILMS")) {
+            title = "🎬 AVESON FILMS";
+        }
+
+        layout.addView(createTitle(title));
+        layout.addView(
+                createSubtitle("Control Room")
+        );
+
+        if (room.equals("ARTIST")) {
+
+            addButton(layout, "Artists",
+                    v -> showMessage("Artists"));
+
+            addButton(layout, "Artist Submissions",
+                    v -> showMessage("Artist Submissions"));
+
+            addButton(layout, "Release Review",
+                    v -> showMessage("Release Review"));
+
+            addButton(layout, "Artist Analytics",
+                    v -> showMessage("Artist Analytics"));
+
+            addButton(layout, "Artist Settings",
+                    v -> showMessage("Artist Settings"));
+
+        } else if (room.equals("MUSIC")) {
+
+            addButton(layout, "Music Catalog",
+                    v -> showMessage("Music Catalog"));
+
+            addButton(layout, "Albums & Releases",
+                    v -> showMessage("Albums & Releases"));
+
+            addButton(layout, "Playlists",
+                    v -> showMessage("Playlists"));
+
+            addButton(layout, "Music Users",
+                    v -> showMessage("Music Users"));
+
+            addButton(layout, "Music Analytics",
+                    v -> showMessage("Music Analytics"));
+
+            addButton(layout, "Music Settings",
+                    v -> showMessage("Music Settings"));
+
+        } else if (room.equals("DISTRIBUTION")) {
+
+            addButton(layout, "Distribution Platforms",
+                    v -> showMessage("Distribution Platforms"));
+
+            addButton(layout, "Distribution Releases",
+                    v -> showMessage("Distribution Releases"));
+
+            addButton(layout, "Release Delivery",
+                    v -> showMessage("Release Delivery"));
+
+            addButton(layout, "Distribution Analytics",
+                    v -> showMessage("Distribution Analytics"));
+
+            addButton(layout, "Distribution Settings",
+                    v -> showMessage("Distribution Settings"));
+
+        } else if (room.equals("STUDIO")) {
+
+            addButton(layout, "Studio Projects",
+                    v -> showMessage("Studio Projects"));
+
+            addButton(layout, "Audio Production",
+                    v -> showMessage("Audio Production"));
+
+            addButton(layout, "Sessions",
+                    v -> showMessage("Sessions"));
+
+            addButton(layout, "Studio Files",
+                    v -> showMessage("Studio Files"));
+
+            addButton(layout, "Studio Analytics",
+                    v -> showMessage("Studio Analytics"));
+
+            addButton(layout, "Studio Settings",
+                    v -> showMessage("Studio Settings"));
+
+        } else if (room.equals("MAGAZINE")) {
+
+            addButton(layout, "Articles",
+                    v -> showMessage("Articles"));
+
+            addButton(layout, "Editorial",
+                    v -> showMessage("Editorial"));
+
+            addButton(layout, "Media",
+                    v -> showMessage("Media"));
+
+            addButton(layout, "Writers",
+                    v -> showMessage("Writers"));
+
+            addButton(layout, "Magazine Analytics",
+                    v -> showMessage("Magazine Analytics"));
+
+            addButton(layout, "Magazine Settings",
+                    v -> showMessage("Magazine Settings"));
+
+        } else if (room.equals("FILMS")) {
+
+            addButton(layout, "Projects",
+                    v -> showMessage("Projects"));
+
+            addButton(layout, "Videos",
+                    v -> showMessage("Videos"));
+
+            addButton(layout, "Productions",
+                    v -> showMessage("Productions"));
+
+            addButton(layout, "Film Library",
+                    v -> showMessage("Film Library"));
+
+            addButton(layout, "Film Analytics",
+                    v -> showMessage("Film Analytics"));
+
+            addButton(layout, "Film Settings",
+                    v -> showMessage("Film Settings"));
+        }
+
+        addBackButton(
+                layout,
+                v -> showCentralHome()
+        );
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // GENERIC MESSAGE
+    // =========================================================
+
+    private void showMessage(String name) {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(
+                createTitle(name)
+        );
+
+        layout.addView(
+                createSubtitle(
+                        "AVESON Central Module"
+                )
+        );
+
+        LinearLayout card =
+                createCard("SYSTEM MODULE");
+
+        addStat(
+                card,
+                "Status: Ready for backend integration"
+        );
+
+        addStat(
+                card,
+                "Database: Not connected"
+        );
+
+        addStat(
+                card,
+                "API: Not connected"
+        );
+
+        layout.addView(card);
+
+        addBackButton(
+                layout,
+                v -> showCentralHome()
+        );
+
+        setScreen(layout);
+    }
+            }
