@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
 
         menuParams.setMargins(
                 0,
-                0,
+                18,
                 0,
                 20
         );
