@@ -276,10 +276,6 @@ public class MainActivity extends Activity {
                 "AVESON CENTRAL • REVENUE & ROYALTY MANAGEMENT"
         ));
 
-        // --------------------------------------------------------
-        // TOTAL REVENUE
-        // --------------------------------------------------------
-
         root.addView(createRoyaltyCard(
                 "💵",
                 "TOTAL REVENUE",
@@ -291,10 +287,6 @@ public class MainActivity extends Activity {
                         "Revenue Growth"
                 }
         ));
-
-        // --------------------------------------------------------
-        // MUSIC REVENUE
-        // --------------------------------------------------------
 
         root.addView(createRoyaltyCard(
                 "🎵",
@@ -308,10 +300,6 @@ public class MainActivity extends Activity {
                 }
         ));
 
-        // --------------------------------------------------------
-        // DISTRIBUTION REVENUE
-        // --------------------------------------------------------
-
         root.addView(createRoyaltyCard(
                 "🌍",
                 "DISTRIBUTION REVENUE",
@@ -323,10 +311,6 @@ public class MainActivity extends Activity {
                         "Other Distribution Revenue"
                 }
         ));
-
-        // --------------------------------------------------------
-        // FILMS REVENUE
-        // --------------------------------------------------------
 
         root.addView(createRoyaltyCard(
                 "🎬",
@@ -340,10 +324,6 @@ public class MainActivity extends Activity {
                 }
         ));
 
-        // --------------------------------------------------------
-        // STUDIO REVENUE
-        // --------------------------------------------------------
-
         root.addView(createRoyaltyCard(
                 "🎙️",
                 "STUDIO REVENUE",
@@ -355,10 +335,6 @@ public class MainActivity extends Activity {
                         "Mixing / Mastering Revenue"
                 }
         ));
-
-        // --------------------------------------------------------
-        // MAGAZINE REVENUE
-        // --------------------------------------------------------
 
         root.addView(createRoyaltyCard(
                 "📰",
@@ -372,10 +348,6 @@ public class MainActivity extends Activity {
                 }
         ));
 
-        // --------------------------------------------------------
-        // PAYMENTS
-        // --------------------------------------------------------
-
         root.addView(createRoyaltyCard(
                 "💳",
                 "PAYMENTS",
@@ -387,10 +359,6 @@ public class MainActivity extends Activity {
                         "Payment History"
                 }
         ));
-
-        // --------------------------------------------------------
-        // ARTIST EARNINGS
-        // --------------------------------------------------------
 
         root.addView(createRoyaltyCard(
                 "👤",
@@ -404,10 +372,6 @@ public class MainActivity extends Activity {
                 }
         ));
 
-        // --------------------------------------------------------
-        // DISTRIBUTION EARNINGS
-        // --------------------------------------------------------
-
         root.addView(createRoyaltyCard(
                 "🌍",
                 "DISTRIBUTION EARNINGS",
@@ -419,10 +383,6 @@ public class MainActivity extends Activity {
                         "Distribution Reports"
                 }
         ));
-
-        // --------------------------------------------------------
-        // ROYALTY REPORTS
-        // --------------------------------------------------------
 
         root.addView(createRoyaltyCard(
                 "📄",
@@ -436,10 +396,6 @@ public class MainActivity extends Activity {
                 }
         ));
 
-        // --------------------------------------------------------
-        // REVENUE GROWTH
-        // --------------------------------------------------------
-
         root.addView(createRoyaltyCard(
                 "📈",
                 "REVENUE GROWTH",
@@ -450,10 +406,6 @@ public class MainActivity extends Activity {
                         "Revenue Trends"
                 }
         ));
-
-        // --------------------------------------------------------
-        // REVENUE SOURCES
-        // --------------------------------------------------------
 
         root.addView(createRoyaltyCard(
                 "💼",
@@ -489,10 +441,7 @@ public class MainActivity extends Activity {
         GradientDrawable background = new GradientDrawable();
         background.setColor(CARD);
         background.setCornerRadius(dp(18));
-        background.setStroke(
-                dp(1),
-                Color.rgb(85, 55, 120)
-        );
+        background.setStroke(dp(1), Color.rgb(85, 55, 120));
 
         card.setBackground(background);
 
@@ -502,28 +451,14 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        cardParams.setMargins(
-                dp(4),
-                dp(8),
-                dp(4),
-                dp(8)
-        );
-
+        cardParams.setMargins(dp(4), dp(8), dp(4), dp(8));
         card.setLayoutParams(cardParams);
 
-        card.setPadding(
-                dp(18),
-                dp(18),
-                dp(18),
-                dp(18)
-        );
+        card.setPadding(dp(18), dp(18), dp(18), dp(18));
 
         TextView titleView = new TextView(this);
 
-        titleView.setText(
-                icon + "  " + title
-        );
-
+        titleView.setText(icon + "  " + title);
         titleView.setTextColor(Color.WHITE);
         titleView.setTextSize(19);
         titleView.setTypeface(null, Typeface.BOLD);
@@ -542,13 +477,7 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        descParams.setMargins(
-                0,
-                dp(6),
-                0,
-                dp(14)
-        );
-
+        descParams.setMargins(0, dp(6), 0, dp(14));
         descriptionView.setLayoutParams(descParams);
 
         card.addView(descriptionView);
@@ -560,19 +489,10 @@ public class MainActivity extends Activity {
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setGravity(Gravity.CENTER_VERTICAL);
 
-            GradientDrawable rowBackground =
-                    new GradientDrawable();
-
-            rowBackground.setColor(
-                    Color.rgb(10, 10, 22)
-            );
-
+            GradientDrawable rowBackground = new GradientDrawable();
+            rowBackground.setColor(Color.rgb(10, 10, 22));
             rowBackground.setCornerRadius(dp(12));
-
-            rowBackground.setStroke(
-                    dp(1),
-                    Color.rgb(45, 35, 70)
-            );
+            rowBackground.setStroke(dp(1), Color.rgb(45, 35, 70));
 
             row.setBackground(rowBackground);
 
@@ -582,13 +502,7 @@ public class MainActivity extends Activity {
                             dp(54)
                     );
 
-            rowParams.setMargins(
-                    0,
-                    dp(4),
-                    0,
-                    dp(4)
-            );
-
+            rowParams.setMargins(0, dp(4), 0, dp(4));
             row.setLayoutParams(rowParams);
 
             TextView name = new TextView(this);
@@ -605,7 +519,6 @@ public class MainActivity extends Activity {
                     );
 
             name.setLayoutParams(nameParams);
-
             row.addView(name);
 
             TextView value = new TextView(this);
@@ -617,7 +530,6 @@ public class MainActivity extends Activity {
             value.setGravity(Gravity.CENTER);
 
             row.addView(value);
-
             card.addView(row);
         }
 
@@ -641,10 +553,7 @@ public class MainActivity extends Activity {
         GradientDrawable background = new GradientDrawable();
         background.setColor(CARD);
         background.setCornerRadius(dp(18));
-        background.setStroke(
-                dp(1),
-                Color.rgb(70, 45, 110)
-        );
+        background.setStroke(dp(1), Color.rgb(70, 45, 110));
 
         card.setBackground(background);
 
@@ -654,28 +563,14 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        cardParams.setMargins(
-                dp(4),
-                dp(8),
-                dp(4),
-                dp(8)
-        );
-
+        cardParams.setMargins(dp(4), dp(8), dp(4), dp(8));
         card.setLayoutParams(cardParams);
 
-        card.setPadding(
-                dp(18),
-                dp(18),
-                dp(18),
-                dp(18)
-        );
+        card.setPadding(dp(18), dp(18), dp(18), dp(18));
 
         TextView title = new TextView(this);
 
-        title.setText(
-                icon + "  " + roomName
-        );
-
+        title.setText(icon + "  " + roomName);
         title.setTextColor(Color.WHITE);
         title.setTextSize(20);
         title.setTypeface(null, Typeface.BOLD);
@@ -694,13 +589,7 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        descParams.setMargins(
-                0,
-                dp(6),
-                0,
-                dp(14)
-        );
-
+        descParams.setMargins(0, dp(6), 0, dp(14));
         desc.setLayoutParams(descParams);
 
         card.addView(desc);
@@ -709,33 +598,16 @@ public class MainActivity extends Activity {
 
             LinearLayout statRow = new LinearLayout(this);
 
-            statRow.setOrientation(
-                    LinearLayout.HORIZONTAL
-            );
+            statRow.setOrientation(LinearLayout.HORIZONTAL);
+            statRow.setGravity(Gravity.CENTER_VERTICAL);
 
-            statRow.setGravity(
-                    Gravity.CENTER_VERTICAL
-            );
+            GradientDrawable statBackground = new GradientDrawable();
 
-            GradientDrawable statBackground =
-                    new GradientDrawable();
+            statBackground.setColor(Color.rgb(10, 10, 22));
+            statBackground.setCornerRadius(dp(12));
+            statBackground.setStroke(dp(1), Color.rgb(45, 35, 70));
 
-            statBackground.setColor(
-                    Color.rgb(10, 10, 22)
-            );
-
-            statBackground.setCornerRadius(
-                    dp(12)
-            );
-
-            statBackground.setStroke(
-                    dp(1),
-                    Color.rgb(45, 35, 70)
-            );
-
-            statRow.setBackground(
-                    statBackground
-            );
+            statRow.setBackground(statBackground);
 
             LinearLayout.LayoutParams rowParams =
                     new LinearLayout.LayoutParams(
@@ -743,17 +615,10 @@ public class MainActivity extends Activity {
                             dp(52)
                     );
 
-            rowParams.setMargins(
-                    0,
-                    dp(4),
-                    0,
-                    dp(4)
-            );
-
+            rowParams.setMargins(0, dp(4), 0, dp(4));
             statRow.setLayoutParams(rowParams);
 
-            TextView statName =
-                    new TextView(this);
+            TextView statName = new TextView(this);
 
             statName.setText(stat);
             statName.setTextColor(Color.WHITE);
@@ -766,27 +631,18 @@ public class MainActivity extends Activity {
                             1
                     );
 
-            statName.setLayoutParams(
-                    nameParams
-            );
-
+            statName.setLayoutParams(nameParams);
             statRow.addView(statName);
 
-            TextView value =
-                    new TextView(this);
+            TextView value = new TextView(this);
 
             value.setText("0");
             value.setTextColor(PURPLE);
             value.setTextSize(17);
-            value.setTypeface(
-                    null,
-                    Typeface.BOLD
-            );
-
+            value.setTypeface(null, Typeface.BOLD);
             value.setGravity(Gravity.CENTER);
 
             statRow.addView(value);
-
             card.addView(statRow);
         }
 
@@ -799,17 +655,274 @@ public class MainActivity extends Activity {
 
     private void showSecurity() {
 
-        showMenuSection(
-                "🔐 SECURITY",
-                "AVESON CENTRAL SECURITY",
-                new String[]{
-                        "🔑  Access Control",
-                        "📱  Authorized Devices",
-                        "📋  Login Activity",
-                        "🛡️  Security Protection",
-                        "⚠️  Security Events"
-                }
+        ScrollView scrollView = createScrollView();
+        LinearLayout root = createRoot();
+
+        TextView back = createButton("←  BACK");
+        back.setOnClickListener(v -> showMenu());
+        root.addView(back);
+
+        root.addView(createTitle("🔐 SECURITY"));
+        root.addView(createSubtitle(
+                "AVESON CENTRAL SECURITY"
+        ));
+
+        root.addView(createMenuButton(
+                "👤  ACCESS CONTROL",
+                "User and system access management",
+                v -> showAccessControl()
+        ));
+
+        root.addView(createMenuButton(
+                "📱  AUTHORIZED DEVICES",
+                "Manage authorized devices",
+                v -> showMessage("AUTHORIZED DEVICES")
+        ));
+
+        root.addView(createMenuButton(
+                "📋  LOGIN & ACCESS ACTIVITY",
+                "Login and access activity",
+                v -> showMessage("LOGIN & ACCESS ACTIVITY")
+        ));
+
+        root.addView(createMenuButton(
+                "🛡️  SECURITY PROTECTION",
+                "System security protection",
+                v -> showMessage("SECURITY PROTECTION")
+        ));
+
+        root.addView(createMenuButton(
+                "🚨  SECURITY EVENTS",
+                "Security events and alerts",
+                v -> showMessage("SECURITY EVENTS")
+        ));
+
+        root.addView(createMenuButton(
+                "🔒  PASSWORD & AUTHENTICATION",
+                "Authentication and account protection",
+                v -> showMessage("PASSWORD & AUTHENTICATION")
+        ));
+
+        root.addView(createMenuButton(
+                "🌐  NETWORK & API SECURITY",
+                "Network and API security",
+                v -> showMessage("NETWORK & API SECURITY")
+        ));
+
+        root.addView(createMenuButton(
+                "📋  SECURITY LOGS",
+                "System security logs",
+                v -> showMessage("SECURITY LOGS")
+        ));
+
+        scrollView.addView(root);
+        setContentView(scrollView);
+    }
+
+    // ============================================================
+    // ACCESS CONTROL
+    // ============================================================
+
+    private void showAccessControl() {
+
+        ScrollView scrollView = createScrollView();
+        LinearLayout root = createRoot();
+
+        TextView back = createButton("←  BACK");
+
+        back.setOnClickListener(
+                v -> showSecurity()
         );
+
+        root.addView(back);
+
+        root.addView(
+                createTitle("👤 ACCESS CONTROL")
+        );
+
+        root.addView(
+                createSubtitle(
+                        "AVESON CENTRAL • ACCESS MANAGEMENT"
+                )
+        );
+
+        root.addView(createMenuButton(
+                "👑  ADMINISTRATOR ACCESS",
+                "Administrator access management",
+                v -> showAccessSubSection(
+                        "👑 ADMINISTRATOR ACCESS",
+                        new String[]{
+                                "Access Status",
+                                "Authorized Administrators",
+                                "Active Administrators",
+                                "Access Permissions",
+                                "Access History"
+                        }
+                )
+        ));
+
+        root.addView(createMenuButton(
+                "👥  STAFF ACCESS",
+                "Staff access management",
+                v -> showAccessSubSection(
+                        "👥 STAFF ACCESS",
+                        new String[]{
+                                "Staff Members",
+                                "Active Staff",
+                                "Inactive Staff",
+                                "Staff Permissions",
+                                "Staff Access History"
+                        }
+                )
+        ));
+
+        root.addView(createMenuButton(
+                "🎵  ARTIST CONTROL ACCESS",
+                "Artist Control access management",
+                v -> showAccessSubSection(
+                        "🎵 ARTIST CONTROL ACCESS",
+                        new String[]{
+                                "Authorized Users",
+                                "Active Users",
+                                "Permissions",
+                                "Access History"
+                        }
+                )
+        ));
+
+        root.addView(createMenuButton(
+                "🎼  MUSIC CONTROL ACCESS",
+                "Music Control access management",
+                v -> showAccessSubSection(
+                        "🎼 MUSIC CONTROL ACCESS",
+                        new String[]{
+                                "Authorized Users",
+                                "Active Users",
+                                "Permissions",
+                                "Access History"
+                        }
+                )
+        ));
+
+        root.addView(createMenuButton(
+                "🌍  DISTRIBUTION CONTROL ACCESS",
+                "Distribution Control access management",
+                v -> showAccessSubSection(
+                        "🌍 DISTRIBUTION CONTROL ACCESS",
+                        new String[]{
+                                "Authorized Users",
+                                "Active Users",
+                                "Permissions",
+                                "Access History"
+                        }
+                )
+        ));
+
+        root.addView(createMenuButton(
+                "🎙️  STUDIO CONTROL ACCESS",
+                "Studio Control access management",
+                v -> showAccessSubSection(
+                        "🎙️ STUDIO CONTROL ACCESS",
+                        new String[]{
+                                "Authorized Users",
+                                "Active Users",
+                                "Permissions",
+                                "Access History"
+                        }
+                )
+        ));
+
+        root.addView(createMenuButton(
+                "📰  MAGAZINE CONTROL ACCESS",
+                "Magazine Control access management",
+                v -> showAccessSubSection(
+                        "📰 MAGAZINE CONTROL ACCESS",
+                        new String[]{
+                                "Authorized Users",
+                                "Active Users",
+                                "Permissions",
+                                "Access History"
+                        }
+                )
+        ));
+
+        root.addView(createMenuButton(
+                "🎬  FILMS CONTROL ACCESS",
+                "Films Control access management",
+                v -> showAccessSubSection(
+                        "🎬 FILMS CONTROL ACCESS",
+                        new String[]{
+                                "Authorized Users",
+                                "Active Users",
+                                "Permissions",
+                                "Access History"
+                        }
+                )
+        ));
+
+        root.addView(createMenuButton(
+                "🛡️  PERMISSION MANAGEMENT",
+                "Manage system permissions",
+                v -> showAccessSubSection(
+                        "🛡️ PERMISSION MANAGEMENT",
+                        new String[]{
+                                "View",
+                                "Create",
+                                "Edit",
+                                "Delete",
+                                "Approve",
+                                "Reject",
+                                "Export",
+                                "Manage Access"
+                        }
+                )
+        ));
+
+        scrollView.addView(root);
+        setContentView(scrollView);
+    }
+
+    // ============================================================
+    // ACCESS CONTROL SUB SECTION
+    // ============================================================
+
+    private void showAccessSubSection(
+            String title,
+            String[] items
+    ) {
+
+        ScrollView scrollView = createScrollView();
+        LinearLayout root = createRoot();
+
+        TextView back = createButton("←  BACK");
+
+        back.setOnClickListener(
+                v -> showAccessControl()
+        );
+
+        root.addView(back);
+
+        root.addView(
+                createTitle(title)
+        );
+
+        root.addView(
+                createSubtitle(
+                        "ACCESS CONTROL MANAGEMENT"
+                )
+        );
+
+        for (String item : items) {
+
+            root.addView(createMenuButton(
+                    item,
+                    "Current status: 0",
+                    v -> showMessage(item)
+            ));
+        }
+
+        scrollView.addView(root);
+        setContentView(scrollView);
     }
 
     // ============================================================
@@ -921,14 +1034,10 @@ public class MainActivity extends Activity {
 
     private void openRoom(String roomName) {
 
-        ScrollView scrollView =
-                createScrollView();
+        ScrollView scrollView = createScrollView();
+        LinearLayout root = createRoot();
 
-        LinearLayout root =
-                createRoot();
-
-        TextView back =
-                createButton("←  BACK");
+        TextView back = createButton("←  BACK");
 
         back.setOnClickListener(
                 v -> showCentralHome()
@@ -1060,8 +1169,7 @@ public class MainActivity extends Activity {
             View.OnClickListener listener
     ) {
 
-        TextView button =
-                new TextView(this);
+        TextView button = new TextView(this);
 
         button.setText(
                 icon + "  " + title +
@@ -1071,14 +1179,9 @@ public class MainActivity extends Activity {
 
         button.setTextColor(Color.WHITE);
         button.setTextSize(16);
-        button.setTypeface(
-                null,
-                Typeface.BOLD
-        );
+        button.setTypeface(null, Typeface.BOLD);
 
-        button.setGravity(
-                Gravity.CENTER_VERTICAL
-        );
+        button.setGravity(Gravity.CENTER_VERTICAL);
 
         button.setPadding(
                 dp(20),
@@ -1087,8 +1190,7 @@ public class MainActivity extends Activity {
                 dp(16)
         );
 
-        GradientDrawable background =
-                new GradientDrawable();
+        GradientDrawable background = new GradientDrawable();
 
         background.setColor(CARD);
         background.setCornerRadius(dp(18));
@@ -1098,13 +1200,9 @@ public class MainActivity extends Activity {
                 Color.rgb(65, 45, 100)
         );
 
-        button.setBackground(
-                background
-        );
+        button.setBackground(background);
 
-        button.setOnClickListener(
-                listener
-        );
+        button.setOnClickListener(listener);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
@@ -1134,8 +1232,7 @@ public class MainActivity extends Activity {
             View.OnClickListener listener
     ) {
 
-        TextView button =
-                new TextView(this);
+        TextView button = new TextView(this);
 
         if (description == null ||
                 description.isEmpty()) {
@@ -1154,9 +1251,7 @@ public class MainActivity extends Activity {
         button.setTextColor(Color.WHITE);
         button.setTextSize(16);
 
-        button.setGravity(
-                Gravity.CENTER_VERTICAL
-        );
+        button.setGravity(Gravity.CENTER_VERTICAL);
 
         button.setPadding(
                 dp(18),
@@ -1165,8 +1260,7 @@ public class MainActivity extends Activity {
                 dp(14)
         );
 
-        GradientDrawable background =
-                new GradientDrawable();
+        GradientDrawable background = new GradientDrawable();
 
         background.setColor(CARD);
         background.setCornerRadius(dp(16));
@@ -1176,13 +1270,9 @@ public class MainActivity extends Activity {
                 Color.rgb(60, 45, 90)
         );
 
-        button.setBackground(
-                background
-        );
+        button.setBackground(background);
 
-        button.setOnClickListener(
-                listener
-        );
+        button.setOnClickListener(listener);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
@@ -1209,12 +1299,9 @@ public class MainActivity extends Activity {
     // BACK BUTTON
     // ============================================================
 
-    private TextView createButton(
-            String text
-    ) {
+    private TextView createButton(String text) {
 
-        TextView button =
-                new TextView(this);
+        TextView button = new TextView(this);
 
         button.setText(text);
         button.setTextColor(Color.WHITE);
@@ -1226,25 +1313,20 @@ public class MainActivity extends Activity {
                 Typeface.BOLD
         );
 
-        GradientDrawable background =
-                new GradientDrawable();
+        GradientDrawable background = new GradientDrawable();
 
         background.setColor(
                 Color.rgb(25, 18, 40)
         );
 
-        background.setCornerRadius(
-                dp(14)
-        );
+        background.setCornerRadius(dp(14));
 
         background.setStroke(
                 dp(1),
                 PURPLE
         );
 
-        button.setBackground(
-                background
-        );
+        button.setBackground(background);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
@@ -1268,12 +1350,9 @@ public class MainActivity extends Activity {
     // TITLE
     // ============================================================
 
-    private TextView createTitle(
-            String text
-    ) {
+    private TextView createTitle(String text) {
 
-        TextView title =
-                new TextView(this);
+        TextView title = new TextView(this);
 
         title.setText(text);
         title.setTextColor(Color.WHITE);
@@ -1284,9 +1363,7 @@ public class MainActivity extends Activity {
                 Typeface.BOLD
         );
 
-        title.setGravity(
-                Gravity.CENTER
-        );
+        title.setGravity(Gravity.CENTER);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
@@ -1310,20 +1387,15 @@ public class MainActivity extends Activity {
     // SUBTITLE
     // ============================================================
 
-    private TextView createSubtitle(
-            String text
-    ) {
+    private TextView createSubtitle(String text) {
 
-        TextView subtitle =
-                new TextView(this);
+        TextView subtitle = new TextView(this);
 
         subtitle.setText(text);
         subtitle.setTextColor(TEXT_GRAY);
         subtitle.setTextSize(12);
 
-        subtitle.setGravity(
-                Gravity.CENTER
-        );
+        subtitle.setGravity(Gravity.CENTER);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
@@ -1349,8 +1421,7 @@ public class MainActivity extends Activity {
 
     private LinearLayout createRoot() {
 
-        LinearLayout root =
-                new LinearLayout(this);
+        LinearLayout root = new LinearLayout(this);
 
         root.setOrientation(
                 LinearLayout.VERTICAL
@@ -1395,9 +1466,7 @@ public class MainActivity extends Activity {
     // MESSAGE
     // ============================================================
 
-    private void showMessage(
-            String message
-    ) {
+    private void showMessage(String message) {
 
         Toast.makeText(
                 this,
@@ -1419,4 +1488,4 @@ public class MainActivity extends Activity {
                                 .density
         );
     }
-}
+                   }
