@@ -68,9 +68,9 @@ public class MainActivity extends Activity {
 
         menuParams.setMargins(
                 0,
-                18,
+                16,
                 0,
-                20
+                16
         );
 
         root.addView(menu, menuParams);
