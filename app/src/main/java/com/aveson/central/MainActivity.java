@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -41,7 +40,7 @@ public class MainActivity extends Activity {
         scrollView.addView(root);
 
         // =====================================================
-        // MENU
+        // MENU — CHAP TOMONDA
         // =====================================================
 
         TextView menu = new TextView(this);
@@ -64,8 +63,15 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        menuParams.gravity = Gravity.CENTER_HORIZONTAL;
-        menuParams.setMargins(0, 0, 0, 20);
+        // MENU endi markazda emas — chap tomonda
+        menuParams.gravity = Gravity.START;
+
+        menuParams.setMargins(
+                0,
+                0,
+                0,
+                20
+        );
 
         root.addView(menu, menuParams);
 
@@ -162,7 +168,7 @@ public class MainActivity extends Activity {
         scrollView.setClipToPadding(false);
         scrollView.setBackgroundColor(BG);
 
-        // Pastdagi telefon navigation tugmalari bilan
+        // Telefonning pastki navigation tugmalari bilan
         // kontent to'qnashmasligi uchun xavfsiz joy.
         scrollView.setPadding(
                 0,
@@ -184,8 +190,6 @@ public class MainActivity extends Activity {
 
         layout.setOrientation(LinearLayout.VERTICAL);
 
-        // Yon tomondagi xona o'lchamlari saqlanadi.
-        // Yuqorida ham keraksiz katta bo'shliq yo'q.
         layout.setPadding(
                 dp(24),
                 dp(24),
@@ -213,7 +217,6 @@ public class MainActivity extends Activity {
 
         card.setOrientation(LinearLayout.VERTICAL);
 
-        // Xona kartalarining avvalgi o'lchami saqlanadi.
         card.setPadding(
                 dp(24),
                 dp(20),
@@ -250,7 +253,12 @@ public class MainActivity extends Activity {
         name.setTextColor(Color.WHITE);
         name.setTextSize(18);
         name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        name.setPadding(0, dp(8), 0, dp(4));
+        name.setPadding(
+                0,
+                dp(8),
+                0,
+                dp(4)
+        );
 
         card.addView(name);
 
@@ -311,9 +319,13 @@ public class MainActivity extends Activity {
         // CLICK
         // =====================================================
 
-        card.setOnClickListener(v -> openRoom(type));
+        card.setOnClickListener(v ->
+                openRoom(type)
+        );
 
-        open.setOnClickListener(v -> openRoom(type));
+        open.setOnClickListener(v ->
+                openRoom(type)
+        );
 
         // =====================================================
         // CARD POSITION
@@ -403,6 +415,7 @@ public class MainActivity extends Activity {
         back.setText("← BACK TO AVESON CENTRAL");
         back.setTextColor(Color.rgb(120, 190, 255));
         back.setTextSize(16);
+
         back.setPadding(
                 dp(8),
                 dp(8),
@@ -410,7 +423,9 @@ public class MainActivity extends Activity {
                 dp(18)
         );
 
-        back.setOnClickListener(v -> showCentral());
+        back.setOnClickListener(v ->
+                showCentral()
+        );
 
         root.addView(back);
 
@@ -513,7 +528,9 @@ public class MainActivity extends Activity {
                 dp(18)
         );
 
-        back.setOnClickListener(v -> showCentral());
+        back.setOnClickListener(v ->
+                showCentral()
+        );
 
         root.addView(back);
 
@@ -558,6 +575,10 @@ public class MainActivity extends Activity {
         );
 
         root.addView(subtitle);
+
+        // =====================================================
+        // MUSIC CONTROL BUTTONS
+        // =====================================================
 
         addMusicControlButton(
                 "🎵  MUSIC CATALOG",
@@ -612,11 +633,15 @@ public class MainActivity extends Activity {
                 dp(18)
         );
 
-        GradientDrawable background = new GradientDrawable();
+        GradientDrawable background =
+                new GradientDrawable();
 
         background.setColor(CARD);
         background.setCornerRadius(dp(24));
-        background.setStroke(dp(2), Color.rgb(80, 60, 150));
+        background.setStroke(
+                dp(2),
+                Color.rgb(80, 60, 150)
+        );
 
         card.setBackground(background);
 
@@ -625,7 +650,10 @@ public class MainActivity extends Activity {
         name.setText(title);
         name.setTextColor(Color.WHITE);
         name.setTextSize(17);
-        name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        name.setTypeface(
+                Typeface.DEFAULT,
+                Typeface.BOLD
+        );
 
         card.addView(name);
 
