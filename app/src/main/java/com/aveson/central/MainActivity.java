@@ -1,11 +1,12 @@
 package com.aveson.central;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -13,236 +14,150 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-    private final int BG = Color.rgb(7, 7, 18);
-    private final int CARD = Color.rgb(20, 17, 38);
-    private final int BORDER = Color.rgb(70, 55, 120);
-    private final int PURPLE = Color.rgb(145, 80, 245);
-    private final int TEXT_SECONDARY = Color.rgb(175, 170, 200);
+    private int PURPLE = Color.rgb(185, 100, 255);
+    private int BLUE = Color.rgb(80, 150, 255);
+    private int DARK = Color.rgb(8, 8, 18);
+    private int CARD = Color.rgb(15, 15, 30);
+    private int TEXT_GRAY = Color.rgb(165, 165, 185);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        showCentral();
+        getWindow().setStatusBarColor(DARK);
+        getWindow().setNavigationBarColor(DARK);
+
+        showCentralHome();
     }
 
-    // =========================================================
-    // AVESON CENTRAL HOME
-    // =========================================================
+    // ============================================================
+    // CENTRAL HOME
+    // ============================================================
 
-    private void showCentral() {
+    private void showCentralHome() {
+
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
         TextView menu = createButton("☰  MENU");
-
-        LinearLayout.LayoutParams menuParams =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        dp(44)
-                );
-
-        menuParams.gravity = Gravity.START;
-        menuParams.setMargins(0, dp(18), 0, dp(20));
-
-        menu.setLayoutParams(menuParams);
         menu.setOnClickListener(v -> showMenu());
         root.addView(menu);
 
-        TextView title = createTitle("AVESON CENTRAL");
-        root.addView(title);
+        root.addView(createTitle("AVESON CENTRAL"));
+        root.addView(createSubtitle(
+                "GLOBAL MANAGEMENT & CONTROL PLATFORM"
+        ));
 
-        TextView subtitle = createSubtitle(
-                "CONTROL CENTER\n\nGLOBAL MUSIC ECOSYSTEM"
-        );
-        root.addView(subtitle);
-
-        addRoom(
-                root,
+        root.addView(createRoomButton(
                 "🎵",
                 "AVESON ARTIST CONTROL",
-                "Artist management and artist operations"
-        );
+                "Artist management and submissions",
+                v -> openRoom("AVESON ARTIST CONTROL")
+        ));
 
-        addRoom(
-                root,
+        root.addView(createRoomButton(
                 "🎼",
                 "AVESON MUSIC CONTROL",
-                "Music catalog and release management"
-        );
+                "Music catalog and music management",
+                v -> openRoom("AVESON MUSIC CONTROL")
+        ));
 
-        addRoom(
-                root,
+        root.addView(createRoomButton(
                 "🌍",
                 "AVESON DISTRIBUTION CONTROL",
-                "Global music distribution management"
-        );
+                "Global music distribution management",
+                v -> openRoom("AVESON DISTRIBUTION CONTROL")
+        ));
 
-        addRoom(
-                root,
+        root.addView(createRoomButton(
                 "🎙️",
                 "AVESON STUDIO CONTROL",
-                "Studio and production management"
-        );
+                "Studio and audio production management",
+                v -> openRoom("AVESON STUDIO CONTROL")
+        ));
 
-        addRoom(
-                root,
+        root.addView(createRoomButton(
                 "📰",
                 "AVESON MAGAZINE CONTROL",
-                "Magazine and editorial management"
-        );
+                "Magazine and editorial management",
+                v -> openRoom("AVESON MAGAZINE CONTROL")
+        ));
 
-        addRoom(
-                root,
+        root.addView(createRoomButton(
                 "🎬",
                 "AVESON FILMS",
-                "Film and video management"
-        );
+                "Film and video production management",
+                v -> openRoom("AVESON FILMS")
+        ));
 
         scrollView.addView(root);
         setContentView(scrollView);
     }
 
-    // =========================================================
-    // CENTRAL MENU
-    // =========================================================
+    // ============================================================
+    // GLOBAL MENU
+    // ============================================================
 
     private void showMenu() {
+
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
         TextView back = createButton("←  BACK");
-        back.setOnClickListener(v -> showCentral());
+        back.setOnClickListener(v -> showCentralHome());
         root.addView(back);
 
-        TextView title = createTitle("☰  AVESON CENTRAL MENU");
-        root.addView(title);
+        root.addView(createTitle("☰ MENU"));
+        root.addView(createSubtitle(
+                "AVESON CENTRAL MANAGEMENT"
+        ));
 
-        TextView subtitle = createSubtitle(
-                "GLOBAL CENTRAL MANAGEMENT"
-        );
-        root.addView(subtitle);
+        root.addView(createMenuButton(
+                "📊  ANALYTICS",
+                "Users, content and system activity",
+                v -> showAnalytics()
+        ));
 
-        addMenuItem(
-                root,
-                "📊",
-                "ANALYTICS",
-                "Central system statistics"
-        );
+        root.addView(createMenuButton(
+                "💰  ROYALTY CONTROL",
+                "Revenue, payments and artist earnings",
+                v -> showRoyaltyControl()
+        ));
 
-        addMenuItem(
-                root,
-                "💰",
-                "ROYALTY CONTROL",
-                "Royalty and financial management"
-        );
+        root.addView(createMenuButton(
+                "🔐  SECURITY",
+                "Security and access management",
+                v -> showSecurity()
+        ));
 
-        addMenuItem(
-                root,
-                "🔐",
-                "SECURITY",
-                "System security and access control"
-        );
+        root.addView(createMenuButton(
+                "⚙️  PARAMETERS",
+                "Central system parameters",
+                v -> showParameters()
+        ));
 
-        addMenuItem(
-                root,
-                "⚙️",
-                "PARAMETERS",
-                "Central system parameters"
-        );
+        root.addView(createMenuButton(
+                "🛡️  SYSTEM STATUS",
+                "System and service status",
+                v -> showSystemStatus()
+        ));
 
-        addMenuItem(
-                root,
-                "🛡️",
-                "SYSTEM STATUS",
-                "AVESON Central system status"
-        );
-
-        addMenuItem(
-                root,
-                "ℹ️",
-                "AVESON CENTRAL INFO",
-                "Information about AVESON Central"
-        );
+        root.addView(createMenuButton(
+                "ℹ️  AVESON CENTRAL INFO",
+                "System information",
+                v -> showCentralInfo()
+        ));
 
         scrollView.addView(root);
         setContentView(scrollView);
     }
 
-    private void addMenuItem(
-            LinearLayout root,
-            String icon,
-            String name,
-            String description
-    ) {
-        LinearLayout card = createCard();
-
-        TextView iconView = new TextView(this);
-        iconView.setText(icon);
-        iconView.setTextSize(27);
-        iconView.setTextColor(Color.WHITE);
-        card.addView(iconView);
-
-        TextView title = new TextView(this);
-        title.setText(name);
-        title.setTextSize(17);
-        title.setTypeface(null, Typeface.BOLD);
-        title.setTextColor(Color.WHITE);
-
-        LinearLayout.LayoutParams titleParams =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-
-        titleParams.setMargins(
-                0,
-                dp(6),
-                0,
-                dp(2)
-        );
-
-        title.setLayoutParams(titleParams);
-        card.addView(title);
-
-        TextView desc = new TextView(this);
-        desc.setText(description);
-        desc.setTextSize(13);
-        desc.setTextColor(TEXT_SECONDARY);
-        card.addView(desc);
-
-        card.setOnClickListener(v -> openMenuItem(name));
-
-        root.addView(card);
-    }
-
-    private void openMenuItem(String name) {
-
-        if (name.equals("ANALYTICS")) {
-            showAnalytics();
-
-        } else if (name.equals("ROYALTY CONTROL")) {
-            showRoyaltyControl();
-
-        } else if (name.equals("SECURITY")) {
-            showSecurity();
-
-        } else if (name.equals("PARAMETERS")) {
-            showParameters();
-
-        } else if (name.equals("SYSTEM STATUS")) {
-            showSystemStatus();
-
-        } else if (name.equals("AVESON CENTRAL INFO")) {
-            showCentralInfo();
-        }
-    }
-
-    // =========================================================
+    // ============================================================
     // ANALYTICS
-    // =========================================================
+    // ============================================================
 
     private void showAnalytics() {
+
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
@@ -251,319 +166,286 @@ public class MainActivity extends Activity {
         root.addView(back);
 
         root.addView(createTitle("📊 ANALYTICS"));
-
         root.addView(createSubtitle(
-                "AVESON CENTRAL SYSTEM ANALYTICS"
+                "AVESON CENTRAL • SYSTEM ANALYTICS"
         ));
 
-        // -----------------------------------------------------
-        // GENERAL ANALYTICS
-        // -----------------------------------------------------
+        // --------------------------------------------------------
+        // AVESON ARTIST
+        // --------------------------------------------------------
 
-        root.addView(createSectionTitle(
-                "📊 GENERAL ANALYTICS"
-        ));
-
-        addAnalyticsCard(
-                root,
-                "👤",
-                "TOTAL ARTISTS",
-                "0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "🎵",
-                "TOTAL RELEASES",
-                "0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "🎧",
-                "TOTAL STREAMS",
-                "0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "👁️",
-                "TOTAL VIEWS",
-                "0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "💿",
-                "TOTAL ALBUMS",
-                "0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "🌍",
-                "ACTIVE DISTRIBUTION",
-                "0"
-        );
-
-        // -----------------------------------------------------
-        // AVESON USERS
-        // -----------------------------------------------------
-
-        root.addView(createSectionTitle(
-                "👥 AVESON USERS"
-        ));
-
-        addAnalyticsCard(
-                root,
+        root.addView(createAnalyticsRoomCard(
                 "🎵",
                 "AVESON ARTIST",
-                "0 Artists"
-        );
+                "Artist registration and activity analytics",
+                new String[]{
+                        "👤  Total Artists",
+                        "🆕  Registered Artists",
+                        "✅  Active Artists",
+                        "⏳  Inactive Artists",
+                        "📤  Song Submissions",
+                        "📹  Video Submissions"
+                }
+        ));
 
-        addAnalyticsCard(
-                root,
-                "🌍",
-                "AVESON DISTRIBUTION",
-                "0 Users"
-        );
+        // --------------------------------------------------------
+        // AVESON MUSIC
+        // --------------------------------------------------------
 
-        addAnalyticsCard(
-                root,
-                "🎬",
-                "AVESON FILMS",
-                "0 Users"
-        );
-
-        addAnalyticsCard(
-                root,
-                "🎙️",
-                "AVESON STUDIO",
-                "0 Users"
-        );
-
-        addAnalyticsCard(
-                root,
-                "📰",
-                "AVESON MAGAZINE",
-                "0 Users"
-        );
-
-        addAnalyticsCard(
-                root,
+        root.addView(createAnalyticsRoomCard(
                 "🎼",
                 "AVESON MUSIC",
-                "0 Users"
-        );
-
-        addAnalyticsCard(
-                root,
-                "👥",
-                "TOTAL USERS",
-                "0 Users"
-        );
-
-        // -----------------------------------------------------
-        // REVENUE OVERVIEW
-        // -----------------------------------------------------
-
-        root.addView(createSectionTitle(
-                "💰 REVENUE OVERVIEW"
+                "Music users, catalog and listening analytics",
+                new String[]{
+                        "👥  Total Users",
+                        "🆕  Registered Users",
+                        "✅  Active Users",
+                        "🎵  Total Tracks",
+                        "💿  Total Albums",
+                        "▶️  Total Streams"
+                }
         ));
 
-        addAnalyticsCard(
-                root,
-                "💵",
-                "TOTAL REVENUE",
-                "$0"
-        );
+        // --------------------------------------------------------
+        // AVESON DISTRIBUTION
+        // --------------------------------------------------------
 
-        addAnalyticsCard(
-                root,
-                "📈",
-                "REVENUE GROWTH",
-                "0%"
-        );
-
-        // -----------------------------------------------------
-        // REVENUE SOURCES
-        // -----------------------------------------------------
-
-        root.addView(createSectionTitle(
-                "💰 REVENUE SOURCES"
-        ));
-
-        addAnalyticsCard(
-                root,
-                "🎵",
-                "MUSIC REVENUE",
-                "$0"
-        );
-
-        addAnalyticsCard(
-                root,
+        root.addView(createAnalyticsRoomCard(
                 "🌍",
-                "DISTRIBUTION REVENUE",
-                "$0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "🎬",
-                "FILMS REVENUE",
-                "$0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "🎙️",
-                "STUDIO REVENUE",
-                "$0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "📰",
-                "MAGAZINE REVENUE",
-                "$0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "💳",
-                "OTHER REVENUE",
-                "$0"
-        );
-
-        addAnalyticsCard(
-                root,
-                "💰",
-                "TOTAL REVENUE",
-                "$0"
-        );
-
-        // -----------------------------------------------------
-        // STATISTICS
-        // -----------------------------------------------------
-
-        root.addView(createSectionTitle(
-                "📈 STATISTICS"
+                "AVESON DISTRIBUTION",
+                "Distribution users and release analytics",
+                new String[]{
+                        "👥  Total Users",
+                        "🆕  Registered Users",
+                        "📦  Total Releases",
+                        "🌐  Connected Platforms",
+                        "📤  Delivered Releases",
+                        "⏳  Pending Releases"
+                }
         ));
 
-        addAnalyticsCard(
-                root,
-                "📈",
-                "GROWTH STATISTICS",
-                "No data yet"
-        );
+        // --------------------------------------------------------
+        // AVESON STUDIO
+        // --------------------------------------------------------
 
-        addAnalyticsCard(
-                root,
-                "🌐",
-                "GLOBAL ACTIVITY",
-                "No activity yet"
-        );
+        root.addView(createAnalyticsRoomCard(
+                "🎙️",
+                "AVESON STUDIO",
+                "Studio users and production analytics",
+                new String[]{
+                        "👥  Total Users",
+                        "🆕  Registered Users",
+                        "✅  Active Users",
+                        "🎙️  Studio Projects",
+                        "🎵  Audio Projects",
+                        "📁  Studio Files"
+                }
+        ));
+
+        // --------------------------------------------------------
+        // AVESON MAGAZINE
+        // --------------------------------------------------------
+
+        root.addView(createAnalyticsRoomCard(
+                "📰",
+                "AVESON MAGAZINE",
+                "Magazine users and content analytics",
+                new String[]{
+                        "👥  Total Users",
+                        "🆕  Registered Users",
+                        "✍️  Total Articles",
+                        "👁️  Total Views",
+                        "👤  Writers",
+                        "📰  Published Articles"
+                }
+        ));
+
+        // --------------------------------------------------------
+        // AVESON FILMS
+        // --------------------------------------------------------
+
+        root.addView(createAnalyticsRoomCard(
+                "🎬",
+                "AVESON FILMS",
+                "Film users and production analytics",
+                new String[]{
+                        "👥  Total Users",
+                        "🆕  Registered Users",
+                        "✅  Active Users",
+                        "🎬  Total Projects",
+                        "🎥  Total Films",
+                        "👁️  Total Views"
+                }
+        ));
 
         scrollView.addView(root);
         setContentView(scrollView);
     }
 
-    private void addAnalyticsCard(
-            LinearLayout root,
+    // ============================================================
+    // ANALYTICS ROOM CARD
+    // ============================================================
+
+    private LinearLayout createAnalyticsRoomCard(
             String icon,
-            String name,
-            String value
+            String roomName,
+            String description,
+            String[] statistics
     ) {
-        LinearLayout card = createCard();
 
-        TextView iconView = new TextView(this);
-        iconView.setText(icon);
-        iconView.setTextSize(25);
-        iconView.setTextColor(Color.WHITE);
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
 
-        card.addView(iconView);
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(CARD);
+        background.setCornerRadius(dp(18));
+        background.setStroke(dp(1), Color.rgb(70, 45, 110));
 
-        TextView nameView = new TextView(this);
-        nameView.setText(name);
-        nameView.setTextSize(14);
-        nameView.setTextColor(TEXT_SECONDARY);
+        card.setBackground(background);
 
-        LinearLayout.LayoutParams nameParams =
+        LinearLayout.LayoutParams cardParams =
                 new LinearLayout.LayoutParams(
-                        -1,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        nameParams.setMargins(
+        cardParams.setMargins(
+                dp(4),
+                dp(8),
+                dp(4),
+                dp(8)
+        );
+
+        card.setLayoutParams(cardParams);
+
+        card.setPadding(
+                dp(18),
+                dp(18),
+                dp(18),
+                dp(18)
+        );
+
+        TextView title = new TextView(this);
+        title.setText(icon + "  " + roomName);
+        title.setTextColor(Color.WHITE);
+        title.setTextSize(20);
+        title.setTypeface(null, Typeface.BOLD);
+
+        card.addView(title);
+
+        TextView desc = new TextView(this);
+        desc.setText(description);
+        desc.setTextColor(TEXT_GRAY);
+        desc.setTextSize(13);
+
+        LinearLayout.LayoutParams descParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+        descParams.setMargins(
                 0,
                 dp(6),
                 0,
-                dp(2)
+                dp(14)
         );
 
-        nameView.setLayoutParams(nameParams);
-        card.addView(nameView);
+        desc.setLayoutParams(descParams);
 
-        TextView valueView = new TextView(this);
-        valueView.setText(value);
-        valueView.setTextSize(22);
-        valueView.setTypeface(null, Typeface.BOLD);
-        valueView.setTextColor(Color.WHITE);
+        card.addView(desc);
 
-        card.addView(valueView);
+        for (String stat : statistics) {
 
-        root.addView(card);
+            LinearLayout statRow = new LinearLayout(this);
+            statRow.setOrientation(LinearLayout.HORIZONTAL);
+            statRow.setGravity(Gravity.CENTER_VERTICAL);
+
+            GradientDrawable statBackground = new GradientDrawable();
+            statBackground.setColor(Color.rgb(10, 10, 22));
+            statBackground.setCornerRadius(dp(12));
+            statBackground.setStroke(
+                    dp(1),
+                    Color.rgb(45, 35, 70)
+            );
+
+            statRow.setBackground(statBackground);
+
+            LinearLayout.LayoutParams rowParams =
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            dp(52)
+                    );
+
+            rowParams.setMargins(
+                    0,
+                    dp(4),
+                    0,
+                    dp(4)
+            );
+
+            statRow.setLayoutParams(rowParams);
+
+            TextView statName = new TextView(this);
+            statName.setText(stat);
+            statName.setTextColor(Color.WHITE);
+            statName.setTextSize(14);
+
+            LinearLayout.LayoutParams nameParams =
+                    new LinearLayout.LayoutParams(
+                            0,
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            1
+                    );
+
+            statName.setLayoutParams(nameParams);
+
+            statRow.addView(statName);
+
+            TextView value = new TextView(this);
+            value.setText("0");
+            value.setTextColor(PURPLE);
+            value.setTextSize(17);
+            value.setTypeface(null, Typeface.BOLD);
+            value.setGravity(Gravity.CENTER);
+
+            statRow.addView(value);
+
+            card.addView(statRow);
+        }
+
+        return card;
     }
 
-    private TextView createSectionTitle(String text) {
-        TextView title = new TextView(this);
-
-        title.setText(text);
-        title.setTextSize(19);
-        title.setTypeface(null, Typeface.BOLD);
-        title.setTextColor(Color.WHITE);
-        title.setGravity(Gravity.START);
-
-        LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-
-        params.setMargins(
-                0,
-                dp(22),
-                0,
-                dp(6)
-        );
-
-        title.setLayoutParams(params);
-
-        return title;
-    }
-
-    // =========================================================
+    // ============================================================
     // ROYALTY CONTROL
-    // =========================================================
+    // ============================================================
 
     private void showRoyaltyControl() {
 
         showMenuSection(
                 "💰 ROYALTY CONTROL",
-                "ROYALTY MANAGEMENT",
+                "REVENUE & ROYALTY MANAGEMENT",
                 new String[]{
-                        "💵 Royalty Overview",
-                        "💳 Payments",
-                        "📄 Royalty Reports",
-                        "👤 Artist Earnings",
-                        "🌍 Distribution Earnings"
+                        "💵  Total Revenue",
+                        "🎵  Music Revenue",
+                        "🌍  Distribution Revenue",
+                        "🎬  Films Revenue",
+                        "🎙️  Studio Revenue",
+                        "📰  Magazine Revenue",
+                        "💳  Payments",
+                        "👤  Artist Earnings",
+                        "🌍  Distribution Earnings",
+                        "📄  Royalty Reports",
+                        "📈  Revenue Growth",
+                        "💼  Revenue Sources"
                 }
         );
     }
 
-    // =========================================================
+    // ============================================================
     // SECURITY
-    // =========================================================
+    // ============================================================
 
     private void showSecurity() {
 
@@ -571,37 +453,37 @@ public class MainActivity extends Activity {
                 "🔐 SECURITY",
                 "AVESON CENTRAL SECURITY",
                 new String[]{
-                        "🔑 Access Control",
-                        "📱 Authorized Devices",
-                        "🕒 Login Activity",
-                        "🛡️ Security Protection",
-                        "🚨 Security Events"
+                        "🔑  Access Control",
+                        "📱  Authorized Devices",
+                        "📋  Login Activity",
+                        "🛡️  Security Protection",
+                        "⚠️  Security Events"
                 }
         );
     }
 
-    // =========================================================
+    // ============================================================
     // PARAMETERS
-    // =========================================================
+    // ============================================================
 
     private void showParameters() {
 
         showMenuSection(
                 "⚙️ PARAMETERS",
-                "CENTRAL SYSTEM PARAMETERS",
+                "AVESON CENTRAL PARAMETERS",
                 new String[]{
-                        "🌐 LANGUAGES",
-                        "🎨 APPEARANCE",
-                        "🔔 NOTIFICATIONS",
-                        "🎵 MUSIC PARAMETERS",
-                        "🌍 DISTRIBUTION PARAMETERS"
+                        "🌐  Languages",
+                        "🎨  Appearance",
+                        "🔔  Notifications",
+                        "🎵  Music Parameters",
+                        "🌍  Distribution Parameters"
                 }
         );
     }
 
-    // =========================================================
+    // ============================================================
     // SYSTEM STATUS
-    // =========================================================
+    // ============================================================
 
     private void showSystemStatus() {
 
@@ -609,120 +491,45 @@ public class MainActivity extends Activity {
                 "🛡️ SYSTEM STATUS",
                 "AVESON CENTRAL SYSTEM STATUS",
                 new String[]{
-                        "🟢 Central System",
-                        "🟢 Database",
-                        "🟢 API Services",
-                        "🟢 Distribution Services",
-                        "🟢 Storage",
-                        "🟢 Security Services"
+                        "🖥️  Central System",
+                        "🗄️  Database",
+                        "🔌  API Services",
+                        "🌍  Distribution Services",
+                        "💾  Storage",
+                        "🔐  Security Services"
                 }
         );
     }
 
-    // =========================================================
+    // ============================================================
     // CENTRAL INFO
-    // =========================================================
+    // ============================================================
 
     private void showCentralInfo() {
 
-        ScrollView scrollView = createScrollView();
-        LinearLayout root = createRoot();
-
-        TextView back = createButton("←  BACK");
-        back.setOnClickListener(v -> showMenu());
-        root.addView(back);
-
-        root.addView(createTitle(
-                "ℹ️ AVESON CENTRAL INFO"
-        ));
-
-        root.addView(createSubtitle(
-                "AVESON GLOBAL MUSIC ECOSYSTEM"
-        ));
-
-        addInfoCard(
-                root,
-                "SYSTEM NAME",
-                "AVESON CENTRAL"
+        showMenuSection(
+                "ℹ️ AVESON CENTRAL INFO",
+                "SYSTEM INFORMATION",
+                new String[]{
+                        "System Name: AVESON CENTRAL",
+                        "System Type: Global Management & Control Platform",
+                        "Platform: AVESON Global Music Ecosystem",
+                        "Version: 1.0",
+                        "Status: ACTIVE"
+                }
         );
-
-        addInfoCard(
-                root,
-                "SYSTEM TYPE",
-                "Global Management & Control Platform"
-        );
-
-        addInfoCard(
-                root,
-                "PLATFORM",
-                "AVESON Global Music Ecosystem"
-        );
-
-        addInfoCard(
-                root,
-                "VERSION",
-                "1.0"
-        );
-
-        addInfoCard(
-                root,
-                "STATUS",
-                "ACTIVE"
-        );
-
-        scrollView.addView(root);
-        setContentView(scrollView);
     }
 
-    private void addInfoCard(
-            LinearLayout root,
-            String title,
-            String value
-    ) {
-        LinearLayout card = createCard();
-
-        TextView titleView = new TextView(this);
-        titleView.setText(title);
-        titleView.setTextSize(13);
-        titleView.setTextColor(TEXT_SECONDARY);
-
-        card.addView(titleView);
-
-        TextView valueView = new TextView(this);
-        valueView.setText(value);
-        valueView.setTextSize(17);
-        valueView.setTypeface(null, Typeface.BOLD);
-        valueView.setTextColor(Color.WHITE);
-
-        LinearLayout.LayoutParams valueParams =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-
-        valueParams.setMargins(
-                0,
-                dp(5),
-                0,
-                0
-        );
-
-        valueView.setLayoutParams(valueParams);
-
-        card.addView(valueView);
-
-        root.addView(card);
-    }
-
-    // =========================================================
-    // CENTRAL MENU SECTION
-    // =========================================================
+    // ============================================================
+    // GENERIC MENU SECTION
+    // ============================================================
 
     private void showMenuSection(
-            String titleText,
-            String subtitleText,
+            String title,
+            String subtitle,
             String[] items
     ) {
+
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
@@ -730,372 +537,279 @@ public class MainActivity extends Activity {
         back.setOnClickListener(v -> showMenu());
         root.addView(back);
 
-        root.addView(createTitle(titleText));
-
-        root.addView(createSubtitle(subtitleText));
+        root.addView(createTitle(title));
+        root.addView(createSubtitle(subtitle));
 
         for (String item : items) {
 
-            LinearLayout card = createCard();
+            TextView button = createMenuButton(
+                    item,
+                    "",
+                    v -> showMessage(item)
+            );
 
-            TextView text = new TextView(this);
-            text.setText(item);
-            text.setTextSize(16);
-            text.setTypeface(null, Typeface.BOLD);
-            text.setTextColor(Color.WHITE);
-            text.setGravity(Gravity.CENTER_VERTICAL);
-
-            card.addView(text);
-
-            card.setOnClickListener(v -> {
-
-                if (item.equals("🌐 LANGUAGES")) {
-                    showLanguages();
-                } else {
-                    showMessage(item);
-                }
-            });
-
-            root.addView(card);
+            root.addView(button);
         }
 
         scrollView.addView(root);
         setContentView(scrollView);
     }
 
-    // =========================================================
-    // LANGUAGES
-    // =========================================================
+    // ============================================================
+    // ROOM CONTROL
+    // ============================================================
 
-    private void showLanguages() {
+    private void openRoom(String roomName) {
 
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
         TextView back = createButton("←  BACK");
-        back.setOnClickListener(v -> showParameters());
+        back.setOnClickListener(v -> showCentralHome());
         root.addView(back);
 
-        root.addView(createTitle(
-                "🌐 LANGUAGES"
-        ));
-
+        root.addView(createTitle(roomName));
         root.addView(createSubtitle(
-                "SELECT AVESON CENTRAL LANGUAGE"
+                "ROOM MANAGEMENT & CONTROL"
         ));
 
-        addLanguage(root, "English");
-        addLanguage(root, "O'zbek");
-        addLanguage(root, "Русский");
-        addLanguage(root, "Español");
-        addLanguage(root, "Français");
-        addLanguage(root, "Deutsch");
-        addLanguage(root, "Türkçe");
-        addLanguage(root, "العربية");
-        addLanguage(root, "中文");
-        addLanguage(root, "한국어");
+        if (roomName.equals("AVESON ARTIST CONTROL")) {
+
+            addRoomMenu(root,
+                    "👤  Artists",
+                    "📤  Artist Submissions",
+                    "🔎  Release Review",
+                    "📊  Artist Analytics",
+                    "⚙️  Artist Settings"
+            );
+
+        } else if (roomName.equals("AVESON MUSIC CONTROL")) {
+
+            addRoomMenu(root,
+                    "🎵  Music Catalog",
+                    "💿  Albums & Releases",
+                    "▶️  Playlists",
+                    "👥  Music Users",
+                    "📊  Music Analytics",
+                    "⚙️  Music Settings"
+            );
+
+        } else if (roomName.equals("AVESON DISTRIBUTION CONTROL")) {
+
+            addRoomMenu(root,
+                    "🌍  Distribution Platforms",
+                    "📦  Distribution Releases",
+                    "📤  Release Delivery",
+                    "📊  Distribution Analytics",
+                    "⚙️  Distribution Settings"
+            );
+
+        } else if (roomName.equals("AVESON STUDIO CONTROL")) {
+
+            addRoomMenu(root,
+                    "🎙️  Studio Projects",
+                    "🎵  Audio Production",
+                    "🎚️  Sessions",
+                    "📁  Studio Files",
+                    "📊  Studio Analytics",
+                    "⚙️  Studio Settings"
+            );
+
+        } else if (roomName.equals("AVESON MAGAZINE CONTROL")) {
+
+            addRoomMenu(root,
+                    "📰  Articles",
+                    "✍️  Editorial",
+                    "🖼️  Media",
+                    "👤  Writers",
+                    "📊  Magazine Analytics",
+                    "⚙️  Magazine Settings"
+            );
+
+        } else if (roomName.equals("AVESON FILMS")) {
+
+            addRoomMenu(root,
+                    "🎬  Projects",
+                    "🎥  Videos",
+                    "🎞️  Productions",
+                    "📁  Film Library",
+                    "📊  Film Analytics",
+                    "⚙️  Film Settings"
+            );
+        }
 
         scrollView.addView(root);
         setContentView(scrollView);
     }
 
-    private void addLanguage(
-            LinearLayout root,
-            String language
-    ) {
-        LinearLayout card = createCard();
-
-        TextView text = new TextView(this);
-        text.setText("🌐  " + language);
-        text.setTextSize(16);
-        text.setTypeface(null, Typeface.BOLD);
-        text.setTextColor(Color.WHITE);
-
-        card.addView(text);
-
-        card.setOnClickListener(v ->
-                Toast.makeText(
-                        this,
-                        language + " selected",
-                        Toast.LENGTH_SHORT
-                ).show()
-        );
-
-        root.addView(card);
-    }
-
-    // =========================================================
-    // ROOMS
-    // =========================================================
-
-    private void addRoom(
-            LinearLayout root,
-            String icon,
-            String name,
-            String description
-    ) {
-        LinearLayout card = createCard();
-
-        TextView iconView = new TextView(this);
-        iconView.setText(icon);
-        iconView.setTextSize(28);
-        iconView.setTextColor(Color.WHITE);
-
-        card.addView(iconView);
-
-        TextView title = new TextView(this);
-        title.setText(name);
-        title.setTextSize(17);
-        title.setTypeface(null, Typeface.BOLD);
-        title.setTextColor(Color.WHITE);
-
-        LinearLayout.LayoutParams titleParams =
-                new LinearLayout.LayoutParams(
-                        -1,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
-
-        titleParams.setMargins(
-                0,
-                dp(6),
-                0,
-                dp(2)
-        );
-
-        title.setLayoutParams(titleParams);
-
-        card.addView(title);
-
-        TextView desc = new TextView(this);
-        desc.setText(description);
-        desc.setTextSize(13);
-        desc.setTextColor(TEXT_SECONDARY);
-
-        card.addView(desc);
-
-        card.setOnClickListener(v ->
-                openRoom(name)
-        );
-
-        root.addView(card);
-    }
-
-    private void openRoom(String name) {
-
-        if (name.equals("AVESON ARTIST CONTROL")) {
-
-            showRoomMenu(
-                    "🎵 AVESON ARTIST CONTROL",
-                    "ARTIST MANAGEMENT",
-                    new String[]{
-                            "👤 Artists",
-                            "🎵 Artist Submissions",
-                            "📄 Release Review",
-                            "📊 Artist Analytics",
-                            "⚙️ Artist Settings"
-                    }
-            );
-
-        } else if (name.equals("AVESON MUSIC CONTROL")) {
-
-            showRoomMenu(
-                    "🎼 AVESON MUSIC CONTROL",
-                    "MUSIC MANAGEMENT",
-                    new String[]{
-                            "🎵 Music Catalog",
-                            "💿 Albums & Releases",
-                            "📋 Playlists",
-                            "👥 Music Users",
-                            "📊 Music Analytics",
-                            "⚙️ Music Settings"
-                    }
-            );
-
-        } else if (name.equals("AVESON DISTRIBUTION CONTROL")) {
-
-            showRoomMenu(
-                    "🌍 AVESON DISTRIBUTION CONTROL",
-                    "GLOBAL DISTRIBUTION MANAGEMENT",
-                    new String[]{
-                            "🌍 Distribution Platforms",
-                            "📦 Distribution Releases",
-                            "🚀 Release Delivery",
-                            "📊 Distribution Analytics",
-                            "⚙️ Distribution Settings"
-                    }
-            );
-
-        } else if (name.equals("AVESON STUDIO CONTROL")) {
-
-            showRoomMenu(
-                    "🎙️ AVESON STUDIO CONTROL",
-                    "STUDIO MANAGEMENT",
-                    new String[]{
-                            "🎙️ Studio Projects",
-                            "🎚️ Audio Production",
-                            "🎧 Sessions",
-                            "📁 Studio Files",
-                            "📊 Studio Analytics",
-                            "⚙️ Studio Settings"
-                    }
-            );
-
-        } else if (name.equals("AVESON MAGAZINE CONTROL")) {
-
-            showRoomMenu(
-                    "📰 AVESON MAGAZINE CONTROL",
-                    "MAGAZINE MANAGEMENT",
-                    new String[]{
-                            "📰 Articles",
-                            "✍️ Editorial",
-                            "📸 Media",
-                            "👥 Writers",
-                            "📊 Magazine Analytics",
-                            "⚙️ Magazine Settings"
-                    }
-            );
-
-        } else if (name.equals("AVESON FILMS")) {
-
-            showRoomMenu(
-                    "🎬 AVESON FILMS",
-                    "FILM & VIDEO MANAGEMENT",
-                    new String[]{
-                            "🎬 Projects",
-                            "🎥 Videos",
-                            "🎞️ Productions",
-                            "📁 Film Library",
-                            "📊 Film Analytics",
-                            "⚙️ Film Settings"
-                    }
-            );
-        }
-    }
-
-    // =========================================================
+    // ============================================================
     // ROOM MENU
-    // =========================================================
+    // ============================================================
 
-    private void showRoomMenu(
-            String titleText,
-            String subtitleText,
-            String[] items
+    private void addRoomMenu(
+            LinearLayout root,
+            String... items
     ) {
-        ScrollView scrollView = createScrollView();
-        LinearLayout root = createRoot();
-
-        TextView back = createButton("←  BACK");
-        back.setOnClickListener(v -> showCentral());
-        root.addView(back);
-
-        root.addView(createTitle(titleText));
-
-        root.addView(createSubtitle(subtitleText));
 
         for (String item : items) {
 
-            LinearLayout card = createCard();
-
-            TextView text = new TextView(this);
-            text.setText(item);
-            text.setTextSize(16);
-            text.setTypeface(null, Typeface.BOLD);
-            text.setTextColor(Color.WHITE);
-
-            card.addView(text);
-
-            card.setOnClickListener(v ->
-                    showMessage(item)
+            TextView button = createMenuButton(
+                    item,
+                    "",
+                    v -> showMessage(item)
             );
 
-            root.addView(card);
+            root.addView(button);
         }
-
-        scrollView.addView(root);
-        setContentView(scrollView);
     }
 
-    // =========================================================
-    // CARD
-    // =========================================================
+    // ============================================================
+    // ROOM BUTTON
+    // ============================================================
 
-    private LinearLayout createCard() {
+    private TextView createRoomButton(
+            String icon,
+            String title,
+            String description,
+            View.OnClickListener listener
+    ) {
 
-        LinearLayout card = new LinearLayout(this);
+        TextView button = new TextView(this);
 
-        card.setOrientation(
-                LinearLayout.VERTICAL
+        button.setText(
+                icon + "  " + title +
+                        "\n\n" +
+                        description
         );
 
-        card.setPadding(
-                dp(18),
+        button.setTextColor(Color.WHITE);
+        button.setTextSize(16);
+        button.setTypeface(null, Typeface.BOLD);
+        button.setGravity(Gravity.CENTER_VERTICAL);
+        button.setPadding(
+                dp(20),
                 dp(16),
-                dp(18),
+                dp(20),
                 dp(16)
         );
 
-        GradientDrawable background =
-                new GradientDrawable();
-
+        GradientDrawable background = new GradientDrawable();
         background.setColor(CARD);
         background.setCornerRadius(dp(18));
         background.setStroke(
                 dp(1),
-                BORDER
+                Color.rgb(65, 45, 100)
         );
 
-        card.setBackground(background);
+        button.setBackground(background);
+        button.setOnClickListener(listener);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
-                        -1,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        dp(105)
                 );
 
         params.setMargins(
-                0,
+                dp(4),
                 dp(7),
-                0,
+                dp(4),
                 dp(7)
         );
 
-        card.setLayoutParams(params);
+        button.setLayoutParams(params);
 
-        return card;
+        return button;
     }
 
-    // =========================================================
-    // BUTTON
-    // =========================================================
+    // ============================================================
+    // MENU BUTTON
+    // ============================================================
+
+    private TextView createMenuButton(
+            String text,
+            String description,
+            View.OnClickListener listener
+    ) {
+
+        TextView button = new TextView(this);
+
+        if (description == null || description.isEmpty()) {
+            button.setText(text);
+        } else {
+            button.setText(
+                    text + "\n\n" + description
+            );
+        }
+
+        button.setTextColor(Color.WHITE);
+        button.setTextSize(16);
+        button.setGravity(Gravity.CENTER_VERTICAL);
+        button.setPadding(
+                dp(18),
+                dp(14),
+                dp(18),
+                dp(14)
+        );
+
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(CARD);
+        background.setCornerRadius(dp(16));
+        background.setStroke(
+                dp(1),
+                Color.rgb(60, 45, 90)
+        );
+
+        button.setBackground(background);
+        button.setOnClickListener(listener);
+
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        description == null || description.isEmpty()
+                                ? dp(58)
+                                : dp(82)
+                );
+
+        params.setMargins(
+                dp(4),
+                dp(6),
+                dp(4),
+                dp(6)
+        );
+
+        button.setLayoutParams(params);
+
+        return button;
+    }
+
+    // ============================================================
+    // BACK BUTTON
+    // ============================================================
 
     private TextView createButton(String text) {
 
         TextView button = new TextView(this);
 
         button.setText(text);
-        button.setTextSize(15);
-        button.setTypeface(null, Typeface.BOLD);
         button.setTextColor(Color.WHITE);
+        button.setTextSize(15);
         button.setGravity(Gravity.CENTER);
+        button.setTypeface(null, Typeface.BOLD);
 
-        button.setPadding(
-                dp(18),
-                0,
-                dp(18),
-                0
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(Color.rgb(25, 18, 40));
+        background.setCornerRadius(dp(14));
+        background.setStroke(
+                dp(1),
+                PURPLE
         );
-
-        GradientDrawable background =
-                new GradientDrawable();
-
-        background.setColor(PURPLE);
-        background.setCornerRadius(dp(18));
 
         button.setBackground(background);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
-                        -1,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
                         dp(44)
                 );
 
@@ -1111,23 +825,23 @@ public class MainActivity extends Activity {
         return button;
     }
 
-    // =========================================================
+    // ============================================================
     // TITLE
-    // =========================================================
+    // ============================================================
 
     private TextView createTitle(String text) {
 
         TextView title = new TextView(this);
 
         title.setText(text);
+        title.setTextColor(Color.WHITE);
         title.setTextSize(25);
         title.setTypeface(null, Typeface.BOLD);
-        title.setTextColor(Color.WHITE);
         title.setGravity(Gravity.CENTER);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
-                        -1,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
@@ -1135,7 +849,7 @@ public class MainActivity extends Activity {
                 0,
                 dp(10),
                 0,
-                dp(8)
+                dp(5)
         );
 
         title.setLayoutParams(params);
@@ -1143,22 +857,22 @@ public class MainActivity extends Activity {
         return title;
     }
 
-    // =========================================================
+    // ============================================================
     // SUBTITLE
-    // =========================================================
+    // ============================================================
 
     private TextView createSubtitle(String text) {
 
         TextView subtitle = new TextView(this);
 
         subtitle.setText(text);
-        subtitle.setTextSize(13);
-        subtitle.setTextColor(TEXT_SECONDARY);
+        subtitle.setTextColor(TEXT_GRAY);
+        subtitle.setTextSize(12);
         subtitle.setGravity(Gravity.CENTER);
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
-                        -1,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
@@ -1174,78 +888,73 @@ public class MainActivity extends Activity {
         return subtitle;
     }
 
-    // =========================================================
+    // ============================================================
     // ROOT
-    // =========================================================
+    // ============================================================
 
     private LinearLayout createRoot() {
 
-        LinearLayout root =
-                new LinearLayout(this);
+        LinearLayout root = new LinearLayout(this);
 
-        root.setOrientation(
-                LinearLayout.VERTICAL
-        );
-
+        root.setOrientation(LinearLayout.VERTICAL);
         root.setPadding(
+                dp(16),
                 dp(24),
-                dp(24),
-                dp(24),
+                dp(16),
                 dp(36)
         );
 
-        root.setBackgroundColor(BG);
+        root.setBackgroundColor(DARK);
 
         return root;
     }
 
-    // =========================================================
+    // ============================================================
     // SCROLL VIEW
-    // =========================================================
+    // ============================================================
 
     private ScrollView createScrollView() {
 
-        ScrollView scrollView =
-                new ScrollView(this);
+        ScrollView scrollView = new ScrollView(this);
 
+        scrollView.setBackgroundColor(DARK);
         scrollView.setFillViewport(true);
         scrollView.setClipToPadding(false);
-        scrollView.setBackgroundColor(BG);
 
         scrollView.setPadding(
                 0,
                 0,
                 0,
-                dp(36)
+                dp(20)
         );
 
         return scrollView;
     }
 
-    // =========================================================
+    // ============================================================
     // MESSAGE
-    // =========================================================
+    // ============================================================
 
     private void showMessage(String message) {
 
         Toast.makeText(
                 this,
-                message + " — module ready",
+                message,
                 Toast.LENGTH_SHORT
         ).show();
     }
 
-    // =========================================================
+    // ============================================================
     // DP
-    // =========================================================
+    // ============================================================
 
     private int dp(int value) {
 
         return (int) (
                 value *
-                getResources()
-                        .getDisplayMetrics()
-                        .density
+                        getResources()
+                                .getDisplayMetrics()
+                                .density
         );
     }
-    }
+}
