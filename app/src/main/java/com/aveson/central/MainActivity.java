@@ -6,13 +6,21 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
     private LinearLayout root;
+
+    private final int BG = Color.rgb(7, 7, 18);
+    private final int CARD = Color.rgb(20, 17, 38);
+    private final int BORDER = Color.rgb(70, 55, 120);
+    private final int PURPLE = Color.rgb(145, 80, 245);
+    private final int TEXT_SECONDARY = Color.rgb(175, 170, 200);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +34,48 @@ public class MainActivity extends Activity {
 
     private void showCentral() {
 
-        // Scrollable AVESON CENTRAL content
-        android.widget.ScrollView scrollView =
-                new android.widget.ScrollView(this);
+        ScrollView scrollView = createScrollView();
 
-        scrollView.setFillViewport(true);
-        scrollView.setBackgroundColor(Color.rgb(7, 7, 18));
-
-        root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(24, 24, 24, 24);
-        root.setBackgroundColor(Color.rgb(7, 7, 18));
+        root = createRoot();
 
         scrollView.addView(root);
+
+        // =====================================================
+        // MENU
+        // =====================================================
+
+        TextView menu = new TextView(this);
+        menu.setText("☰  MENU");
+        menu.setTextColor(Color.WHITE);
+        menu.setTextSize(16);
+        menu.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        menu.setGravity(Gravity.CENTER);
+        menu.setPadding(18, 14, 18, 14);
+
+        GradientDrawable menuBackground = new GradientDrawable();
+        menuBackground.setColor(Color.rgb(20, 17, 38));
+        menuBackground.setCornerRadius(35);
+        menuBackground.setStroke(2, Color.rgb(80, 60, 150));
+        menu.setBackground(menuBackground);
+
+        LinearLayout.LayoutParams menuParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+        menuParams.gravity = Gravity.CENTER_HORIZONTAL;
+        menuParams.setMargins(0, 0, 0, 20);
+
+        root.addView(menu, menuParams);
+
+        menu.setOnClickListener(v ->
+                showMessage("AVESON CENTRAL MENU")
+        );
+
+        // =====================================================
+        // TITLE
+        // =====================================================
 
         TextView title = new TextView(this);
         title.setText("AVESON CENTRAL");
@@ -46,35 +83,119 @@ public class MainActivity extends Activity {
         title.setTextSize(27);
         title.setGravity(Gravity.CENTER);
         title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+
         root.addView(title);
 
+        // =====================================================
+        // SUBTITLE
+        // =====================================================
+
         TextView subtitle = new TextView(this);
-        subtitle.setText("CONTROL CENTER\n\nGLOBAL MUSIC ECOSYSTEM");
+        subtitle.setText(
+                "CONTROL CENTER\n\nGLOBAL MUSIC ECOSYSTEM"
+        );
         subtitle.setTextColor(Color.rgb(165, 155, 205));
         subtitle.setTextSize(14);
         subtitle.setGravity(Gravity.CENTER);
         subtitle.setPadding(8, 8, 8, 18);
+
         root.addView(subtitle);
 
-        addRoom("🎤", "AVESON ARTIST CONTROL",
-                "Artistlar va release'larni boshqarish.", "ARTIST");
+        // =====================================================
+        // CENTRAL ROOMS
+        // =====================================================
 
-        addRoom("🎵", "AVESON MUSIC CONTROL",
-                "Music katalog va music tizimini boshqarish.", "MUSIC");
+        addRoom(
+                "🎤",
+                "AVESON ARTIST CONTROL",
+                "Artistlar va release'larni boshqarish.",
+                "ARTIST"
+        );
 
-        addRoom("🌐", "AVESON DISTRIBUTION CONTROL",
-                "Release'larni global platformalarga tarqatish.", "DISTRIBUTION");
+        addRoom(
+                "🎵",
+                "AVESON MUSIC CONTROL",
+                "Music katalog va music tizimini boshqarish.",
+                "MUSIC"
+        );
 
-        addRoom("🎛️", "AVESON STUDIO CONTROL",
-                "AVESON Studio xizmatlari va buyurtmalarini boshqarish.", "STUDIO");
+        addRoom(
+                "🌐",
+                "AVESON DISTRIBUTION CONTROL",
+                "Release'larni global platformalarga tarqatish.",
+                "DISTRIBUTION"
+        );
 
-        addRoom("📰", "AVESON MAGAZINE CONTROL",
-                "Magazine va AVESON Shop boshqaruvi.", "MAGAZINE");
+        addRoom(
+                "🎛️",
+                "AVESON STUDIO CONTROL",
+                "AVESON Studio xizmatlari va buyurtmalarini boshqarish.",
+                "STUDIO"
+        );
 
-        addRoom("🎬", "AVESON FILMS",
-                "Film, serial, klip va video kontent yo'nalishini boshqarish.", "FILMS");
+        addRoom(
+                "📰",
+                "AVESON MAGAZINE CONTROL",
+                "Magazine va AVESON Shop boshqaruvi.",
+                "MAGAZINE"
+        );
+
+        addRoom(
+                "🎬",
+                "AVESON FILMS",
+                "Film, serial, klip va video kontent yo'nalishini boshqarish.",
+                "FILMS"
+        );
 
         setContentView(scrollView);
+    }
+
+    // =========================================================
+    // SAFE SCROLL VIEW
+    // =========================================================
+
+    private ScrollView createScrollView() {
+
+        ScrollView scrollView = new ScrollView(this);
+
+        scrollView.setFillViewport(true);
+        scrollView.setClipToPadding(false);
+        scrollView.setBackgroundColor(BG);
+
+        // Pastdagi telefon navigation tugmalari bilan
+        // kontent to'qnashmasligi uchun xavfsiz joy.
+        scrollView.setPadding(
+                0,
+                0,
+                0,
+                dp(36)
+        );
+
+        return scrollView;
+    }
+
+    // =========================================================
+    // ROOT
+    // =========================================================
+
+    private LinearLayout createRoot() {
+
+        LinearLayout layout = new LinearLayout(this);
+
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        // Yon tomondagi xona o'lchamlari saqlanadi.
+        // Yuqorida ham keraksiz katta bo'shliq yo'q.
+        layout.setPadding(
+                dp(24),
+                dp(24),
+                dp(24),
+                dp(24)
+        );
+
+        layout.setBackgroundColor(BG);
+
+        return layout;
     }
 
     // =========================================================
@@ -89,44 +210,86 @@ public class MainActivity extends Activity {
     ) {
 
         LinearLayout card = new LinearLayout(this);
+
         card.setOrientation(LinearLayout.VERTICAL);
-        card.setPadding(24, 20, 24, 20);
+
+        // Xona kartalarining avvalgi o'lchami saqlanadi.
+        card.setPadding(
+                dp(24),
+                dp(20),
+                dp(24),
+                dp(20)
+        );
 
         GradientDrawable background = new GradientDrawable();
-        background.setColor(Color.rgb(20, 17, 38));
-        background.setCornerRadius(28);
-        background.setStroke(2, Color.rgb(70, 55, 120));
+
+        background.setColor(CARD);
+        background.setCornerRadius(dp(28));
+        background.setStroke(dp(2), BORDER);
+
         card.setBackground(background);
 
+        // =====================================================
+        // ICON
+        // =====================================================
+
         TextView iconView = new TextView(this);
+
         iconView.setText(icon);
         iconView.setTextSize(27);
+
         card.addView(iconView);
 
+        // =====================================================
+        // ROOM NAME
+        // =====================================================
+
         TextView name = new TextView(this);
+
         name.setText(title);
         name.setTextColor(Color.WHITE);
         name.setTextSize(18);
         name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        name.setPadding(0, 8, 0, 4);
+        name.setPadding(0, dp(8), 0, dp(4));
+
         card.addView(name);
 
+        // =====================================================
+        // DESCRIPTION
+        // =====================================================
+
         TextView desc = new TextView(this);
+
         desc.setText(description);
-        desc.setTextColor(Color.rgb(175, 170, 200));
+        desc.setTextColor(TEXT_SECONDARY);
         desc.setTextSize(13);
+
         card.addView(desc);
 
+        // =====================================================
+        // OPEN BUTTON
+        // =====================================================
+
         TextView open = new TextView(this);
+
         open.setText("OPEN  →");
         open.setTextColor(Color.WHITE);
         open.setTextSize(15);
         open.setGravity(Gravity.CENTER);
-        open.setPadding(12, 14, 12, 14);
 
-        GradientDrawable openBackground = new GradientDrawable();
-        openBackground.setColor(Color.rgb(145, 80, 245));
-        openBackground.setCornerRadius(40);
+        open.setPadding(
+                dp(12),
+                dp(14),
+                dp(12),
+                dp(14)
+        );
+
+        GradientDrawable openBackground =
+                new GradientDrawable();
+
+        openBackground.setColor(PURPLE);
+        openBackground.setCornerRadius(dp(40));
+
         open.setBackground(openBackground);
 
         LinearLayout.LayoutParams openParams =
@@ -134,11 +297,27 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
-        openParams.setMargins(0, 16, 0, 0);
+
+        openParams.setMargins(
+                0,
+                dp(16),
+                0,
+                0
+        );
+
         card.addView(open, openParams);
 
+        // =====================================================
+        // CLICK
+        // =====================================================
+
         card.setOnClickListener(v -> openRoom(type));
+
         open.setOnClickListener(v -> openRoom(type));
+
+        // =====================================================
+        // CARD POSITION
+        // =====================================================
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
@@ -146,7 +325,13 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        params.setMargins(0, 8, 0, 12);
+        params.setMargins(
+                0,
+                dp(8),
+                0,
+                dp(12)
+        );
+
         root.addView(card, params);
     }
 
@@ -169,18 +354,27 @@ public class MainActivity extends Activity {
         }
 
         if (type.equals("STUDIO")) {
-            showRoom("🎛️", "AVESON STUDIO CONTROL",
-                    "Studio services • Orders • Bookings");
+            showRoom(
+                    "🎛️",
+                    "AVESON STUDIO CONTROL",
+                    "Studio services • Orders • Bookings"
+            );
         }
 
         if (type.equals("MAGAZINE")) {
-            showRoom("📰", "AVESON MAGAZINE CONTROL",
-                    "Magazine • Media • AVESON Shop");
+            showRoom(
+                    "📰",
+                    "AVESON MAGAZINE CONTROL",
+                    "Magazine • Media • AVESON Shop"
+            );
         }
 
         if (type.equals("FILMS")) {
-            showRoom("🎬", "AVESON FILMS",
-                    "Films • Series • Music Videos • Original Content");
+            showRoom(
+                    "🎬",
+                    "AVESON FILMS",
+                    "Films • Series • Music Videos • Original Content"
+            );
         }
     }
 
@@ -194,50 +388,100 @@ public class MainActivity extends Activity {
             String subtitleText
     ) {
 
-        root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(24, 24, 24, 24);
-        root.setBackgroundColor(Color.rgb(7, 7, 18));
+        ScrollView scrollView = createScrollView();
+
+        root = createRoot();
+
+        scrollView.addView(root);
+
+        // =====================================================
+        // BACK
+        // =====================================================
 
         TextView back = new TextView(this);
+
         back.setText("← BACK TO AVESON CENTRAL");
         back.setTextColor(Color.rgb(120, 190, 255));
         back.setTextSize(16);
-        back.setPadding(8, 8, 8, 18);
+        back.setPadding(
+                dp(8),
+                dp(8),
+                dp(8),
+                dp(18)
+        );
+
         back.setOnClickListener(v -> showCentral());
+
         root.addView(back);
 
+        // =====================================================
+        // TITLE
+        // =====================================================
+
         TextView title = new TextView(this);
+
         title.setText(icon + "  " + titleText);
         title.setTextColor(Color.WHITE);
         title.setTextSize(26);
         title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        title.setPadding(8, 8, 8, 6);
+
+        title.setPadding(
+                dp(8),
+                dp(8),
+                dp(8),
+                dp(6)
+        );
+
         root.addView(title);
 
+        // =====================================================
+        // SUBTITLE
+        // =====================================================
+
         TextView subtitle = new TextView(this);
+
         subtitle.setText(subtitleText);
         subtitle.setTextColor(Color.rgb(165, 155, 205));
         subtitle.setTextSize(14);
-        subtitle.setPadding(8, 4, 8, 24);
+
+        subtitle.setPadding(
+                dp(8),
+                dp(4),
+                dp(8),
+                dp(24)
+        );
+
         root.addView(subtitle);
 
+        // =====================================================
+        // STATUS
+        // =====================================================
+
         TextView status = new TextView(this);
+
         status.setText("CONTROL ROOM READY");
         status.setTextColor(Color.rgb(190, 170, 255));
         status.setTextSize(17);
         status.setGravity(Gravity.CENTER);
-        status.setPadding(20, 28, 20, 28);
+
+        status.setPadding(
+                dp(20),
+                dp(28),
+                dp(20),
+                dp(28)
+        );
 
         GradientDrawable bg = new GradientDrawable();
-        bg.setColor(Color.rgb(20, 17, 38));
-        bg.setCornerRadius(24);
-        bg.setStroke(2, Color.rgb(80, 60, 150));
+
+        bg.setColor(CARD);
+        bg.setCornerRadius(dp(24));
+        bg.setStroke(dp(2), Color.rgb(80, 60, 150));
+
         status.setBackground(bg);
 
         root.addView(status);
 
-        setContentView(root);
+        setContentView(scrollView);
     }
 
     // =========================================================
@@ -246,49 +490,111 @@ public class MainActivity extends Activity {
 
     private void showMusicControl() {
 
-        root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(24, 24, 24, 24);
-        root.setBackgroundColor(Color.rgb(7, 7, 18));
+        ScrollView scrollView = createScrollView();
+
+        root = createRoot();
+
+        scrollView.addView(root);
+
+        // =====================================================
+        // BACK
+        // =====================================================
 
         TextView back = new TextView(this);
+
         back.setText("← BACK TO AVESON CENTRAL");
         back.setTextColor(Color.rgb(120, 190, 255));
         back.setTextSize(16);
-        back.setPadding(8, 8, 8, 18);
+
+        back.setPadding(
+                dp(8),
+                dp(8),
+                dp(8),
+                dp(18)
+        );
+
         back.setOnClickListener(v -> showCentral());
+
         root.addView(back);
 
+        // =====================================================
+        // TITLE
+        // =====================================================
+
         TextView title = new TextView(this);
+
         title.setText("AVESON MUSIC CONTROL");
         title.setTextColor(Color.WHITE);
         title.setTextSize(27);
         title.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        title.setPadding(8, 8, 8, 4);
+
+        title.setPadding(
+                dp(8),
+                dp(8),
+                dp(8),
+                dp(4)
+        );
+
         root.addView(title);
 
+        // =====================================================
+        // SUBTITLE
+        // =====================================================
+
         TextView subtitle = new TextView(this);
-        subtitle.setText("Music catalog • Playlists • Content management");
+
+        subtitle.setText(
+                "Music catalog • Playlists • Content management"
+        );
+
         subtitle.setTextColor(Color.rgb(165, 155, 205));
         subtitle.setTextSize(14);
-        subtitle.setPadding(8, 4, 8, 24);
+
+        subtitle.setPadding(
+                dp(8),
+                dp(4),
+                dp(8),
+                dp(24)
+        );
+
         root.addView(subtitle);
 
-        addMusicControlButton("🎵  MUSIC CATALOG",
-                "Tracks • Albums • Releases");
-        addMusicControlButton("📀  ALBUMS & RELEASES",
-                "Manage music releases");
-        addMusicControlButton("🎧  PLAYLISTS",
-                "Create and manage playlists");
-        addMusicControlButton("👥  MUSIC USERS",
-                "Listener accounts and activity");
-        addMusicControlButton("📊  MUSIC ANALYTICS",
-                "Streaming and usage data");
-        addMusicControlButton("⚙️  MUSIC SETTINGS",
-                "Music platform settings");
+        addMusicControlButton(
+                "🎵  MUSIC CATALOG",
+                "Tracks • Albums • Releases"
+        );
 
-        setContentView(root);
+        addMusicControlButton(
+                "📀  ALBUMS & RELEASES",
+                "Manage music releases"
+        );
+
+        addMusicControlButton(
+                "🎧  PLAYLISTS",
+                "Create and manage playlists"
+        );
+
+        addMusicControlButton(
+                "👥  MUSIC USERS",
+                "Listener accounts and activity"
+        );
+
+        addMusicControlButton(
+                "📊  MUSIC ANALYTICS",
+                "Streaming and usage data"
+        );
+
+        addMusicControlButton(
+                "⚙️  MUSIC SETTINGS",
+                "Music platform settings"
+        );
+
+        setContentView(scrollView);
     }
+
+    // =========================================================
+    // MUSIC CONTROL BUTTON
+    // =========================================================
 
     private void addMusicControlButton(
             String title,
@@ -296,30 +602,51 @@ public class MainActivity extends Activity {
     ) {
 
         LinearLayout card = new LinearLayout(this);
+
         card.setOrientation(LinearLayout.VERTICAL);
-        card.setPadding(22, 18, 22, 18);
+
+        card.setPadding(
+                dp(22),
+                dp(18),
+                dp(22),
+                dp(18)
+        );
 
         GradientDrawable background = new GradientDrawable();
-        background.setColor(Color.rgb(20, 17, 38));
-        background.setCornerRadius(24);
-        background.setStroke(2, Color.rgb(80, 60, 150));
+
+        background.setColor(CARD);
+        background.setCornerRadius(dp(24));
+        background.setStroke(dp(2), Color.rgb(80, 60, 150));
+
         card.setBackground(background);
 
         TextView name = new TextView(this);
+
         name.setText(title);
         name.setTextColor(Color.WHITE);
         name.setTextSize(17);
         name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+
         card.addView(name);
 
         TextView desc = new TextView(this);
+
         desc.setText(description);
-        desc.setTextColor(Color.rgb(175, 170, 200));
+        desc.setTextColor(TEXT_SECONDARY);
         desc.setTextSize(13);
-        desc.setPadding(0, 6, 0, 0);
+
+        desc.setPadding(
+                0,
+                dp(6),
+                0,
+                0
+        );
+
         card.addView(desc);
 
-        card.setOnClickListener(v -> showMessage(title));
+        card.setOnClickListener(v ->
+                showMessage(title)
+        );
 
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
@@ -327,7 +654,13 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        params.setMargins(0, 6, 0, 8);
+        params.setMargins(
+                0,
+                dp(6),
+                0,
+                dp(8)
+        );
+
         root.addView(card, params);
     }
 
@@ -336,6 +669,25 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private void showMessage(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(
+                this,
+                text,
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+    // =========================================================
+    // DP
+    // =========================================================
+
+    private int dp(int value) {
+
+        return (int) (
+                value *
+                getResources()
+                        .getDisplayMetrics()
+                        .density
+        );
     }
 }
