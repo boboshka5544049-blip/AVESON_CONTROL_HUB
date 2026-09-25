@@ -173,13 +173,16 @@ public class MainActivity extends Activity {
         card.setBackground(bg);
 
         LinearLayout.LayoutParams p =
-                new LinearLayout.LayoutParams(-1,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                new LinearLayout.LayoutParams(
+                        -1,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
 
         p.setMargins(0, dp(7), 0, dp(7));
         card.setLayoutParams(p);
 
         TextView titleView = new TextView(this);
+
         titleView.setText(title);
         titleView.setTextColor(Color.WHITE);
         titleView.setTextSize(17);
@@ -222,6 +225,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("AVESON CENTRAL"));
+
         layout.addView(createSubtitle(
                 "Global Management & Control Platform"
         ));
@@ -259,6 +263,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("☰ MENU"));
+
         layout.addView(createSubtitle(
                 "AVESON Central Global Management"
         ));
@@ -296,6 +301,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("📊 ANALYTICS"));
+
         layout.addView(createSubtitle(
                 "AVESON Central Analytics"
         ));
@@ -387,6 +393,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("💰 ROYALTY CONTROL"));
+
         layout.addView(createSubtitle(
                 "Revenue & Royalty Management"
         ));
@@ -505,6 +512,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("🔐 SECURITY"));
+
         layout.addView(createSubtitle(
                 "AVESON Central Security"
         ));
@@ -543,7 +551,9 @@ public class MainActivity extends Activity {
 
         LinearLayout layout = createRoot();
 
-        layout.addView(createTitle("👤 ACCESS CONTROL"));
+        layout.addView(createTitle(
+                "👤 ACCESS CONTROL"
+        ));
 
         addButton(layout, "Administrator Access",
                 v -> showAccessRole("Administrator"));
@@ -751,7 +761,7 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
-    // PARAMETERS MAIN
+    // PARAMETERS
     // =========================================================
 
     private void showParameters() {
@@ -759,6 +769,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("⚙️ PARAMETERS"));
+
         layout.addView(createSubtitle(
                 "AVESON Central Parameters"
         ));
@@ -793,6 +804,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("🌐 LANGUAGES"));
+
         layout.addView(createSubtitle(
                 "Language Management"
         ));
@@ -820,33 +832,26 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("SYSTEM LANGUAGE"));
+
         layout.addView(createSubtitle(
                 "Select AVESON Central system language"
         ));
 
-        addButton(layout, "English",
-                v -> showMessage("English selected"));
+        String[] languages = {
+                "English",
+                "Uzbek",
+                "Russian",
+                "Turkish",
+                "Spanish",
+                "French",
+                "German",
+                "Arabic"
+        };
 
-        addButton(layout, "Uzbek",
-                v -> showMessage("Uzbek selected"));
-
-        addButton(layout, "Russian",
-                v -> showMessage("Russian selected"));
-
-        addButton(layout, "Turkish",
-                v -> showMessage("Turkish selected"));
-
-        addButton(layout, "Spanish",
-                v -> showMessage("Spanish selected"));
-
-        addButton(layout, "French",
-                v -> showMessage("French selected"));
-
-        addButton(layout, "German",
-                v -> showMessage("German selected"));
-
-        addButton(layout, "Arabic",
-                v -> showMessage("Arabic selected"));
+        for (String language : languages) {
+            addButton(layout, language,
+                    v -> showMessage(language + " selected"));
+        }
 
         addBackButton(layout,
                 v -> showLanguages());
@@ -914,7 +919,9 @@ public class MainActivity extends Activity {
 
         LinearLayout layout = createRoot();
 
-        layout.addView(createTitle("LANGUAGE MANAGEMENT"));
+        layout.addView(createTitle(
+                "LANGUAGE MANAGEMENT"
+        ));
 
         addButton(layout, "Add Language",
                 v -> showMessage("Add Language"));
@@ -946,6 +953,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("🎨 APPEARANCE"));
+
         layout.addView(createSubtitle(
                 "Interface Appearance Settings"
         ));
@@ -1223,6 +1231,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("🎵 MUSIC PARAMETERS"));
+
         layout.addView(createSubtitle(
                 "Music Standards & Configuration"
         ));
@@ -1256,6 +1265,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = createRoot();
 
         layout.addView(createTitle("AUDIO STANDARDS"));
+
         layout.addView(createSubtitle(
                 "AVESON Music Audio Requirements"
         ));
@@ -1267,4 +1277,610 @@ public class MainActivity extends Activity {
         addInfo(card, "Preferred Quality", "Lossless");
         addInfo(card, "Sample Rate", "44.1 kHz / 48 kHz");
         addInfo(card, "Bit Depth", "24-bit preferred");
-        addInfo(card, "MP3", "Supported
+        addInfo(card, "MP3", "Supported where applicable");
+
+        layout.addView(card);
+
+        addButton(layout, "WAV Standards",
+                v -> showSettingsPage(
+                        "WAV STANDARDS",
+                        new String[]{
+                                "WAV Format",
+                                "Lossless Audio",
+                                "44.1 kHz",
+                                "48 kHz",
+                                "24-bit",
+                                "Audio Validation"
+                        },
+                        () -> showAudioStandards()
+                ));
+
+        addButton(layout, "MP3 Standards",
+                v -> showSettingsPage(
+                        "MP3 STANDARDS",
+                        new String[]{
+                                "MP3 Format",
+                                "Supported Bitrates",
+                                "Audio Quality",
+                                "Encoding Rules",
+                                "MP3 Validation"
+                        },
+                        () -> showAudioStandards()
+                ));
+
+        addButton(layout, "Sample Rate",
+                v -> showMessage("Sample Rate Settings"));
+
+        addButton(layout, "Bit Depth",
+                v -> showMessage("Bit Depth Settings"));
+
+        addButton(layout, "Audio Validation",
+                v -> showMessage("Audio Validation"));
+
+        addBackButton(layout,
+                v -> showMusicParameters());
+
+        setScreen(layout);
+    }
+
+    private void showCoverStandards() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle("COVER STANDARDS"));
+
+        LinearLayout card =
+                createCard("AVESON COVER STANDARD");
+
+        addInfo(card, "Minimum Size", "3000 × 3000 px");
+        addInfo(card, "Recommended", "3000 × 3000 px or larger");
+        addInfo(card, "Format", "JPG / PNG");
+        addInfo(card, "Quality", "High Resolution");
+        addInfo(card, "Content", "Genre appropriate");
+
+        layout.addView(card);
+
+        addButton(layout, "Cover Dimensions",
+                v -> showMessage("Cover Dimensions"));
+
+        addButton(layout, "Cover Format",
+                v -> showMessage("Cover Format"));
+
+        addButton(layout, "Cover Quality",
+                v -> showMessage("Cover Quality"));
+
+        addButton(layout, "Cover Validation",
+                v -> showMessage("Cover Validation"));
+
+        addButton(layout, "Content Rules",
+                v -> showMessage("Cover Content Rules"));
+
+        addBackButton(layout,
+                v -> showMusicParameters());
+
+        setScreen(layout);
+    }
+
+    private void showReleaseStandards() {
+
+        showSettingsPage(
+                "RELEASE STANDARDS",
+                new String[]{
+                        "Release Title",
+                        "Artist Name",
+                        "Release Type",
+                        "Release Date",
+                        "Copyright Information",
+                        "Label Information",
+                        "Genre",
+                        "Language",
+                        "Explicit Content",
+                        "Release Validation"
+                },
+                () -> showMusicParameters()
+        );
+    }
+
+    private void showMetadataStandards() {
+
+        showSettingsPage(
+                "METADATA STANDARDS",
+                new String[]{
+                        "Track Title",
+                        "Artist Metadata",
+                        "Album Metadata",
+                        "Genre Metadata",
+                        "Copyright Metadata",
+                        "ISRC",
+                        "UPC / EAN",
+                        "Composer",
+                        "Producer",
+                        "Metadata Validation"
+                },
+                () -> showMusicParameters()
+        );
+    }
+
+    private void showMusicFileFormats() {
+
+        showSettingsPage(
+                "MUSIC FILE FORMATS",
+                new String[]{
+                        "WAV",
+                        "FLAC",
+                        "MP3",
+                        "AAC",
+                        "Supported Formats",
+                        "Format Validation"
+                },
+                () -> showMusicParameters()
+        );
+    }
+
+    private void showMusicQuality() {
+
+        showSettingsPage(
+                "MUSIC QUALITY",
+                new String[]{
+                        "Standard Quality",
+                        "High Quality",
+                        "Lossless Quality",
+                        "Master Quality",
+                        "Quality Validation"
+                },
+                () -> showMusicParameters()
+        );
+    }
+
+    // =========================================================
+    // DISTRIBUTION PARAMETERS
+    // =========================================================
+
+    private void showDistributionParameters() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle(
+                "🌍 DISTRIBUTION PARAMETERS"
+        ));
+
+        layout.addView(createSubtitle(
+                "Distribution Standards & Configuration"
+        ));
+
+        addButton(layout, "Distribution Standards",
+                v -> showDistributionStandards());
+
+        addButton(layout, "Platform Settings",
+                v -> showPlatformSettings());
+
+        addButton(layout, "Release Delivery Settings",
+                v -> showReleaseDeliverySettings());
+
+        addButton(layout, "Territory Settings",
+                v -> showTerritorySettings());
+
+        addButton(layout, "Distribution Formats",
+                v -> showDistributionFormats());
+
+        addButton(layout, "Delivery Rules",
+                v -> showDeliveryRules());
+
+        addBackButton(layout,
+                v -> showParameters());
+
+        setScreen(layout);
+    }
+
+    private void showDistributionStandards() {
+
+        showSettingsPage(
+                "DISTRIBUTION STANDARDS",
+                new String[]{
+                        "Release Requirements",
+                        "Audio Requirements",
+                        "Cover Requirements",
+                        "Metadata Requirements",
+                        "Copyright Requirements",
+                        "Artist Requirements",
+                        "Content Requirements",
+                        "Validation Rules"
+                },
+                () -> showDistributionParameters()
+        );
+    }
+
+    private void showPlatformSettings() {
+
+        showSettingsPage(
+                "PLATFORM SETTINGS",
+                new String[]{
+                        "Platform List",
+                        "Platform Connections",
+                        "Platform Status",
+                        "Platform Credentials",
+                        "Platform Rules",
+                        "Platform Mapping"
+                },
+                () -> showDistributionParameters()
+        );
+    }
+
+    private void showReleaseDeliverySettings() {
+
+        showSettingsPage(
+                "RELEASE DELIVERY SETTINGS",
+                new String[]{
+                        "Automatic Delivery",
+                        "Manual Delivery",
+                        "Delivery Schedule",
+                        "Delivery Priority",
+                        "Delivery Retry",
+                        "Delivery Status",
+                        "Delivery Confirmation"
+                },
+                () -> showDistributionParameters()
+        );
+    }
+
+    private void showTerritorySettings() {
+
+        showSettingsPage(
+                "TERRITORY SETTINGS",
+                new String[]{
+                        "Worldwide",
+                        "Country Management",
+                        "Territory Groups",
+                        "Restricted Territories",
+                        "Territory Rules"
+                },
+                () -> showDistributionParameters()
+        );
+    }
+
+    private void showDistributionFormats() {
+
+        showSettingsPage(
+                "DISTRIBUTION FORMATS",
+                new String[]{
+                        "Audio Distribution",
+                        "Video Distribution",
+                        "Streaming Format",
+                        "Download Format",
+                        "Master Format",
+                        "Platform Format Mapping"
+                },
+                () -> showDistributionParameters()
+        );
+    }
+
+    private void showDeliveryRules() {
+
+        showSettingsPage(
+                "DELIVERY RULES",
+                new String[]{
+                        "Automatic Approval",
+                        "Manual Approval",
+                        "Quality Check",
+                        "Metadata Check",
+                        "Copyright Check",
+                        "Platform Check",
+                        "Delivery Validation",
+                        "Failure Handling"
+                },
+                () -> showDistributionParameters()
+        );
+    }
+
+    // =========================================================
+    // SYSTEM STATUS
+    // =========================================================
+
+    private void showSystemStatus() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle(
+                "🛡️ SYSTEM STATUS"
+        ));
+
+        layout.addView(createSubtitle(
+                "AVESON Central System Status"
+        ));
+
+        LinearLayout card =
+                createCard("SYSTEM");
+
+        addInfo(card, "Central System", "ONLINE");
+        addInfo(card, "Application", "RUNNING");
+        addInfo(card, "Database", "NOT CONNECTED");
+        addInfo(card, "Backend", "NOT CONNECTED");
+        addInfo(card, "HTTPS", "NOT CONFIGURED");
+        addInfo(card, "API", "NOT CONNECTED");
+
+        layout.addView(card);
+
+        addBackButton(layout,
+                v -> showGlobalMenu());
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // CENTRAL INFO
+    // =========================================================
+
+    private void showCentralInfo() {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle(
+                "ℹ️ AVESON CENTRAL INFO"
+        ));
+
+        layout.addView(createSubtitle(
+                "Global Music & Media Management"
+        ));
+
+        LinearLayout card =
+                createCard("AVESON CENTRAL");
+
+        addInfo(card, "System", "AVESON Central");
+        addInfo(card, "Platform", "Global Music & Media");
+        addInfo(card, "Management", "Centralized");
+        addInfo(card, "Version", "1.0");
+        addInfo(card, "Backend", "Not Connected");
+        addInfo(card, "Database", "Not Connected");
+
+        layout.addView(card);
+
+        addBackButton(layout,
+                v -> showGlobalMenu());
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // ROOMS
+    // =========================================================
+
+    private void openRoom(String room) {
+
+        LinearLayout layout = createRoot();
+
+        String title = "";
+        String subtitle = "";
+
+        if (room.equals("ARTIST")) {
+            title = "🎵 AVESON ARTIST CONTROL";
+            subtitle = "Artist Management";
+        } else if (room.equals("MUSIC")) {
+            title = "🎼 AVESON MUSIC CONTROL";
+            subtitle = "Music Management";
+        } else if (room.equals("DISTRIBUTION")) {
+            title = "🌍 AVESON DISTRIBUTION CONTROL";
+            subtitle = "Distribution Management";
+        } else if (room.equals("STUDIO")) {
+            title = "🎙️ AVESON STUDIO CONTROL";
+            subtitle = "Studio Management";
+        } else if (room.equals("MAGAZINE")) {
+            title = "📰 AVESON MAGAZINE CONTROL";
+            subtitle = "Magazine Management";
+        } else if (room.equals("FILMS")) {
+            title = "🎬 AVESON FILMS";
+            subtitle = "Film Management";
+        }
+
+        layout.addView(createTitle(title));
+        layout.addView(createSubtitle(subtitle));
+
+        if (room.equals("ARTIST")) {
+
+            addButton(layout, "Artists",
+                    v -> showMessage("Artists"));
+
+            addButton(layout, "Artist Submissions",
+                    v -> showMessage("Artist Submissions"));
+
+            addButton(layout, "Release Review",
+                    v -> showMessage("Release Review"));
+
+            addButton(layout, "Artist Analytics",
+                    v -> showMessage("Artist Analytics"));
+
+            addButton(layout, "Artist Settings",
+                    v -> showMessage("Artist Settings"));
+
+        } else if (room.equals("MUSIC")) {
+
+            addButton(layout, "Music Catalog",
+                    v -> showMessage("Music Catalog"));
+
+            addButton(layout, "Albums & Releases",
+                    v -> showMessage("Albums & Releases"));
+
+            addButton(layout, "Playlists",
+                    v -> showMessage("Playlists"));
+
+            addButton(layout, "Music Users",
+                    v -> showMessage("Music Users"));
+
+            addButton(layout, "Music Analytics",
+                    v -> showMessage("Music Analytics"));
+
+            addButton(layout, "Music Settings",
+                    v -> showMessage("Music Settings"));
+
+        } else if (room.equals("DISTRIBUTION")) {
+
+            addButton(layout, "Distribution Platforms",
+                    v -> showMessage("Distribution Platforms"));
+
+            addButton(layout, "Distribution Releases",
+                    v -> showMessage("Distribution Releases"));
+
+            addButton(layout, "Release Delivery",
+                    v -> showMessage("Release Delivery"));
+
+            addButton(layout, "Distribution Analytics",
+                    v -> showMessage("Distribution Analytics"));
+
+            addButton(layout, "Distribution Settings",
+                    v -> showMessage("Distribution Settings"));
+
+        } else if (room.equals("STUDIO")) {
+
+            addButton(layout, "Studio Projects",
+                    v -> showMessage("Studio Projects"));
+
+            addButton(layout, "Audio Production",
+                    v -> showMessage("Audio Production"));
+
+            addButton(layout, "Sessions",
+                    v -> showMessage("Sessions"));
+
+            addButton(layout, "Studio Files",
+                    v -> showMessage("Studio Files"));
+
+            addButton(layout, "Studio Analytics",
+                    v -> showMessage("Studio Analytics"));
+
+            addButton(layout, "Studio Settings",
+                    v -> showMessage("Studio Settings"));
+
+        } else if (room.equals("MAGAZINE")) {
+
+            addButton(layout, "Articles",
+                    v -> showMessage("Articles"));
+
+            addButton(layout, "Editorial",
+                    v -> showMessage("Editorial"));
+
+            addButton(layout, "Media",
+                    v -> showMessage("Media"));
+
+            addButton(layout, "Writers",
+                    v -> showMessage("Writers"));
+
+            addButton(layout, "Magazine Analytics",
+                    v -> showMessage("Magazine Analytics"));
+
+            addButton(layout, "Magazine Settings",
+                    v -> showMessage("Magazine Settings"));
+
+        } else if (room.equals("FILMS")) {
+
+            addButton(layout, "Projects",
+                    v -> showMessage("Projects"));
+
+            addButton(layout, "Videos",
+                    v -> showMessage("Videos"));
+
+            addButton(layout, "Productions",
+                    v -> showMessage("Productions"));
+
+            addButton(layout, "Film Library",
+                    v -> showMessage("Film Library"));
+
+            addButton(layout, "Film Analytics",
+                    v -> showMessage("Film Analytics"));
+
+            addButton(layout, "Film Settings",
+                    v -> showMessage("Film Settings"));
+        }
+
+        addBackButton(layout,
+                v -> showCentralHome());
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // GENERIC SETTINGS PAGE
+    // =========================================================
+
+    private void showSettingsPage(
+            String title,
+            String[] items,
+            final Runnable backAction
+    ) {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle(title));
+
+        for (String item : items) {
+
+            addButton(layout, item,
+                    v -> showMessage(item));
+        }
+
+        addBackButton(layout,
+                v -> backAction.run());
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // SIMPLE LIST
+    // =========================================================
+
+    private void showSimpleList(
+            String title,
+            String[] items,
+            final Runnable backAction
+    ) {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle(title));
+
+        for (String item : items) {
+
+            addButton(layout, item,
+                    v -> showMessage(item));
+        }
+
+        addBackButton(layout,
+                v -> backAction.run());
+
+        setScreen(layout);
+    }
+
+    // =========================================================
+    // MESSAGE / MODULE PAGE
+    // =========================================================
+
+    private void showMessage(String name) {
+
+        LinearLayout layout = createRoot();
+
+        layout.addView(createTitle(name));
+
+        layout.addView(createSubtitle(
+                "AVESON Central Module"
+        ));
+
+        LinearLayout card =
+                createCard("MODULE");
+
+        addInfo(card, "Status",
+                "Ready for configuration");
+
+        addInfo(card, "Database",
+                "Not connected");
+
+        addInfo(card, "Backend",
+                "Not connected");
+
+        addInfo(card, "API",
+                "Not connected");
+
+        layout.addView(card);
+
+        addBackButton(layout,
+                v -> showCentralHome());
+
+        setScreen(layout);
+    }
+            }
