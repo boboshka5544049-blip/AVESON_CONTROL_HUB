@@ -1,23 +1,17 @@
 package com.aveson.central;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.app.Activity;
-
 public class MainActivity extends Activity {
-
-    // =========================
-    // AVESON CENTRAL COLORS
-    // =========================
 
     private final int BG = Color.rgb(7, 7, 18);
     private final int CARD = Color.rgb(20, 17, 38);
@@ -37,29 +31,24 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private void showCentral() {
-
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
-        // MENU BUTTON
         TextView menu = createButton("☰  MENU");
 
         LinearLayout.LayoutParams menuParams =
                 new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
-                        dp(52)
+                        dp(44)
                 );
 
         menuParams.gravity = Gravity.START;
         menuParams.setMargins(0, dp(18), 0, dp(20));
 
         menu.setLayoutParams(menuParams);
-
         menu.setOnClickListener(v -> showMenu());
-
         root.addView(menu);
 
-        // TITLE
         TextView title = createTitle("AVESON CENTRAL");
         root.addView(title);
 
@@ -67,10 +56,6 @@ public class MainActivity extends Activity {
                 "CONTROL CENTER\n\nGLOBAL MUSIC ECOSYSTEM"
         );
         root.addView(subtitle);
-
-        // =====================================================
-        // SIX CENTRAL ROOMS
-        // =====================================================
 
         addRoom(
                 root,
@@ -115,7 +100,6 @@ public class MainActivity extends Activity {
         );
 
         scrollView.addView(root);
-
         setContentView(scrollView);
     }
 
@@ -124,14 +108,11 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private void showMenu() {
-
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
         TextView back = createButton("←  BACK");
-
         back.setOnClickListener(v -> showCentral());
-
         root.addView(back);
 
         TextView title = createTitle("☰  AVESON CENTRAL MENU");
@@ -142,7 +123,6 @@ public class MainActivity extends Activity {
         );
         root.addView(subtitle);
 
-        // ANALYTICS
         addMenuItem(
                 root,
                 "📊",
@@ -150,7 +130,6 @@ public class MainActivity extends Activity {
                 "Central system statistics"
         );
 
-        // ROYALTY
         addMenuItem(
                 root,
                 "💰",
@@ -158,7 +137,6 @@ public class MainActivity extends Activity {
                 "Royalty and financial management"
         );
 
-        // SECURITY
         addMenuItem(
                 root,
                 "🔐",
@@ -166,7 +144,6 @@ public class MainActivity extends Activity {
                 "System security and access control"
         );
 
-        // PARAMETERS
         addMenuItem(
                 root,
                 "⚙️",
@@ -174,7 +151,6 @@ public class MainActivity extends Activity {
                 "Central system parameters"
         );
 
-        // SYSTEM STATUS
         addMenuItem(
                 root,
                 "🛡️",
@@ -182,7 +158,6 @@ public class MainActivity extends Activity {
                 "AVESON Central system status"
         );
 
-        // INFO
         addMenuItem(
                 root,
                 "ℹ️",
@@ -191,13 +166,8 @@ public class MainActivity extends Activity {
         );
 
         scrollView.addView(root);
-
         setContentView(scrollView);
     }
-
-    // =========================================================
-    // CENTRAL MENU ITEM
-    // =========================================================
 
     private void addMenuItem(
             LinearLayout root,
@@ -205,14 +175,12 @@ public class MainActivity extends Activity {
             String name,
             String description
     ) {
-
         LinearLayout card = createCard();
 
         TextView iconView = new TextView(this);
         iconView.setText(icon);
         iconView.setTextSize(27);
         iconView.setTextColor(Color.WHITE);
-
         card.addView(iconView);
 
         TextView title = new TextView(this);
@@ -227,16 +195,20 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        titleParams.setMargins(0, dp(6), 0, dp(2));
-        title.setLayoutParams(titleParams);
+        titleParams.setMargins(
+                0,
+                dp(6),
+                0,
+                dp(2)
+        );
 
+        title.setLayoutParams(titleParams);
         card.addView(title);
 
         TextView desc = new TextView(this);
         desc.setText(description);
         desc.setTextSize(13);
         desc.setTextColor(TEXT_SECONDARY);
-
         card.addView(desc);
 
         card.setOnClickListener(v -> openMenuItem(name));
@@ -244,33 +216,24 @@ public class MainActivity extends Activity {
         root.addView(card);
     }
 
-    // =========================================================
-    // OPEN CENTRAL MENU ITEM
-    // =========================================================
-
     private void openMenuItem(String name) {
 
         if (name.equals("ANALYTICS")) {
             showAnalytics();
-        }
 
-        else if (name.equals("ROYALTY CONTROL")) {
+        } else if (name.equals("ROYALTY CONTROL")) {
             showRoyaltyControl();
-        }
 
-        else if (name.equals("SECURITY")) {
+        } else if (name.equals("SECURITY")) {
             showSecurity();
-        }
 
-        else if (name.equals("PARAMETERS")) {
+        } else if (name.equals("PARAMETERS")) {
             showParameters();
-        }
 
-        else if (name.equals("SYSTEM STATUS")) {
+        } else if (name.equals("SYSTEM STATUS")) {
             showSystemStatus();
-        }
 
-        else if (name.equals("AVESON CENTRAL INFO")) {
+        } else if (name.equals("AVESON CENTRAL INFO")) {
             showCentralInfo();
         }
     }
@@ -280,20 +243,25 @@ public class MainActivity extends Activity {
     // =========================================================
 
     private void showAnalytics() {
-
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
         TextView back = createButton("←  BACK");
-
         back.setOnClickListener(v -> showMenu());
-
         root.addView(back);
 
         root.addView(createTitle("📊 ANALYTICS"));
 
         root.addView(createSubtitle(
                 "AVESON CENTRAL SYSTEM ANALYTICS"
+        ));
+
+        // -----------------------------------------------------
+        // GENERAL ANALYTICS
+        // -----------------------------------------------------
+
+        root.addView(createSectionTitle(
+                "📊 GENERAL ANALYTICS"
         ));
 
         addAnalyticsCard(
@@ -338,6 +306,150 @@ public class MainActivity extends Activity {
                 "0"
         );
 
+        // -----------------------------------------------------
+        // AVESON USERS
+        // -----------------------------------------------------
+
+        root.addView(createSectionTitle(
+                "👥 AVESON USERS"
+        ));
+
+        addAnalyticsCard(
+                root,
+                "🎵",
+                "AVESON ARTIST",
+                "0 Artists"
+        );
+
+        addAnalyticsCard(
+                root,
+                "🌍",
+                "AVESON DISTRIBUTION",
+                "0 Users"
+        );
+
+        addAnalyticsCard(
+                root,
+                "🎬",
+                "AVESON FILMS",
+                "0 Users"
+        );
+
+        addAnalyticsCard(
+                root,
+                "🎙️",
+                "AVESON STUDIO",
+                "0 Users"
+        );
+
+        addAnalyticsCard(
+                root,
+                "📰",
+                "AVESON MAGAZINE",
+                "0 Users"
+        );
+
+        addAnalyticsCard(
+                root,
+                "🎼",
+                "AVESON MUSIC",
+                "0 Users"
+        );
+
+        addAnalyticsCard(
+                root,
+                "👥",
+                "TOTAL USERS",
+                "0 Users"
+        );
+
+        // -----------------------------------------------------
+        // REVENUE OVERVIEW
+        // -----------------------------------------------------
+
+        root.addView(createSectionTitle(
+                "💰 REVENUE OVERVIEW"
+        ));
+
+        addAnalyticsCard(
+                root,
+                "💵",
+                "TOTAL REVENUE",
+                "$0"
+        );
+
+        addAnalyticsCard(
+                root,
+                "📈",
+                "REVENUE GROWTH",
+                "0%"
+        );
+
+        // -----------------------------------------------------
+        // REVENUE SOURCES
+        // -----------------------------------------------------
+
+        root.addView(createSectionTitle(
+                "💰 REVENUE SOURCES"
+        ));
+
+        addAnalyticsCard(
+                root,
+                "🎵",
+                "MUSIC REVENUE",
+                "$0"
+        );
+
+        addAnalyticsCard(
+                root,
+                "🌍",
+                "DISTRIBUTION REVENUE",
+                "$0"
+        );
+
+        addAnalyticsCard(
+                root,
+                "🎬",
+                "FILMS REVENUE",
+                "$0"
+        );
+
+        addAnalyticsCard(
+                root,
+                "🎙️",
+                "STUDIO REVENUE",
+                "$0"
+        );
+
+        addAnalyticsCard(
+                root,
+                "📰",
+                "MAGAZINE REVENUE",
+                "$0"
+        );
+
+        addAnalyticsCard(
+                root,
+                "💳",
+                "OTHER REVENUE",
+                "$0"
+        );
+
+        addAnalyticsCard(
+                root,
+                "💰",
+                "TOTAL REVENUE",
+                "$0"
+        );
+
+        // -----------------------------------------------------
+        // STATISTICS
+        // -----------------------------------------------------
+
+        root.addView(createSectionTitle(
+                "📈 STATISTICS"
+        ));
+
         addAnalyticsCard(
                 root,
                 "📈",
@@ -353,7 +465,6 @@ public class MainActivity extends Activity {
         );
 
         scrollView.addView(root);
-
         setContentView(scrollView);
     }
 
@@ -363,7 +474,6 @@ public class MainActivity extends Activity {
             String name,
             String value
     ) {
-
         LinearLayout card = createCard();
 
         TextView iconView = new TextView(this);
@@ -384,9 +494,14 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        nameParams.setMargins(0, dp(6), 0, dp(2));
-        nameView.setLayoutParams(nameParams);
+        nameParams.setMargins(
+                0,
+                dp(6),
+                0,
+                dp(2)
+        );
 
+        nameView.setLayoutParams(nameParams);
         card.addView(nameView);
 
         TextView valueView = new TextView(this);
@@ -398,6 +513,33 @@ public class MainActivity extends Activity {
         card.addView(valueView);
 
         root.addView(card);
+    }
+
+    private TextView createSectionTitle(String text) {
+        TextView title = new TextView(this);
+
+        title.setText(text);
+        title.setTextSize(19);
+        title.setTypeface(null, Typeface.BOLD);
+        title.setTextColor(Color.WHITE);
+        title.setGravity(Gravity.START);
+
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        -1,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+
+        params.setMargins(
+                0,
+                dp(22),
+                0,
+                dp(6)
+        );
+
+        title.setLayoutParams(params);
+
+        return title;
     }
 
     // =========================================================
@@ -487,12 +629,12 @@ public class MainActivity extends Activity {
         LinearLayout root = createRoot();
 
         TextView back = createButton("←  BACK");
-
         back.setOnClickListener(v -> showMenu());
-
         root.addView(back);
 
-        root.addView(createTitle("ℹ️ AVESON CENTRAL INFO"));
+        root.addView(createTitle(
+                "ℹ️ AVESON CENTRAL INFO"
+        ));
 
         root.addView(createSubtitle(
                 "AVESON GLOBAL MUSIC ECOSYSTEM"
@@ -529,7 +671,6 @@ public class MainActivity extends Activity {
         );
 
         scrollView.addView(root);
-
         setContentView(scrollView);
     }
 
@@ -538,7 +679,6 @@ public class MainActivity extends Activity {
             String title,
             String value
     ) {
-
         LinearLayout card = createCard();
 
         TextView titleView = new TextView(this);
@@ -560,7 +700,13 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        valueParams.setMargins(0, dp(5), 0, 0);
+        valueParams.setMargins(
+                0,
+                dp(5),
+                0,
+                0
+        );
+
         valueView.setLayoutParams(valueParams);
 
         card.addView(valueView);
@@ -569,7 +715,7 @@ public class MainActivity extends Activity {
     }
 
     // =========================================================
-    // GENERIC MENU SECTION
+    // CENTRAL MENU SECTION
     // =========================================================
 
     private void showMenuSection(
@@ -577,14 +723,11 @@ public class MainActivity extends Activity {
             String subtitleText,
             String[] items
     ) {
-
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
         TextView back = createButton("←  BACK");
-
         back.setOnClickListener(v -> showMenu());
-
         root.addView(back);
 
         root.addView(createTitle(titleText));
@@ -596,7 +739,6 @@ public class MainActivity extends Activity {
             LinearLayout card = createCard();
 
             TextView text = new TextView(this);
-
             text.setText(item);
             text.setTextSize(16);
             text.setTypeface(null, Typeface.BOLD);
@@ -609,9 +751,7 @@ public class MainActivity extends Activity {
 
                 if (item.equals("🌐 LANGUAGES")) {
                     showLanguages();
-                }
-
-                else {
+                } else {
                     showMessage(item);
                 }
             });
@@ -620,7 +760,6 @@ public class MainActivity extends Activity {
         }
 
         scrollView.addView(root);
-
         setContentView(scrollView);
     }
 
@@ -634,12 +773,12 @@ public class MainActivity extends Activity {
         LinearLayout root = createRoot();
 
         TextView back = createButton("←  BACK");
-
         back.setOnClickListener(v -> showParameters());
-
         root.addView(back);
 
-        root.addView(createTitle("🌐 LANGUAGES"));
+        root.addView(createTitle(
+                "🌐 LANGUAGES"
+        ));
 
         root.addView(createSubtitle(
                 "SELECT AVESON CENTRAL LANGUAGE"
@@ -657,7 +796,6 @@ public class MainActivity extends Activity {
         addLanguage(root, "한국어");
 
         scrollView.addView(root);
-
         setContentView(scrollView);
     }
 
@@ -665,11 +803,9 @@ public class MainActivity extends Activity {
             LinearLayout root,
             String language
     ) {
-
         LinearLayout card = createCard();
 
         TextView text = new TextView(this);
-
         text.setText("🌐  " + language);
         text.setTextSize(16);
         text.setTypeface(null, Typeface.BOLD);
@@ -677,20 +813,19 @@ public class MainActivity extends Activity {
 
         card.addView(text);
 
-        card.setOnClickListener(v -> {
-
-            Toast.makeText(
-                    this,
-                    language + " selected",
-                    Toast.LENGTH_SHORT
-            ).show();
-        });
+        card.setOnClickListener(v ->
+                Toast.makeText(
+                        this,
+                        language + " selected",
+                        Toast.LENGTH_SHORT
+                ).show()
+        );
 
         root.addView(card);
     }
 
     // =========================================================
-    // SIX ROOMS
+    // ROOMS
     // =========================================================
 
     private void addRoom(
@@ -699,7 +834,6 @@ public class MainActivity extends Activity {
             String name,
             String description
     ) {
-
         LinearLayout card = createCard();
 
         TextView iconView = new TextView(this);
@@ -721,7 +855,13 @@ public class MainActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                 );
 
-        titleParams.setMargins(0, dp(6), 0, dp(2));
+        titleParams.setMargins(
+                0,
+                dp(6),
+                0,
+                dp(2)
+        );
+
         title.setLayoutParams(titleParams);
 
         card.addView(title);
@@ -733,14 +873,12 @@ public class MainActivity extends Activity {
 
         card.addView(desc);
 
-        card.setOnClickListener(v -> openRoom(name));
+        card.setOnClickListener(v ->
+                openRoom(name)
+        );
 
         root.addView(card);
     }
-
-    // =========================================================
-    // OPEN ROOM
-    // =========================================================
 
     private void openRoom(String name) {
 
@@ -757,9 +895,8 @@ public class MainActivity extends Activity {
                             "⚙️ Artist Settings"
                     }
             );
-        }
 
-        else if (name.equals("AVESON MUSIC CONTROL")) {
+        } else if (name.equals("AVESON MUSIC CONTROL")) {
 
             showRoomMenu(
                     "🎼 AVESON MUSIC CONTROL",
@@ -773,9 +910,8 @@ public class MainActivity extends Activity {
                             "⚙️ Music Settings"
                     }
             );
-        }
 
-        else if (name.equals("AVESON DISTRIBUTION CONTROL")) {
+        } else if (name.equals("AVESON DISTRIBUTION CONTROL")) {
 
             showRoomMenu(
                     "🌍 AVESON DISTRIBUTION CONTROL",
@@ -788,9 +924,8 @@ public class MainActivity extends Activity {
                             "⚙️ Distribution Settings"
                     }
             );
-        }
 
-        else if (name.equals("AVESON STUDIO CONTROL")) {
+        } else if (name.equals("AVESON STUDIO CONTROL")) {
 
             showRoomMenu(
                     "🎙️ AVESON STUDIO CONTROL",
@@ -804,9 +939,8 @@ public class MainActivity extends Activity {
                             "⚙️ Studio Settings"
                     }
             );
-        }
 
-        else if (name.equals("AVESON MAGAZINE CONTROL")) {
+        } else if (name.equals("AVESON MAGAZINE CONTROL")) {
 
             showRoomMenu(
                     "📰 AVESON MAGAZINE CONTROL",
@@ -820,9 +954,8 @@ public class MainActivity extends Activity {
                             "⚙️ Magazine Settings"
                     }
             );
-        }
 
-        else if (name.equals("AVESON FILMS")) {
+        } else if (name.equals("AVESON FILMS")) {
 
             showRoomMenu(
                     "🎬 AVESON FILMS",
@@ -848,14 +981,11 @@ public class MainActivity extends Activity {
             String subtitleText,
             String[] items
     ) {
-
         ScrollView scrollView = createScrollView();
         LinearLayout root = createRoot();
 
         TextView back = createButton("←  BACK");
-
         back.setOnClickListener(v -> showCentral());
-
         root.addView(back);
 
         root.addView(createTitle(titleText));
@@ -867,7 +997,6 @@ public class MainActivity extends Activity {
             LinearLayout card = createCard();
 
             TextView text = new TextView(this);
-
             text.setText(item);
             text.setTextSize(16);
             text.setTypeface(null, Typeface.BOLD);
@@ -875,13 +1004,14 @@ public class MainActivity extends Activity {
 
             card.addView(text);
 
-            card.setOnClickListener(v -> showMessage(item));
+            card.setOnClickListener(v ->
+                    showMessage(item)
+            );
 
             root.addView(card);
         }
 
         scrollView.addView(root);
-
         setContentView(scrollView);
     }
 
@@ -893,7 +1023,9 @@ public class MainActivity extends Activity {
 
         LinearLayout card = new LinearLayout(this);
 
-        card.setOrientation(LinearLayout.VERTICAL);
+        card.setOrientation(
+                LinearLayout.VERTICAL
+        );
 
         card.setPadding(
                 dp(18),
@@ -907,7 +1039,10 @@ public class MainActivity extends Activity {
 
         background.setColor(CARD);
         background.setCornerRadius(dp(18));
-        background.setStroke(dp(1), BORDER);
+        background.setStroke(
+                dp(1),
+                BORDER
+        );
 
         card.setBackground(background);
 
@@ -1045,9 +1180,12 @@ public class MainActivity extends Activity {
 
     private LinearLayout createRoot() {
 
-        LinearLayout root = new LinearLayout(this);
+        LinearLayout root =
+                new LinearLayout(this);
 
-        root.setOrientation(LinearLayout.VERTICAL);
+        root.setOrientation(
+                LinearLayout.VERTICAL
+        );
 
         root.setPadding(
                 dp(24),
@@ -1067,11 +1205,11 @@ public class MainActivity extends Activity {
 
     private ScrollView createScrollView() {
 
-        ScrollView scrollView = new ScrollView(this);
+        ScrollView scrollView =
+                new ScrollView(this);
 
         scrollView.setFillViewport(true);
         scrollView.setClipToPadding(false);
-
         scrollView.setBackgroundColor(BG);
 
         scrollView.setPadding(
@@ -1105,9 +1243,9 @@ public class MainActivity extends Activity {
 
         return (int) (
                 value *
-                        getResources()
-                                .getDisplayMetrics()
-                                .density
+                getResources()
+                        .getDisplayMetrics()
+                        .density
         );
     }
-}
+    }
