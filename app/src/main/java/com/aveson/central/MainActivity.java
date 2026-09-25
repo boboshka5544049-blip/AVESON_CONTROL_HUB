@@ -961,14 +961,14 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
                         -1,
-                        dp(52)
+                        dp(44)
                 );
 
         params.setMargins(
                 0,
-                dp(7),
+                dp(12),
                 0,
-                dp(7)
+                dp(8)
         );
 
         button.setLayoutParams(params);
@@ -1051,7 +1051,7 @@ public class MainActivity extends Activity {
 
         root.setPadding(
                 dp(24),
-                dp(8),
+                dp(24),
                 dp(24),
                 dp(36)
         );
