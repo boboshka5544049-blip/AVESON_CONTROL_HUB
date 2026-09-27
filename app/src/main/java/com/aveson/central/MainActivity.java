@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class MainActivity {
+public class MainActivity extends Activity {
 
 private final int PURPLE = Color.rgb(185, 100, 255);
 private final int BLUE = Color.rgb(80, 150, 255);
