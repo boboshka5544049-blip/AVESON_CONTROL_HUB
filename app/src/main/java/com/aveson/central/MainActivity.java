@@ -274,10 +274,6 @@ private void showCentralHome() {
 
 LinearLayout layout = createRoot();
 
-// =====================================================
-// TOP MENU — LEFT
-// =====================================================
-
 Button menuButton = createButton("☰ MENU");
 
 LinearLayout.LayoutParams menuParams =
@@ -301,10 +297,6 @@ menuButton.setOnClickListener(
 v -> showGlobalMenu()
 );
 
-// =====================================================
-// AVESON CENTRAL HEADER
-// =====================================================
-
 TextView title =
 createTitle("AVESON CENTRAL");
 
@@ -325,10 +317,6 @@ dp(12)
 );
 
 layout.addView(subtitle);
-
-// =====================================================
-// CENTRAL SYSTEM ONLINE
-// =====================================================
 
 TextView online = new TextView(this);
 
@@ -381,10 +369,6 @@ online,
 onlineParams
 );
 
-// =====================================================
-// CONTROL CENTER
-// =====================================================
-
 TextView controlTitle =
 createTitle("CONTROL CENTER");
 
@@ -408,10 +392,6 @@ controlTitle,
 controlParams
 );
 
-// =====================================================
-// MAIN CONTROL CARDS
-// =====================================================
-
 addSectionButton(
 layout,
 "🎵 AVESON ARTIST CONTROL",
@@ -433,10 +413,6 @@ layout,
 v -> openRoom("DISTRIBUTION")
 );
 
-// =====================================================
-// SECONDARY CONTROL
-// =====================================================
-
 addButton(
 layout,
 "🎙️ AVESON STUDIO CONTROL",
@@ -454,10 +430,6 @@ layout,
 "🎬 AVESON FILMS",
 v -> openRoom("FILMS")
 );
-
-// =====================================================
-// BOTTOM INFO CARD
-// =====================================================
 
 LinearLayout infoCard =
 createCard("AVESON CENTRAL");
@@ -669,8 +641,8 @@ layout.addView(createSubtitle(
 LinearLayout total =
 createCard("💵 TOTAL REVENUE");
 
-addInfo(total, "Total Revenue", " 0.00");
-addInfo(total, "Previous Month Revenue", "$`0.00");
+addInfo(total, "Total Revenue", "0.00");
+addInfo(total, "Previous Month Revenue", "$0.00");
 addInfo(total, "Revenue Growth", "0%");
 
 layout.addView(total);
@@ -740,7 +712,7 @@ createCard("👤 ARTIST EARNINGS");
 
 addInfo(artist, "Total Artist Earnings", "$0.00");
 addInfo(artist, "Pending Artist Earnings", "$0.00");
-addInfo(artist, "Paid Artist Earnings", "`$0.00");
+addInfo(artist, "Paid Artist Earnings", "$0.00");
 addInfo(artist, "Artist Royalty Reports", "Available");
 
 layout.addView(artist);
@@ -751,19 +723,19 @@ createCard("🌍 DISTRIBUTION EARNINGS");
 addInfo(
 distributionEarnings,
 "Total Distribution Earnings",
-"$`0.00"
+"$0.00"
 );
 
 addInfo(
 distributionEarnings,
 "Pending Earnings",
-"`$0.00"
+"$0.00"
 );
 
 addInfo(
 distributionEarnings,
 "Paid Earnings",
-"$`0.00"
+"$0.00"
 );
 
 addInfo(
@@ -800,7 +772,7 @@ addInfo(sources, "Music", "$0.00");
 addInfo(sources, "Distribution", "$0.00");
 addInfo(sources, "Films", "$0.00");
 addInfo(sources, "Studio", "$0.00");
-addInfo(sources, "Magazine", "`$0.00");
+addInfo(sources, "Magazine", "$0.00");
 
 layout.addView(sources);
 
@@ -1233,8 +1205,7 @@ addButton(layout,
 "🌍 Distribution Parameters",
 v -> showDistributionParameters());
 
-addButton(layout,
-"← BACK",
+addButton(layout, "← BACK",
 v -> showGlobalMenu());
 
 setScreen(layout);
@@ -2316,10 +2287,6 @@ LinearLayout layout = createRoot();
 
 if (room.equals("ARTIST")) {
 
-// =====================================================
-// ARTIST CONTROL TOP BAR
-// =====================================================
-
 LinearLayout topBar =
 new LinearLayout(this);
 
@@ -2330,10 +2297,6 @@ LinearLayout.HORIZONTAL
 topBar.setGravity(
 Gravity.CENTER_VERTICAL
 );
-
-// =====================================================
-// BACK — LEFT
-// =====================================================
 
 Button backButton =
 createButton("← BACK");
@@ -2360,10 +2323,6 @@ backParams
 backButton.setOnClickListener(
 v -> showCentralHome()
 );
-
-// =====================================================
-// ARTIST MENU — RIGHT
-// =====================================================
 
 Button artistMenuButton =
 createButton("☰ MENU");
@@ -2393,10 +2352,6 @@ v -> showArtistMenu()
 
 layout.addView(topBar);
 
-// =====================================================
-// ARTIST CONTROL HEADER
-// =====================================================
-
 TextView artistTitle =
 createTitle(
 "AVESON ARTIST CONTROL"
@@ -2412,10 +2367,6 @@ createSubtitle(
 )
 );
 
-// =====================================================
-// ARTIST DASHBOARD
-// =====================================================
-
 addSectionButton(
 layout,
 "👤 ARTIST DASHBOARD",
@@ -2423,37 +2374,25 @@ layout,
 v -> showArtistDashboard()
 );
 
-// =====================================================
-// ARTIST SUBMISSIONS
-// =====================================================
-
 addSectionButton(
 layout,
 "🎵 ARTIST SUBMISSIONS",
 "Music submissions & review",
-v -> showMessage("Artist Submissions")
+v -> showArtistSubmissions()
 );
-
-// =====================================================
-// RELEASE MANAGEMENT
-// =====================================================
 
 addSectionButton(
 layout,
 "💿 RELEASE MANAGEMENT",
 "Releases & metadata",
-v -> showMessage("Release Management")
+v -> showReleaseManagement()
 );
-
-// =====================================================
-// VIDEO & CLIPS
-// =====================================================
 
 addSectionButton(
 layout,
 "🎬 VIDEO & CLIPS",
 "Video and clip management",
-v -> showMessage("Video & Clips")
+v -> showVideoClips()
 );
 
 }
@@ -2698,10 +2637,6 @@ createSubtitle(
 )
 );
 
-// =====================================================
-// TOTAL ARTISTS
-// =====================================================
-
 LinearLayout totalArtists =
 createCard("👤 TOTAL ARTISTS");
 
@@ -2724,10 +2659,6 @@ totalArtists,
 );
 
 layout.addView(totalArtists);
-
-// =====================================================
-// SUBMISSIONS
-// =====================================================
 
 LinearLayout submissions =
 createCard("🎵 SUBMISSIONS");
@@ -2758,10 +2689,6 @@ submissions,
 
 layout.addView(submissions);
 
-// =====================================================
-// RELEASES
-// =====================================================
-
 LinearLayout releases =
 createCard("💿 RELEASES");
 
@@ -2790,10 +2717,6 @@ releases,
 );
 
 layout.addView(releases);
-
-// =====================================================
-// VIDEO & CLIPS
-// =====================================================
 
 LinearLayout videos =
 createCard("🎬 VIDEO & CLIPS");
@@ -2824,10 +2747,6 @@ videos,
 
 layout.addView(videos);
 
-// =====================================================
-// RECENT ACTIVITY
-// =====================================================
-
 LinearLayout activity =
 createCard("🕐 RECENT ACTIVITY");
 
@@ -2857,9 +2776,542 @@ activity,
 
 layout.addView(activity);
 
-// =====================================================
-// BACK
-// =====================================================
+addButton(
+layout,
+"← BACK",
+v -> openRoom("ARTIST")
+);
+
+setScreen(layout);
+}
+
+// =========================================================
+// ARTIST SUBMISSIONS
+// =========================================================
+
+private void showArtistSubmissions() {
+
+LinearLayout layout = createRoot();
+
+layout.addView(
+createTitle("ARTIST SUBMISSIONS")
+);
+
+layout.addView(
+createSubtitle(
+"Music submissions & review management"
+)
+);
+
+LinearLayout overview =
+createCard("🎵 SUBMISSION OVERVIEW");
+
+addInfo(
+overview,
+"Total Submissions",
+"0"
+);
+
+addInfo(
+overview,
+"Pending Review",
+"0"
+);
+
+addInfo(
+overview,
+"Approved",
+"0"
+);
+
+addInfo(
+overview,
+"Rejected",
+"0"
+);
+
+addInfo(
+overview,
+"Needs Attention",
+"0"
+);
+
+layout.addView(overview);
+
+addButton(
+layout,
+"📥 All Submissions",
+v -> showMessage("All Artist Submissions")
+);
+
+addButton(
+layout,
+"⏳ Pending Review",
+v -> showMessage("Pending Artist Submissions")
+);
+
+addButton(
+layout,
+"✅ Approved",
+v -> showMessage("Approved Artist Submissions")
+);
+
+addButton(
+layout,
+"❌ Rejected",
+v -> showMessage("Rejected Artist Submissions")
+);
+
+LinearLayout review =
+createCard("🔎 SUBMISSION REVIEW");
+
+addInfo(
+review,
+"Audio Review",
+"Available"
+);
+
+addInfo(
+review,
+"Cover Review",
+"Available"
+);
+
+addInfo(
+review,
+"Metadata Review",
+"Available"
+);
+
+addInfo(
+review,
+"Copyright Review",
+"Available"
+);
+
+addInfo(
+review,
+"Quality Check",
+"Available"
+);
+
+layout.addView(review);
+
+addButton(
+layout,
+"🎧 Audio Review",
+v -> showMessage("Audio Review")
+);
+
+addButton(
+layout,
+"🖼️ Cover Review",
+v -> showMessage("Cover Review")
+);
+
+addButton(
+layout,
+"🏷️ Metadata Review",
+v -> showMessage("Metadata Review")
+);
+
+addButton(
+layout,
+"🛡️ Copyright Review",
+v -> showMessage("Copyright Review")
+);
+
+addButton(
+layout,
+"✅ Approve Submission",
+v -> showMessage("Approve Submission")
+);
+
+addButton(
+layout,
+"❌ Reject Submission",
+v -> showMessage("Reject Submission")
+);
+
+addButton(
+layout,
+"📝 Review Notes",
+v -> showMessage("Submission Review Notes")
+);
+
+addButton(
+layout,
+"← BACK",
+v -> openRoom("ARTIST")
+);
+
+setScreen(layout);
+}
+
+// =========================================================
+// RELEASE MANAGEMENT
+// =========================================================
+
+private void showReleaseManagement() {
+
+LinearLayout layout = createRoot();
+
+layout.addView(
+createTitle("RELEASE MANAGEMENT")
+);
+
+layout.addView(
+createSubtitle(
+"Release management & metadata"
+)
+);
+
+LinearLayout overview =
+createCard("💿 RELEASE OVERVIEW");
+
+addInfo(
+overview,
+"Total Releases",
+"0"
+);
+
+addInfo(
+overview,
+"Draft Releases",
+"0"
+);
+
+addInfo(
+overview,
+"Pending Releases",
+"0"
+);
+
+addInfo(
+overview,
+"Approved Releases",
+"0"
+);
+
+addInfo(
+overview,
+"Scheduled Releases",
+"0"
+);
+
+addInfo(
+overview,
+"Released",
+"0"
+);
+
+layout.addView(overview);
+
+addButton(
+layout,
+"📋 All Releases",
+v -> showMessage("All Releases")
+);
+
+addButton(
+layout,
+"📝 Draft Releases",
+v -> showMessage("Draft Releases")
+);
+
+addButton(
+layout,
+"⏳ Pending Releases",
+v -> showMessage("Pending Releases")
+);
+
+addButton(
+layout,
+"✅ Approved Releases",
+v -> showMessage("Approved Releases")
+);
+
+addButton(
+layout,
+"📅 Scheduled Releases",
+v -> showMessage("Scheduled Releases")
+);
+
+addButton(
+layout,
+"🚀 Released",
+v -> showMessage("Released Music")
+);
+
+LinearLayout metadata =
+createCard("🏷️ RELEASE METADATA");
+
+addInfo(
+metadata,
+"Release Title",
+"Available"
+);
+
+addInfo(
+metadata,
+"Artist Name",
+"Available"
+);
+
+addInfo(
+metadata,
+"Release Type",
+"Available"
+);
+
+addInfo(
+metadata,
+"Release Date",
+"Available"
+);
+
+addInfo(
+metadata,
+"Genre",
+"Available"
+);
+
+addInfo(
+metadata,
+"Language",
+"Available"
+);
+
+addInfo(
+metadata,
+"Copyright",
+"Available"
+);
+
+addInfo(
+metadata,
+"Label",
+"Available"
+);
+
+layout.addView(metadata);
+
+addButton(
+layout,
+"🏷️ Edit Metadata",
+v -> showMessage("Edit Release Metadata")
+);
+
+addButton(
+layout,
+"📅 Release Date",
+v -> showMessage("Release Date")
+);
+
+addButton(
+layout,
+"🌍 Distribution Platforms",
+v -> showMessage("Release Platforms")
+);
+
+addButton(
+layout,
+"📝 Release Notes",
+v -> showMessage("Release Notes")
+);
+
+addButton(
+layout,
+"🔎 Release Validation",
+v -> showMessage("Release Validation")
+);
+
+addButton(
+layout,
+"← BACK",
+v -> openRoom("ARTIST")
+);
+
+setScreen(layout);
+}
+
+// =========================================================
+// VIDEO & CLIPS
+// =========================================================
+
+private void showVideoClips() {
+
+LinearLayout layout = createRoot();
+
+layout.addView(
+createTitle("VIDEO & CLIPS")
+);
+
+layout.addView(
+createSubtitle(
+"Video and clip management"
+)
+);
+
+LinearLayout overview =
+createCard("🎬 VIDEO & CLIPS OVERVIEW");
+
+addInfo(
+overview,
+"Total Videos",
+"0"
+);
+
+addInfo(
+overview,
+"Pending Videos",
+"0"
+);
+
+addInfo(
+overview,
+"Approved Videos",
+"0"
+);
+
+addInfo(
+overview,
+"Rejected Videos",
+"0"
+);
+
+addInfo(
+overview,
+"Total Clips",
+"0"
+);
+
+layout.addView(overview);
+
+addButton(
+layout,
+"🎬 All Videos",
+v -> showMessage("All Videos")
+);
+
+addButton(
+layout,
+"⏳ Pending Videos",
+v -> showMessage("Pending Videos")
+);
+
+addButton(
+layout,
+"✅ Approved Videos",
+v -> showMessage("Approved Videos")
+);
+
+addButton(
+layout,
+"❌ Rejected Videos",
+v -> showMessage("Rejected Videos")
+);
+
+addButton(
+layout,
+"📱 All Clips",
+v -> showMessage("All Clips")
+);
+
+addButton(
+layout,
+"⏳ Pending Clips",
+v -> showMessage("Pending Clips")
+);
+
+addButton(
+layout,
+"✅ Approved Clips",
+v -> showMessage("Approved Clips")
+);
+
+LinearLayout review =
+createCard("🔎 VIDEO REVIEW");
+
+addInfo(
+review,
+"Video Quality",
+"Available"
+);
+
+addInfo(
+review,
+"Cover / Thumbnail",
+"Available"
+);
+
+addInfo(
+review,
+"Metadata",
+"Available"
+);
+
+addInfo(
+review,
+"Copyright",
+"Available"
+);
+
+addInfo(
+review,
+"Platform Requirements",
+"Available"
+);
+
+layout.addView(review);
+
+addButton(
+layout,
+"🎥 Video Details",
+v -> showMessage("Video Details")
+);
+
+addButton(
+layout,
+"🖼️ Thumbnail / Cover",
+v -> showMessage("Video Thumbnail")
+);
+
+addButton(
+layout,
+"🏷️ Video Metadata",
+v -> showMessage("Video Metadata")
+);
+
+addButton(
+layout,
+"🌍 Platform Distribution",
+v -> showMessage("Video Platform Distribution")
+);
+
+addButton(
+layout,
+"📋 Review Status",
+v -> showMessage("Video Review Status")
+);
+
+addButton(
+layout,
+"✅ Approve Video",
+v -> showMessage("Approve Video")
+);
+
+addButton(
+layout,
+"❌ Reject Video",
+v -> showMessage("Reject Video")
+);
+
+addButton(
+layout,
+"📝 Review Notes",
+v -> showMessage("Video Review Notes")
+);
 
 addButton(
 layout,
